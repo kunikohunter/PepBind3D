@@ -1,0 +1,1680 @@
+nohup: ignoring input
+Regeneration starting at Mon May 11 07:40:12 PM CDT 2026
+Threads:        28
+Rosetta:        /sb/meilerapps/rosetta/rosetta-3.15/main
+Pipeline:       /home/huntek1/main_project/scripts/IEDBTestPipeline_ACCRE.py
+Output base:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures
+
+============================================================
+Allele:    A*01:01  (3 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0101_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/A0101
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/A0101.log
+Starting:  Mon May 11 07:40:12 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0101_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0101_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0101_validation.fasta
+Allele set to:
+A*01:01
+A*01:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQKMEPRAPWIEQEGPEYWDQETRNMKAHSQTDRANLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAVHAAEQRRVYLEGRCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*01:01
+Structural templates identified in sequence identity order:
+A*01:01, A*11:01, A*26:01, A*03:01, A*29:02, A*68:01, A*30:03, A*68:02, A*30:01, A*02:01, A*24:02, A*02:06, A*02:03, A*02:07
+Receptor file A*01:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to A*01:01
+MHC allele set to A*01:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: CTELKLSDY[0m
+[92m[1mSequence: CTELKLSDY[0m
+Writing fasta file to: CTELKLSDY.fasta
+Allele set to:
+A*01:01
+A*01:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQKMEPRAPWIEQEGPEYWDQETRNMKAHSQTDRANLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAVHAAEQRRVYLEGRCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*01:01
+Structural templates identified in sequence identity order:
+A*01:01, A*11:01, A*26:01, A*03:01, A*29:02, A*68:01, A*30:03, A*68:02, A*30:01, A*02:01, A*24:02, A*02:06, A*02:03, A*02:07
+Receptor file A*01:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/CTELKLSDY_ROSETTA.log
+DEBUG: Found 185 template(s) for sequence CTELKLSDY
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/flexpepdock_input_CTELKLSDY.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 4NQX[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/4NQX.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/flexpepdock_input_CTELKLSDY.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/CTELKLSDY_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/4NQX_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/4NQX_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/CTELKLSDY/CTELKLSDY_input.pdb
+
+Now processing:
+[92m[1mName: EADPTGHSY[0m
+[92m[1mSequence: EADPTGHSY[0m
+Writing fasta file to: EADPTGHSY.fasta
+Allele set to:
+A*01:01
+A*01:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQKMEPRAPWIEQEGPEYWDQETRNMKAHSQTDRANLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAVHAAEQRRVYLEGRCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*01:01
+Structural templates identified in sequence identity order:
+A*01:01, A*11:01, A*26:01, A*03:01, A*29:02, A*68:01, A*30:03, A*68:02, A*30:01, A*02:01, A*24:02, A*02:06, A*02:03, A*02:07
+Receptor file A*01:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/EADPTGHSY_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence EADPTGHSY
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/flexpepdock_input_EADPTGHSY.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5BRZ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5BRZ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/flexpepdock_input_EADPTGHSY.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/EADPTGHSY_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/5BRZ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/5BRZ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EADPTGHSY/EADPTGHSY_input.pdb
+
+Now processing:
+[92m[1mName: EVDPIGHLY[0m
+[92m[1mSequence: EVDPIGHLY[0m
+Writing fasta file to: EVDPIGHLY.fasta
+Allele set to:
+A*01:01
+A*01:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQKMEPRAPWIEQEGPEYWDQETRNMKAHSQTDRANLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAVHAAEQRRVYLEGRCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*01:01
+Structural templates identified in sequence identity order:
+A*01:01, A*11:01, A*26:01, A*03:01, A*29:02, A*68:01, A*30:03, A*68:02, A*30:01, A*02:01, A*24:02, A*02:06, A*02:03, A*02:07
+Receptor file A*01:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/EVDPIGHLY_ROSETTA.log
+DEBUG: Found 185 template(s) for sequence EVDPIGHLY
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/flexpepdock_input_EVDPIGHLY.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3BO8[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3BO8.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/flexpepdock_input_EVDPIGHLY.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/EVDPIGHLY_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/3BO8_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/3BO8_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0101_validation_batch1/EVDPIGHLY/EVDPIGHLY_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 07:43:38 PM CDT 2026
+============================================================
+Allele:    A*02:01  (27 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0201_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/A0201
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/A0201.log
+Starting:  Mon May 11 07:43:38 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0201_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0201_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0201_validation.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to A*02:01
+MHC allele set to A*02:01
+Starting multiprocessing with 28 threads across 2 batches...
+
+Now processing:
+[92m[1mName: AAGIGILTV[0m
+[92m[1mSequence: AAGIGILTV[0m
+Writing fasta file to: AAGIGILTV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/AAGIGILTV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence AAGIGILTV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/flexpepdock_input_AAGIGILTV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 2GTZ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/2GTZ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/flexpepdock_input_AAGIGILTV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/AAGIGILTV_ROSETTA.log
+
+Now processing:
+[92m[1mName: YLEPGPVTA[0m
+[92m[1mSequence: YLEPGPVTA[0m
+Writing fasta file to: YLEPGPVTA.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/YLEPGPVTA_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence YLEPGPVTA
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/flexpepdock_input_YLEPGPVTA.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5EU6[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5EU6.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/flexpepdock_input_YLEPGPVTA.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/YLEPGPVTA_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/2GTZ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/2GTZ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/AAGIGILTV/AAGIGILTV_input.pdb
+
+Now processing:
+[92m[1mName: ALWGFFPVL[0m
+[92m[1mSequence: ALWGFFPVL[0m
+Writing fasta file to: ALWGFFPVL.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/ALWGFFPVL_ROSETTA.log
+DEBUG: Found 185 template(s) for sequence ALWGFFPVL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/flexpepdock_input_ALWGFFPVL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 1I7U[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/1I7U.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/flexpepdock_input_ALWGFFPVL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/ALWGFFPVL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/5EU6_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/5EU6_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLEPGPVTA/YLEPGPVTA_input.pdb
+
+Now processing:
+[92m[1mName: YLQPRTFLL[0m
+[92m[1mSequence: YLQPRTFLL[0m
+Writing fasta file to: YLQPRTFLL.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/YLQPRTFLL_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence YLQPRTFLL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/flexpepdock_input_YLQPRTFLL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 7P3E[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/7P3E.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/flexpepdock_input_YLQPRTFLL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/YLQPRTFLL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/1I7U_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/1I7U_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGFFPVL/ALWGFFPVL_input.pdb
+
+Now processing:
+[92m[1mName: ALWGPDPAAA[0m
+[92m[1mSequence: ALWGPDPAAA[0m
+Writing fasta file to: ALWGPDPAAA.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/ALWGPDPAAA_ROSETTA.log
+DEBUG: Found 73 template(s) for sequence ALWGPDPAAA
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/flexpepdock_input_ALWGPDPAAA.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5C0D[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5C0D.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/flexpepdock_input_ALWGPDPAAA.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/ALWGPDPAAA_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/7P3E_0001.pdb saved and ready for production.
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/5C0D_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/5C0D_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ALWGPDPAAA/ALWGPDPAAA_input.pdb
+
+Now processing:
+[92m[1mName: CINGVCWTV[0m
+[92m[1mSequence: CINGVCWTV[0m
+Writing fasta file to: CINGVCWTV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/CINGVCWTV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence CINGVCWTV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/flexpepdock_input_CINGVCWTV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3MRJ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3MRJ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/flexpepdock_input_CINGVCWTV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/CINGVCWTV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/3MRJ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/3MRJ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CINGVCWTV/CINGVCWTV_input.pdb
+
+Now processing:
+[92m[1mName: CLGGLLTMV[0m
+[92m[1mSequence: CLGGLLTMV[0m
+Writing fasta file to: CLGGLLTMV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/CLGGLLTMV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence CLGGLLTMV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/flexpepdock_input_CLGGLLTMV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3MRL[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3MRL.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/flexpepdock_input_CLGGLLTMV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/CLGGLLTMV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/3MRL_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/3MRL_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CLGGLLTMV/CLGGLLTMV_input.pdb
+
+Now processing:
+[92m[1mName: CVNGSCFTV[0m
+[92m[1mSequence: CVNGSCFTV[0m
+Writing fasta file to: CVNGSCFTV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/CVNGSCFTV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence CVNGSCFTV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/flexpepdock_input_CVNGSCFTV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3MRJ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3MRJ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/flexpepdock_input_CVNGSCFTV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/CVNGSCFTV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/3MRJ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/3MRJ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/CVNGSCFTV/CVNGSCFTV_input.pdb
+
+Now processing:
+[92m[1mName: FLPSDFFPSV[0m
+[92m[1mSequence: FLPSDFFPSV[0m
+Writing fasta file to: FLPSDFFPSV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/FLPSDFFPSV_ROSETTA.log
+DEBUG: Found 70 template(s) for sequence FLPSDFFPSV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/flexpepdock_input_FLPSDFFPSV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5C0G[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5C0G.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/flexpepdock_input_FLPSDFFPSV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/FLPSDFFPSV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/5C0G_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/5C0G_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/FLPSDFFPSV/FLPSDFFPSV_input.pdb
+
+Now processing:
+[92m[1mName: GILGFVFTL[0m
+[92m[1mSequence: GILGFVFTL[0m
+Writing fasta file to: GILGFVFTL.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/GILGFVFTL_ROSETTA.log
+DEBUG: Found 185 template(s) for sequence GILGFVFTL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/flexpepdock_input_GILGFVFTL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5HHQ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5HHQ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/flexpepdock_input_GILGFVFTL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/GILGFVFTL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/5HHQ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/5HHQ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GILGFVFTL/GILGFVFTL_input.pdb
+
+Now processing:
+[92m[1mName: GLCTLVAML[0m
+[92m[1mSequence: GLCTLVAML[0m
+Writing fasta file to: GLCTLVAML.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/GLCTLVAML_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence GLCTLVAML
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/flexpepdock_input_GLCTLVAML.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3GSX[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3GSX.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/flexpepdock_input_GLCTLVAML.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/GLCTLVAML_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/3GSX_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/3GSX_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLCTLVAML/GLCTLVAML_input.pdb
+
+Now processing:
+[92m[1mName: GLMWLSYFV[0m
+[92m[1mSequence: GLMWLSYFV[0m
+Writing fasta file to: GLMWLSYFV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/GLMWLSYFV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence GLMWLSYFV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/flexpepdock_input_GLMWLSYFV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5HHN[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5HHN.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/flexpepdock_input_GLMWLSYFV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/GLMWLSYFV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/5HHN_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/5HHN_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GLMWLSYFV/GLMWLSYFV_input.pdb
+
+Now processing:
+[92m[1mName: GMSRIGMEV[0m
+[92m[1mSequence: GMSRIGMEV[0m
+Writing fasta file to: GMSRIGMEV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/GMSRIGMEV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence GMSRIGMEV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/flexpepdock_input_GMSRIGMEV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 6R2L[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/6R2L.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/flexpepdock_input_GMSRIGMEV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/GMSRIGMEV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/6R2L_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/6R2L_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/GMSRIGMEV/GMSRIGMEV_input.pdb
+
+Now processing:
+[92m[1mName: ILKEPVHGV[0m
+[92m[1mSequence: ILKEPVHGV[0m
+Writing fasta file to: ILKEPVHGV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/ILKEPVHGV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence ILKEPVHGV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/flexpepdock_input_ILKEPVHGV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 1I1F[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/1I1F.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/flexpepdock_input_ILKEPVHGV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/ILKEPVHGV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/1I1F_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/1I1F_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ILKEPVHGV/ILKEPVHGV_input.pdb
+
+Now processing:
+[92m[1mName: ITDQVPFSV[0m
+[92m[1mSequence: ITDQVPFSV[0m
+Writing fasta file to: ITDQVPFSV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/ITDQVPFSV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence ITDQVPFSV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/flexpepdock_input_ITDQVPFSV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 6VMC[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/6VMC.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/flexpepdock_input_ITDQVPFSV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/ITDQVPFSV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/6VMC_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/6VMC_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/ITDQVPFSV/ITDQVPFSV_input.pdb
+
+Now processing:
+[92m[1mName: KLTPLCVTL[0m
+[92m[1mSequence: KLTPLCVTL[0m
+Writing fasta file to: KLTPLCVTL.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/KLTPLCVTL_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence KLTPLCVTL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/flexpepdock_input_KLTPLCVTL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3MRC[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3MRC.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/flexpepdock_input_KLTPLCVTL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/KLTPLCVTL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/3MRC_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/3MRC_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLTPLCVTL/KLTPLCVTL_input.pdb
+
+Now processing:
+[92m[1mName: KLVALGINAV[0m
+[92m[1mSequence: KLVALGINAV[0m
+Writing fasta file to: KLVALGINAV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/KLVALGINAV_ROSETTA.log
+DEBUG: Found 73 template(s) for sequence KLVALGINAV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/flexpepdock_input_KLVALGINAV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3MRP[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3MRP.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/flexpepdock_input_KLVALGINAV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/KLVALGINAV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/3MRP_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/3MRP_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/KLVALGINAV/KLVALGINAV_input.pdb
+
+Now processing:
+[92m[1mName: LLFNILGGWV[0m
+[92m[1mSequence: LLFNILGGWV[0m
+Writing fasta file to: LLFNILGGWV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/LLFNILGGWV_ROSETTA.log
+DEBUG: Found 73 template(s) for sequence LLFNILGGWV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/flexpepdock_input_LLFNILGGWV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3GIV[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3GIV.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/flexpepdock_input_LLFNILGGWV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/LLFNILGGWV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/3GIV_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/3GIV_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/LLFNILGGWV/LLFNILGGWV_input.pdb
+
+Now processing:
+[92m[1mName: NLVPMVATV[0m
+[92m[1mSequence: NLVPMVATV[0m
+Writing fasta file to: NLVPMVATV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/NLVPMVATV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence NLVPMVATV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/flexpepdock_input_NLVPMVATV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3GSR[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3GSR.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/flexpepdock_input_NLVPMVATV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/NLVPMVATV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/3GSR_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/3GSR_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/NLVPMVATV/NLVPMVATV_input.pdb
+
+Now processing:
+[92m[1mName: RLQSLQTYV[0m
+[92m[1mSequence: RLQSLQTYV[0m
+Writing fasta file to: RLQSLQTYV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/RLQSLQTYV_ROSETTA.log
+DEBUG: Found 185 template(s) for sequence RLQSLQTYV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/flexpepdock_input_RLQSLQTYV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 8GON[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/8GON.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/flexpepdock_input_RLQSLQTYV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/RLQSLQTYV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/8GON_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/8GON_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RLQSLQTYV/RLQSLQTYV_input.pdb
+
+Now processing:
+[92m[1mName: RQASIELPSMAV[0m
+[92m[1mSequence: RQASIELPSMAV[0m
+Writing fasta file to: RQASIELPSMAV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/RQASIELPSMAV_ROSETTA.log
+DEBUG: Found 3 template(s) for sequence RQASIELPSMAV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/flexpepdock_input_RQASIELPSMAV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5DDH[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5DDH.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/flexpepdock_input_RQASIELPSMAV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/RQASIELPSMAV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/5DDH_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/5DDH_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASIELPSMAV/RQASIELPSMAV_input.pdb
+
+Now processing:
+[92m[1mName: RQASLSISV[0m
+[92m[1mSequence: RQASLSISV[0m
+Writing fasta file to: RQASLSISV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/RQASLSISV_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence RQASLSISV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/flexpepdock_input_RQASLSISV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 8GON[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/8GON.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/flexpepdock_input_RQASLSISV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/RQASLSISV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/8GON_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/8GON_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQASLSISV/RQASLSISV_input.pdb
+
+Now processing:
+[92m[1mName: RQISQDVKL[0m
+[92m[1mSequence: RQISQDVKL[0m
+Writing fasta file to: RQISQDVKL.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/RQISQDVKL_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence RQISQDVKL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/flexpepdock_input_RQISQDVKL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 4NNY[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/4NNY.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/flexpepdock_input_RQISQDVKL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/RQISQDVKL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/4NNY_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/4NNY_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/RQISQDVKL/RQISQDVKL_input.pdb
+
+Now processing:
+[92m[1mName: SLFNTVATLY[0m
+[92m[1mSequence: SLFNTVATLY[0m
+Writing fasta file to: SLFNTVATLY.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/SLFNTVATLY_ROSETTA.log
+DEBUG: Found 73 template(s) for sequence SLFNTVATLY
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/flexpepdock_input_SLFNTVATLY.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 8RH6[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/8RH6.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/flexpepdock_input_SLFNTVATLY.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/SLFNTVATLY_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/8RH6_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/8RH6_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLFNTVATLY/SLFNTVATLY_input.pdb
+
+Now processing:
+[92m[1mName: SLYNTVATL[0m
+[92m[1mSequence: SLYNTVATL[0m
+Writing fasta file to: SLYNTVATL.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/SLYNTVATL_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence SLYNTVATL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/flexpepdock_input_SLYNTVATL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5NMH[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5NMH.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/flexpepdock_input_SLYNTVATL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/SLYNTVATL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/5NMH_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/5NMH_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/SLYNTVATL/SLYNTVATL_input.pdb
+
+Now processing:
+[92m[1mName: TLACFVLAAV[0m
+[92m[1mSequence: TLACFVLAAV[0m
+Writing fasta file to: TLACFVLAAV.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/TLACFVLAAV_ROSETTA.log
+DEBUG: Found 73 template(s) for sequence TLACFVLAAV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/flexpepdock_input_TLACFVLAAV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 4JFQ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/4JFQ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/flexpepdock_input_TLACFVLAAV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/TLACFVLAAV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/4JFQ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/4JFQ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/TLACFVLAAV/TLACFVLAAV_input.pdb
+
+Now processing:
+[92m[1mName: VLHDDLLEA[0m
+[92m[1mSequence: VLHDDLLEA[0m
+Writing fasta file to: VLHDDLLEA.fasta
+Allele set to:
+A*02:01
+A*02:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDGETRKVKAHSQTHRVDLGTLRGYYNQSEAGSHTVQRMYGCDVGSDWRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQLRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*02:01
+Structural templates identified in sequence identity order:
+A*02:01, A*02:06, A*02:07, A*02:03, A*68:02, A*68:01, A*03:01, A*11:01, A*29:02, A*30:01, A*26:01, A*30:03, A*24:02, A*01:01
+Receptor file A*02:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/VLHDDLLEA_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence VLHDDLLEA
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/flexpepdock_input_VLHDDLLEA.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3FT4[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3FT4.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/flexpepdock_input_VLHDDLLEA.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/VLHDDLLEA_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/3FT4_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/7P3E_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch2/YLQPRTFLL/YLQPRTFLL_input.pdb
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/3FT4_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0201_validation_batch1/VLHDDLLEA/VLHDDLLEA_input.pdb
+Threading peptides in batch1.fasta
+Threading peptides in batch2.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:12:18 PM CDT 2026
+============================================================
+Allele:    A*03:01  (2 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0301_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/A0301
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/A0301.log
+Starting:  Mon May 11 08:12:18 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0301_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0301_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A0301_validation.fasta
+Allele set to:
+A*03:01
+A*03:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDQETRNVKAQSQTDRVDLGTLRGYYNQSEAGSHTIQIMYGCDVGSDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAAHEAEQLRAYLDGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*03:01
+Structural templates identified in sequence identity order:
+A*03:01, A*11:01, A*68:01, A*29:02, A*30:01, A*26:01, A*30:03, A*68:02, A*01:01, A*02:01, A*02:06, A*02:03, A*02:07, A*24:02
+Receptor file A*03:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to A*03:01
+MHC allele set to A*03:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: AIFQSSMTK[0m
+[92m[1mSequence: AIFQSSMTK[0m
+Writing fasta file to: AIFQSSMTK.fasta
+Allele set to:
+A*03:01
+A*03:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDQETRNVKAQSQTDRVDLGTLRGYYNQSEAGSHTIQIMYGCDVGSDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAAHEAEQLRAYLDGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*03:01
+Structural templates identified in sequence identity order:
+A*03:01, A*11:01, A*68:01, A*29:02, A*30:01, A*26:01, A*30:03, A*68:02, A*01:01, A*02:01, A*02:06, A*02:03, A*02:07, A*24:02
+Receptor file A*03:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/AIFQSSMTK_ROSETTA.log
+DEBUG: Found 182 template(s) for sequence AIFQSSMTK
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/flexpepdock_input_AIFQSSMTK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 6JOZ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/6JOZ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/flexpepdock_input_AIFQSSMTK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/AIFQSSMTK_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/6JOZ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/6JOZ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/AIFQSSMTK/AIFQSSMTK_input.pdb
+
+Now processing:
+[92m[1mName: QVPLRPMTYK[0m
+[92m[1mSequence: QVPLRPMTYK[0m
+Writing fasta file to: QVPLRPMTYK.fasta
+Allele set to:
+A*03:01
+A*03:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFFTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDQETRNVKAQSQTDRVDLGTLRGYYNQSEAGSHTIQIMYGCDVGSDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAAHEAEQLRAYLDGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*03:01
+Structural templates identified in sequence identity order:
+A*03:01, A*11:01, A*68:01, A*29:02, A*30:01, A*26:01, A*30:03, A*68:02, A*01:01, A*02:01, A*02:06, A*02:03, A*02:07, A*24:02
+Receptor file A*03:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/QVPLRPMTYK_ROSETTA.log
+DEBUG: Found 72 template(s) for sequence QVPLRPMTYK
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/flexpepdock_input_QVPLRPMTYK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3MGO[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3MGO.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/flexpepdock_input_QVPLRPMTYK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/QVPLRPMTYK_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/3MGO_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/3MGO_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A0301_validation_batch1/QVPLRPMTYK/QVPLRPMTYK_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:14:26 PM CDT 2026
+============================================================
+Allele:    A*11:01  (3 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A1101_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/A1101
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/A1101.log
+Starting:  Mon May 11 08:14:26 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A1101_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A1101_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A1101_validation.fasta
+Allele set to:
+A*11:01
+A*11:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDQETRNVKAQSQTDRVDLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAAHAAEQQRAYLEGRCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*11:01
+Structural templates identified in sequence identity order:
+A*11:01, A*03:01, A*01:01, A*26:01, A*68:01, A*68:02, A*29:02, A*30:01, A*30:03, A*02:06, A*02:01, A*02:03, A*02:07, A*24:02
+Receptor file A*11:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to A*11:01
+MHC allele set to A*11:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: AIFQSSMTK[0m
+[92m[1mSequence: AIFQSSMTK[0m
+Writing fasta file to: AIFQSSMTK.fasta
+Allele set to:
+A*11:01
+A*11:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDQETRNVKAQSQTDRVDLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAAHAAEQQRAYLEGRCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*11:01
+Structural templates identified in sequence identity order:
+A*11:01, A*03:01, A*01:01, A*26:01, A*68:01, A*68:02, A*29:02, A*30:01, A*30:03, A*02:06, A*02:01, A*02:03, A*02:07, A*24:02
+Receptor file A*11:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/AIFQSSMTK_ROSETTA.log
+DEBUG: Found 182 template(s) for sequence AIFQSSMTK
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/flexpepdock_input_AIFQSSMTK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 6JOZ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/6JOZ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/flexpepdock_input_AIFQSSMTK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/AIFQSSMTK_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/6JOZ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/6JOZ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/AIFQSSMTK/AIFQSSMTK_input.pdb
+
+Now processing:
+[92m[1mName: KTFPPTEPK[0m
+[92m[1mSequence: KTFPPTEPK[0m
+Writing fasta file to: KTFPPTEPK.fasta
+Allele set to:
+A*11:01
+A*11:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDQETRNVKAQSQTDRVDLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAAHAAEQQRAYLEGRCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*11:01
+Structural templates identified in sequence identity order:
+A*11:01, A*03:01, A*01:01, A*26:01, A*68:01, A*68:02, A*29:02, A*30:01, A*30:03, A*02:06, A*02:01, A*02:03, A*02:07, A*24:02
+Receptor file A*11:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/KTFPPTEPK_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence KTFPPTEPK
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/flexpepdock_input_KTFPPTEPK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 6EWO[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/6EWO.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/flexpepdock_input_KTFPPTEPK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/KTFPPTEPK_ROSETTA.log
+[91m[1m[ERROR]: Expected output /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/6EWO_0001.pdb not found. Check Rosetta output.[0m
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/flexpepdock_input_KTFPPTEPK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 6O9B[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/6O9B.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/flexpepdock_input_KTFPPTEPK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/KTFPPTEPK_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/6O9B_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/6O9B_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/KTFPPTEPK/KTFPPTEPK_input.pdb
+
+Now processing:
+[92m[1mName: QVPLRPMTYK[0m
+[92m[1mSequence: QVPLRPMTYK[0m
+Writing fasta file to: QVPLRPMTYK.fasta
+Allele set to:
+A*11:01
+A*11:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDQETRNVKAQSQTDRVDLGTLRGYYNQSEDGSHTIQIMYGCDVGPDGRFLRGYRQDAYDGKDYIALNEDLRSWTAADMAAQITKRKWEAAHAAEQQRAYLEGRCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*11:01
+Structural templates identified in sequence identity order:
+A*11:01, A*03:01, A*01:01, A*26:01, A*68:01, A*68:02, A*29:02, A*30:01, A*30:03, A*02:06, A*02:01, A*02:03, A*02:07, A*24:02
+Receptor file A*11:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/QVPLRPMTYK_ROSETTA.log
+DEBUG: Found 72 template(s) for sequence QVPLRPMTYK
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/flexpepdock_input_QVPLRPMTYK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3MGO[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3MGO.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/flexpepdock_input_QVPLRPMTYK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/QVPLRPMTYK_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/3MGO_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/3MGO_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A1101_validation_batch1/QVPLRPMTYK/QVPLRPMTYK_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:17:50 PM CDT 2026
+============================================================
+Allele:    A*24:02  (3 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A2402_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/A2402
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/A2402.log
+Starting:  Mon May 11 08:17:50 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A2402_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A2402_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A2402_validation.fasta
+Allele set to:
+A*24:02
+A*24:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFSTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDEETGKVKAHSQTDRENLRIALRYYNQSEAGSHTLQMMFGCDVGSDGRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQITKRKWEAAHVAEQQRAYLEGTCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*24:02
+Structural templates identified in sequence identity order:
+A*24:02, A*02:01, A*02:06, A*02:07, A*30:03, A*68:02, A*02:03, A*01:01, A*29:02, A*68:01, A*03:01, A*11:01, A*30:01, A*26:01
+Receptor file A*24:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to A*24:02
+MHC allele set to A*24:02
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: LWMRLLPLL[0m
+[92m[1mSequence: LWMRLLPLL[0m
+Writing fasta file to: LWMRLLPLL.fasta
+Allele set to:
+A*24:02
+A*24:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFSTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDEETGKVKAHSQTDRENLRIALRYYNQSEAGSHTLQMMFGCDVGSDGRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQITKRKWEAAHVAEQQRAYLEGTCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*24:02
+Structural templates identified in sequence identity order:
+A*24:02, A*02:01, A*02:06, A*02:07, A*30:03, A*68:02, A*02:03, A*01:01, A*29:02, A*68:01, A*03:01, A*11:01, A*30:01, A*26:01
+Receptor file A*24:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/LWMRLLPLL_ROSETTA.log
+DEBUG: Found 186 template(s) for sequence LWMRLLPLL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/flexpepdock_input_LWMRLLPLL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 7NME[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/7NME.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/flexpepdock_input_LWMRLLPLL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/LWMRLLPLL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/7NME_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/7NME_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LWMRLLPLL/LWMRLLPLL_input.pdb
+
+Now processing:
+[92m[1mName: LYKKLKREITF[0m
+[92m[1mSequence: LYKKLKREITF[0m
+Writing fasta file to: LYKKLKREITF.fasta
+Allele set to:
+A*24:02
+A*24:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFSTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDEETGKVKAHSQTDRENLRIALRYYNQSEAGSHTLQMMFGCDVGSDGRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQITKRKWEAAHVAEQQRAYLEGTCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*24:02
+Structural templates identified in sequence identity order:
+A*24:02, A*02:01, A*02:06, A*02:07, A*30:03, A*68:02, A*02:03, A*01:01, A*29:02, A*68:01, A*03:01, A*11:01, A*30:01, A*26:01
+Receptor file A*24:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/LYKKLKREITF_ROSETTA.log
+DEBUG: Found 4 template(s) for sequence LYKKLKREITF
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/flexpepdock_input_LYKKLKREITF.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5D9S[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5D9S.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/flexpepdock_input_LYKKLKREITF.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/LYKKLKREITF_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/5D9S_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/5D9S_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/LYKKLKREITF/LYKKLKREITF_input.pdb
+
+Now processing:
+[92m[1mName: RYGFVANF[0m
+[92m[1mSequence: RYGFVANF[0m
+Writing fasta file to: RYGFVANF.fasta
+Allele set to:
+A*24:02
+A*24:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFSTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDEETGKVKAHSQTDRENLRIALRYYNQSEAGSHTLQMMFGCDVGSDGRFLRGYHQYAYDGKDYIALKEDLRSWTAADMAAQITKRKWEAAHVAEQQRAYLEGTCVDGLRRYLENGKETLQRT
+Ranked templates generated previously for A*24:02
+Structural templates identified in sequence identity order:
+A*24:02, A*02:01, A*02:06, A*02:07, A*30:03, A*68:02, A*02:03, A*01:01, A*29:02, A*68:01, A*03:01, A*11:01, A*30:01, A*26:01
+Receptor file A*24:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/RYGFVANF_ROSETTA.log
+DEBUG: Found 3 template(s) for sequence RYGFVANF
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/flexpepdock_input_RYGFVANF.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5HGB[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5HGB.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/flexpepdock_input_RYGFVANF.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/RYGFVANF_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/5HGB_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/5HGB_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A2402_validation_batch1/RYGFVANF/RYGFVANF_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:21:12 PM CDT 2026
+============================================================
+Allele:    A*68:01  (1 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A6801_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/A6801
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/A6801.log
+Starting:  Mon May 11 08:21:12 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A6801_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A6801_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/A6801_validation.fasta
+Allele set to:
+A*68:01
+A*68:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDRNTRNVKAQSQTDRVDLGTLRGYYNQSEAGSHTIQMMYGCDVGSDGRFLRGYRQDAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQWRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*68:01
+Structural templates identified in sequence identity order:
+A*68:01, A*68:02, A*03:01, A*11:01, A*02:06, A*02:03, A*26:01, A*29:02, A*02:01, A*02:07, A*30:01, A*01:01, A*30:03, A*24:02
+Receptor file A*68:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to A*68:01
+MHC allele set to A*68:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: AIFQSSMTK[0m
+[92m[1mSequence: AIFQSSMTK[0m
+Writing fasta file to: AIFQSSMTK.fasta
+Allele set to:
+A*68:01
+A*68:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDRNTRNVKAQSQTDRVDLGTLRGYYNQSEAGSHTIQMMYGCDVGSDGRFLRGYRQDAYDGKDYIALKEDLRSWTAADMAAQTTKHKWEAAHVAEQWRAYLEGTCVEWLRRYLENGKETLQRT
+Ranked templates generated previously for A*68:01
+Structural templates identified in sequence identity order:
+A*68:01, A*68:02, A*03:01, A*11:01, A*02:06, A*02:03, A*26:01, A*29:02, A*02:01, A*02:07, A*30:01, A*01:01, A*30:03, A*24:02
+Receptor file A*68:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/AIFQSSMTK_ROSETTA.log
+DEBUG: Found 182 template(s) for sequence AIFQSSMTK
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/flexpepdock_input_AIFQSSMTK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 6JOZ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/6JOZ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/flexpepdock_input_AIFQSSMTK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/AIFQSSMTK_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/6JOZ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/6JOZ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/A6801_validation_batch1/AIFQSSMTK/AIFQSSMTK_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:22:18 PM CDT 2026
+============================================================
+Allele:    B*07:02  (3 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0702_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/B0702
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/B0702.log
+Starting:  Mon May 11 08:22:18 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0702_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0702_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0702_validation.fasta
+Allele set to:
+B*07:02
+B*07:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFISVGYVDDTQFVRFDSDAASPREEPRAPWIEQEGPEYWDRNTQIYKAQAQTDRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHDQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAAREAEQRRAYLEGECVEWLRRYLENGKDKLERA
+Ranked templates generated previously for B*07:02
+Structural templates identified in sequence identity order:
+B*07:02, B*42:01, B*81:01, B*42:02, B*08:01, B*39:01, B*14:02, B*40:02, B*27:06, B*35:08, B*41:04, B*18:01, B*35:01, B*27:04, B*15:01, B*27:05, B*27:09, B*51:01, B*27:03, B*52:01, B*53:01, B*37:01, B*58:01, B*57:03, B*13:01, B*44:05, B*57:01, B*44:03, B*44:02
+Receptor file B*07:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to B*07:02
+MHC allele set to B*07:02
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: EPRSPSHSM[0m
+[92m[1mSequence: EPRSPSHSM[0m
+Writing fasta file to: EPRSPSHSM.fasta
+Allele set to:
+B*07:02
+B*07:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFISVGYVDDTQFVRFDSDAASPREEPRAPWIEQEGPEYWDRNTQIYKAQAQTDRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHDQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAAREAEQRRAYLEGECVEWLRRYLENGKDKLERA
+Ranked templates generated previously for B*07:02
+Structural templates identified in sequence identity order:
+B*07:02, B*42:01, B*81:01, B*42:02, B*08:01, B*39:01, B*14:02, B*40:02, B*27:06, B*35:08, B*41:04, B*18:01, B*35:01, B*27:04, B*15:01, B*27:05, B*27:09, B*51:01, B*27:03, B*52:01, B*53:01, B*37:01, B*58:01, B*57:03, B*13:01, B*44:05, B*57:01, B*44:03, B*44:02
+Receptor file B*07:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/EPRSPSHSM_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence EPRSPSHSM
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/flexpepdock_input_EPRSPSHSM.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 7S7E[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/7S7E.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/flexpepdock_input_EPRSPSHSM.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/EPRSPSHSM_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/7S7E_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/7S7E_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/EPRSPSHSM/EPRSPSHSM_input.pdb
+
+Now processing:
+[92m[1mName: LPASPAHQL[0m
+[92m[1mSequence: LPASPAHQL[0m
+Writing fasta file to: LPASPAHQL.fasta
+Allele set to:
+B*07:02
+B*07:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFISVGYVDDTQFVRFDSDAASPREEPRAPWIEQEGPEYWDRNTQIYKAQAQTDRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHDQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAAREAEQRRAYLEGECVEWLRRYLENGKDKLERA
+Ranked templates generated previously for B*07:02
+Structural templates identified in sequence identity order:
+B*07:02, B*42:01, B*81:01, B*42:02, B*08:01, B*39:01, B*14:02, B*40:02, B*27:06, B*35:08, B*41:04, B*18:01, B*35:01, B*27:04, B*15:01, B*27:05, B*27:09, B*51:01, B*27:03, B*52:01, B*53:01, B*37:01, B*58:01, B*57:03, B*13:01, B*44:05, B*57:01, B*44:03, B*44:02
+Receptor file B*07:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/LPASPAHQL_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence LPASPAHQL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/flexpepdock_input_LPASPAHQL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 7S8F[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/7S8F.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/flexpepdock_input_LPASPAHQL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/LPASPAHQL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/7S8F_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/7S8F_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/LPASPAHQL/LPASPAHQL_input.pdb
+
+Now processing:
+[92m[1mName: RPPIFIRRL[0m
+[92m[1mSequence: RPPIFIRRL[0m
+Writing fasta file to: RPPIFIRRL.fasta
+Allele set to:
+B*07:02
+B*07:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTSVSRPGRGEPRFISVGYVDDTQFVRFDSDAASPREEPRAPWIEQEGPEYWDRNTQIYKAQAQTDRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHDQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAAREAEQRRAYLEGECVEWLRRYLENGKDKLERA
+Ranked templates generated previously for B*07:02
+Structural templates identified in sequence identity order:
+B*07:02, B*42:01, B*81:01, B*42:02, B*08:01, B*39:01, B*14:02, B*40:02, B*27:06, B*35:08, B*41:04, B*18:01, B*35:01, B*27:04, B*15:01, B*27:05, B*27:09, B*51:01, B*27:03, B*52:01, B*53:01, B*37:01, B*58:01, B*57:03, B*13:01, B*44:05, B*57:01, B*44:03, B*44:02
+Receptor file B*07:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/RPPIFIRRL_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence RPPIFIRRL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/flexpepdock_input_RPPIFIRRL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 4U1K[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/4U1K.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/flexpepdock_input_RPPIFIRRL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/RPPIFIRRL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/4U1K_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/4U1K_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0702_validation_batch1/RPPIFIRRL/RPPIFIRRL_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:25:29 PM CDT 2026
+============================================================
+Allele:    B*08:01  (1 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0801_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/B0801
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/B0801.log
+Starting:  Mon May 11 08:25:29 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0801_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0801_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B0801_validation.fasta
+Allele set to:
+B*08:01
+B*08:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFDTAMSRPGRGEPRFISVGYVDDTQFVRFDSDAASPREEPRAPWIEQEGPEYWDRNTQIFKTNTQTDRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHNQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAARVAEQDRAYLEGTCVEWLRRYLENGKDTLERA
+Ranked templates generated previously for B*08:01
+Structural templates identified in sequence identity order:
+B*08:01, B*42:01, B*42:02, B*39:01, B*41:04, B*07:02, B*14:02, B*40:02, B*81:01, B*35:08, B*35:01, B*18:01, B*15:01, B*37:01, B*51:01, B*53:01, B*52:01, B*27:05, B*27:04, B*27:06, B*44:05, B*27:09, B*13:01, B*44:02, B*27:03, B*57:03, B*44:03, B*58:01, B*57:01
+Receptor file B*08:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to B*08:01
+MHC allele set to B*08:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: HSKKKCDEL[0m
+[92m[1mSequence: HSKKKCDEL[0m
+Writing fasta file to: HSKKKCDEL.fasta
+Allele set to:
+B*08:01
+B*08:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFDTAMSRPGRGEPRFISVGYVDDTQFVRFDSDAASPREEPRAPWIEQEGPEYWDRNTQIFKTNTQTDRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHNQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAARVAEQDRAYLEGTCVEWLRRYLENGKDTLERA
+Ranked templates generated previously for B*08:01
+Structural templates identified in sequence identity order:
+B*08:01, B*42:01, B*42:02, B*39:01, B*41:04, B*07:02, B*14:02, B*40:02, B*81:01, B*35:08, B*35:01, B*18:01, B*15:01, B*37:01, B*51:01, B*53:01, B*52:01, B*27:05, B*27:04, B*27:06, B*44:05, B*27:09, B*13:01, B*44:02, B*27:03, B*57:03, B*44:03, B*58:01, B*57:01
+Receptor file B*08:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/HSKKKCDEL_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence HSKKKCDEL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/flexpepdock_input_HSKKKCDEL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5WMR[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5WMR.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/flexpepdock_input_HSKKKCDEL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/HSKKKCDEL_ROSETTA.log
+[91m[1m[ERROR]: Expected output /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/5WMR_0001.pdb not found. Check Rosetta output.[0m
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/flexpepdock_input_HSKKKCDEL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 4QRS[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/4QRS.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/flexpepdock_input_HSKKKCDEL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/HSKKKCDEL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/4QRS_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/4QRS_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B0801_validation_batch1/HSKKKCDEL/HSKKKCDEL_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:26:40 PM CDT 2026
+============================================================
+Allele:    B*15:01  (2 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B1501_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/B1501
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/B1501.log
+Starting:  Mon May 11 08:26:40 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B1501_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B1501_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B1501_validation.fasta
+Allele set to:
+B*15:01
+B*15:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRMAPRAPWIEQEGPEYWDRETQISKTNTQTYRESLRNLRGYYNQSEAGSHTLQRMYGCDVGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAAREAEQWRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*15:01
+Structural templates identified in sequence identity order:
+B*15:01, B*35:01, B*35:08, B*18:01, B*39:01, B*52:01, B*53:01, B*40:02, B*14:02, B*13:01, B*41:04, B*51:01, B*08:01, B*57:01, B*37:01, B*44:03, B*44:02, B*07:02, B*44:05, B*58:01, B*42:01, B*57:03, B*42:02, B*27:04, B*27:06, B*27:05, B*81:01, B*27:09, B*27:03
+Receptor file B*15:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to B*15:01
+MHC allele set to B*15:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: ILGPPGSVY[0m
+[92m[1mSequence: ILGPPGSVY[0m
+Writing fasta file to: ILGPPGSVY.fasta
+Allele set to:
+B*15:01
+B*15:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRMAPRAPWIEQEGPEYWDRETQISKTNTQTYRESLRNLRGYYNQSEAGSHTLQRMYGCDVGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAAREAEQWRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*15:01
+Structural templates identified in sequence identity order:
+B*15:01, B*35:01, B*35:08, B*18:01, B*39:01, B*52:01, B*53:01, B*40:02, B*14:02, B*13:01, B*41:04, B*51:01, B*08:01, B*57:01, B*37:01, B*44:03, B*44:02, B*07:02, B*44:05, B*58:01, B*42:01, B*57:03, B*42:02, B*27:04, B*27:06, B*27:05, B*81:01, B*27:09, B*27:03
+Receptor file B*15:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/ILGPPGSVY_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence ILGPPGSVY
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/flexpepdock_input_ILGPPGSVY.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 1XR8[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/1XR8.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/flexpepdock_input_ILGPPGSVY.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/ILGPPGSVY_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/1XR8_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/1XR8_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/ILGPPGSVY/ILGPPGSVY_input.pdb
+
+Now processing:
+[92m[1mName: VQQESSFVM[0m
+[92m[1mSequence: VQQESSFVM[0m
+Writing fasta file to: VQQESSFVM.fasta
+Allele set to:
+B*15:01
+B*15:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRMAPRAPWIEQEGPEYWDRETQISKTNTQTYRESLRNLRGYYNQSEAGSHTLQRMYGCDVGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAAREAEQWRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*15:01
+Structural templates identified in sequence identity order:
+B*15:01, B*35:01, B*35:08, B*18:01, B*39:01, B*52:01, B*53:01, B*40:02, B*14:02, B*13:01, B*41:04, B*51:01, B*08:01, B*57:01, B*37:01, B*44:03, B*44:02, B*07:02, B*44:05, B*58:01, B*42:01, B*57:03, B*42:02, B*27:04, B*27:06, B*27:05, B*81:01, B*27:09, B*27:03
+Receptor file B*15:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/VQQESSFVM_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence VQQESSFVM
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/flexpepdock_input_VQQESSFVM.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3LKS[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3LKS.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/flexpepdock_input_VQQESSFVM.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/VQQESSFVM_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/3LKS_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/3LKS_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B1501_validation_batch1/VQQESSFVM/VQQESSFVM_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:28:54 PM CDT 2026
+============================================================
+Allele:    B*27:05  (2 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B2705_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/B2705
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/B2705.log
+Starting:  Mon May 11 08:28:54 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B2705_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B2705_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B2705_validation.fasta
+Allele set to:
+B*27:05
+B*27:05 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFHTSVSRPGRGEPRFITVGYVDDTLFVRFDSDAASPREEPRAPWIEQEGPEYWDRETQICKAKAQTDREDLRTLLRYYNQSEAGSHTLQNMYGCDVGPDGRLLRGYHQDAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGECVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*27:05
+Structural templates identified in sequence identity order:
+B*27:05, B*27:04, B*27:03, B*27:09, B*27:06, B*39:01, B*40:02, B*37:01, B*14:02, B*44:03, B*42:01, B*42:02, B*44:02, B*07:02, B*18:01, B*13:01, B*44:05, B*53:01, B*08:01, B*52:01, B*81:01, B*58:01, B*51:01, B*41:04, B*35:01, B*15:01, B*57:01, B*57:03, B*35:08
+Receptor file B*27:05.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to B*27:05
+MHC allele set to B*27:05
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: KRWIILGLNK[0m
+[92m[1mSequence: KRWIILGLNK[0m
+Writing fasta file to: KRWIILGLNK.fasta
+Allele set to:
+B*27:05
+B*27:05 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFHTSVSRPGRGEPRFITVGYVDDTLFVRFDSDAASPREEPRAPWIEQEGPEYWDRETQICKAKAQTDREDLRTLLRYYNQSEAGSHTLQNMYGCDVGPDGRLLRGYHQDAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGECVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*27:05
+Structural templates identified in sequence identity order:
+B*27:05, B*27:04, B*27:03, B*27:09, B*27:06, B*39:01, B*40:02, B*37:01, B*14:02, B*44:03, B*42:01, B*42:02, B*44:02, B*07:02, B*18:01, B*13:01, B*44:05, B*53:01, B*08:01, B*52:01, B*81:01, B*58:01, B*51:01, B*41:04, B*35:01, B*15:01, B*57:01, B*57:03, B*35:08
+Receptor file B*27:05.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/KRWIILGLNK_ROSETTA.log
+DEBUG: Found 23 template(s) for sequence KRWIILGLNK
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/flexpepdock_input_KRWIILGLNK.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 4G8I[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/4G8I.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/flexpepdock_input_KRWIILGLNK.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/KRWIILGLNK_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/4G8I_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/4G8I_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/KRWIILGLNK/KRWIILGLNK_input.pdb
+
+Now processing:
+[92m[1mName: SRYWAIRTR[0m
+[92m[1mSequence: SRYWAIRTR[0m
+Writing fasta file to: SRYWAIRTR.fasta
+Allele set to:
+B*27:05
+B*27:05 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFHTSVSRPGRGEPRFITVGYVDDTLFVRFDSDAASPREEPRAPWIEQEGPEYWDRETQICKAKAQTDREDLRTLLRYYNQSEAGSHTLQNMYGCDVGPDGRLLRGYHQDAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGECVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*27:05
+Structural templates identified in sequence identity order:
+B*27:05, B*27:04, B*27:03, B*27:09, B*27:06, B*39:01, B*40:02, B*37:01, B*14:02, B*44:03, B*42:01, B*42:02, B*44:02, B*07:02, B*18:01, B*13:01, B*44:05, B*53:01, B*08:01, B*52:01, B*81:01, B*58:01, B*51:01, B*41:04, B*35:01, B*15:01, B*57:01, B*57:03, B*35:08
+Receptor file B*27:05.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/SRYWAIRTR_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence SRYWAIRTR
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/flexpepdock_input_SRYWAIRTR.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3LV3[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3LV3.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/flexpepdock_input_SRYWAIRTR.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/SRYWAIRTR_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/3LV3_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/3LV3_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B2705_validation_batch1/SRYWAIRTR/SRYWAIRTR_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:31:14 PM CDT 2026
+============================================================
+Allele:    B*35:01  (2 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B3501_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/B3501
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/B3501.log
+Starting:  Mon May 11 08:31:14 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B3501_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B3501_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B3501_validation.fasta
+Allele set to:
+B*35:01
+B*35:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRTEPRAPWIEQEGPEYWDRNTQIFKTNTQTYRESLRNLRGYYNQSEAGSHIIQRMYGCDLGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*35:01
+Structural templates identified in sequence identity order:
+B*35:01, B*35:08, B*53:01, B*15:01, B*18:01, B*39:01, B*51:01, B*58:01, B*08:01, B*14:02, B*40:02, B*13:01, B*52:01, B*44:03, B*41:04, B*42:01, B*44:02, B*57:01, B*37:01, B*44:05, B*07:02, B*42:02, B*57:03, B*81:01, B*27:05, B*27:04, B*27:06, B*27:09, B*27:03
+Receptor file B*35:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to B*35:01
+MHC allele set to B*35:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: LPFDKSTIM[0m
+[92m[1mSequence: LPFDKSTIM[0m
+Writing fasta file to: LPFDKSTIM.fasta
+Allele set to:
+B*35:01
+B*35:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRTEPRAPWIEQEGPEYWDRNTQIFKTNTQTYRESLRNLRGYYNQSEAGSHIIQRMYGCDLGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*35:01
+Structural templates identified in sequence identity order:
+B*35:01, B*35:08, B*53:01, B*15:01, B*18:01, B*39:01, B*51:01, B*58:01, B*08:01, B*14:02, B*40:02, B*13:01, B*52:01, B*44:03, B*41:04, B*42:01, B*44:02, B*57:01, B*37:01, B*44:05, B*07:02, B*42:02, B*57:03, B*81:01, B*27:05, B*27:04, B*27:06, B*27:09, B*27:03
+Receptor file B*35:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/LPFDKSTIM_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence LPFDKSTIM
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/flexpepdock_input_LPFDKSTIM.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3LKQ[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3LKQ.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/flexpepdock_input_LPFDKSTIM.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/LPFDKSTIM_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/3LKQ_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/3LKQ_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFDKSTIM/LPFDKSTIM_input.pdb
+
+Now processing:
+[92m[1mName: LPFEKSTVM[0m
+[92m[1mSequence: LPFEKSTVM[0m
+Writing fasta file to: LPFEKSTVM.fasta
+Allele set to:
+B*35:01
+B*35:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRTEPRAPWIEQEGPEYWDRNTQIFKTNTQTYRESLRNLRGYYNQSEAGSHIIQRMYGCDLGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*35:01
+Structural templates identified in sequence identity order:
+B*35:01, B*35:08, B*53:01, B*15:01, B*18:01, B*39:01, B*51:01, B*58:01, B*08:01, B*14:02, B*40:02, B*13:01, B*52:01, B*44:03, B*41:04, B*42:01, B*44:02, B*57:01, B*37:01, B*44:05, B*07:02, B*42:02, B*57:03, B*81:01, B*27:05, B*27:04, B*27:06, B*27:09, B*27:03
+Receptor file B*35:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/LPFEKSTVM_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence LPFEKSTVM
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/flexpepdock_input_LPFEKSTVM.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 3LKP[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/3LKP.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/flexpepdock_input_LPFEKSTVM.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/LPFEKSTVM_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/3LKP_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/3LKP_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B3501_validation_batch1/LPFEKSTVM/LPFEKSTVM_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:33:32 PM CDT 2026
+============================================================
+Allele:    B*40:02  (1 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B4002_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/B4002
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/B4002.log
+Starting:  Mon May 11 08:33:32 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B4002_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B4002_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B4002_validation.fasta
+Allele set to:
+B*40:02
+B*40:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFHTSVSRPGRGEPRFITVGYVDDTLFVRFDSDATSPRKEPRAPWIEQEGPEYWDRETQISKTNTQTYRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHNQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAARVAEQLRAYLEGECVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*40:02
+Structural templates identified in sequence identity order:
+B*40:02, B*41:04, B*18:01, B*39:01, B*08:01, B*42:01, B*15:01, B*42:02, B*14:02, B*35:01, B*07:02, B*37:01, B*35:08, B*27:05, B*13:01, B*27:04, B*27:06, B*52:01, B*27:09, B*44:05, B*81:01, B*44:03, B*27:03, B*51:01, B*44:02, B*53:01, B*57:03, B*58:01, B*57:01
+Receptor file B*40:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to B*40:02
+MHC allele set to B*40:02
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: REFSKEPEL[0m
+[92m[1mSequence: REFSKEPEL[0m
+Writing fasta file to: REFSKEPEL.fasta
+Allele set to:
+B*40:02
+B*40:02 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFHTSVSRPGRGEPRFITVGYVDDTLFVRFDSDATSPRKEPRAPWIEQEGPEYWDRETQISKTNTQTYRESLRNLRGYYNQSEAGSHTLQSMYGCDVGPDGRLLRGHNQYAYDGKDYIALNEDLRSWTAADTAAQITQRKWEAARVAEQLRAYLEGECVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*40:02
+Structural templates identified in sequence identity order:
+B*40:02, B*41:04, B*18:01, B*39:01, B*08:01, B*42:01, B*15:01, B*42:02, B*14:02, B*35:01, B*07:02, B*37:01, B*35:08, B*27:05, B*13:01, B*27:04, B*27:06, B*52:01, B*27:09, B*44:05, B*81:01, B*44:03, B*27:03, B*51:01, B*44:02, B*53:01, B*57:03, B*58:01, B*57:01
+Receptor file B*40:02.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/REFSKEPEL_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence REFSKEPEL
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/flexpepdock_input_REFSKEPEL.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5XOS[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5XOS.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/flexpepdock_input_REFSKEPEL.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/REFSKEPEL_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/5XOS_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/5XOS_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B4002_validation_batch1/REFSKEPEL/REFSKEPEL_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:34:41 PM CDT 2026
+============================================================
+Allele:    B*57:01  (2 peptides)
+FASTA:     /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B5701_validation.fasta
+Output:    /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/B5701
+Log:       /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs/B5701.log
+Starting:  Mon May 11 08:34:41 PM CDT 2026
+Rebuilding fasta from /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B5701_validation.fasta and 0
+[92m[1mRunning pipeline with provided fasta file /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B5701_validation.fasta[0m
+fasta_fn after rebuilding: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/B5701_validation.fasta
+Allele set to:
+B*57:01
+B*57:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRMAPRAPWIEQEGPEYWDGETRNMKASAQTYRENLRIALRYYNQSEAGSHIIQVMYGCDVGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*57:01
+Structural templates identified in sequence identity order:
+B*57:01, B*57:03, B*58:01, B*53:01, B*13:01, B*52:01, B*51:01, B*35:01, B*15:01, B*35:08, B*44:03, B*44:02, B*44:05, B*27:05, B*37:01, B*18:01, B*27:04, B*39:01, B*27:06, B*27:09, B*40:02, B*27:03, B*42:01, B*14:02, B*07:02, B*41:04, B*08:01, B*42:02, B*81:01
+Receptor file B*57:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+Setting allele to B*57:01
+MHC allele set to B*57:01
+Starting multiprocessing with 28 threads across 1 batches...
+
+Now processing:
+[92m[1mName: LSSPVTKSF[0m
+[92m[1mSequence: LSSPVTKSF[0m
+Writing fasta file to: LSSPVTKSF.fasta
+Allele set to:
+B*57:01
+B*57:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRMAPRAPWIEQEGPEYWDGETRNMKASAQTYRENLRIALRYYNQSEAGSHIIQVMYGCDVGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*57:01
+Structural templates identified in sequence identity order:
+B*57:01, B*57:03, B*58:01, B*53:01, B*13:01, B*52:01, B*51:01, B*35:01, B*15:01, B*35:08, B*44:03, B*44:02, B*44:05, B*27:05, B*37:01, B*18:01, B*27:04, B*39:01, B*27:06, B*27:09, B*40:02, B*27:03, B*42:01, B*14:02, B*07:02, B*41:04, B*08:01, B*42:02, B*81:01
+Receptor file B*57:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/LSSPVTKSF_ROSETTA.log
+DEBUG: Found 110 template(s) for sequence LSSPVTKSF
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/flexpepdock_input_LSSPVTKSF.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 5VUD[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/5VUD.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/flexpepdock_input_LSSPVTKSF.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/LSSPVTKSF_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/5VUD_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/5VUD_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/LSSPVTKSF/LSSPVTKSF_input.pdb
+
+Now processing:
+[92m[1mName: VTTDIQVKV[0m
+[92m[1mSequence: VTTDIQVKV[0m
+Writing fasta file to: VTTDIQVKV.fasta
+Allele set to:
+B*57:01
+B*57:01 alpha 1 and alpha 2 domain amino acid sequence retrieved:
+SHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPRMAPRAPWIEQEGPEYWDGETRNMKASAQTYRENLRIALRYYNQSEAGSHIIQVMYGCDVGPDGRLLRGHDQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGLCVEWLRRYLENGKETLQRA
+Ranked templates generated previously for B*57:01
+Structural templates identified in sequence identity order:
+B*57:01, B*57:03, B*58:01, B*53:01, B*13:01, B*52:01, B*51:01, B*35:01, B*15:01, B*35:08, B*44:03, B*44:02, B*44:05, B*27:05, B*37:01, B*18:01, B*27:04, B*39:01, B*27:06, B*27:09, B*40:02, B*27:03, B*42:01, B*14:02, B*07:02, B*41:04, B*08:01, B*42:02, B*81:01
+Receptor file B*57:01.pdb located in /home/huntek1/Data/MHC_database/default_receptor
+DEBUG: Log file will be saved to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/VTTDIQVKV_ROSETTA.log
+DEBUG: Found 111 template(s) for sequence VTTDIQVKV
+DEBUG: Checking chain A in new_receptor
+Successfully saved receptor to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/tmp_receptor.pdb
+DEBUG: XML file successfully written at /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/flexpepdock_input_VTTDIQVKV.xml
+All required files exist. Proceeding with Rosetta...
+[92m[1mRunning Rosetta with template 4U1J[0m
+DEBUG: Running Rosetta with command:
+/sb/meilerapps/rosetta/rosetta-3.15/main/source/bin/rosetta_scripts.linuxgccrelease -s /home/huntek1/Data/MHC_database/templates/4U1J.pdb -parser:protocol /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/flexpepdock_input_VTTDIQVKV.xml -database /sb/meilerapps/rosetta/rosetta-3.15/main/database -overwrite -out:level 300
+DEBUG: Running Rosetta, logging to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/VTTDIQVKV_ROSETTA.log
+
+/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/4U1J_0001.pdb saved and ready for production.
+Renamed /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/4U1J_0001.pdb to /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/output/B5701_validation_batch1/VTTDIQVKV/VTTDIQVKV_input.pdb
+Threading peptides in batch1.fasta
+[92m[1mAll batches processed.[0m
+Completed: Mon May 11 08:36:48 PM CDT 2026
+
+All alleles done at Mon May 11 08:36:48 PM CDT 2026
+Outputs in: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures

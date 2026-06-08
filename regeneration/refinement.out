@@ -1,0 +1,65 @@
+nohup: ignoring input
+Found 52 threaded inputs to refine
+Output base:  /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/pdb
+Docking logs: /home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/docking_logs
+Parallelism:  28 workers
+Per pair:     25 decoys × ~3 min ≈ 75 min single-threaded
+
+Expected wall time: ~139 min (plus startup overhead)
+
+[  1/52] OK  A0201/LLFNILGGWV  (25/25 decoys, 26.2 min)
+[  2/52] OK  A0201/ILKEPVHGV  (25/25 decoys, 26.3 min)
+[  3/52] OK  A0201/TLACFVLAAV  (25/25 decoys, 27.7 min)
+[  4/52] OK  A0101/EADPTGHSY  (25/25 decoys, 28.2 min)
+[  5/52] OK  A0201/NLVPMVATV  (25/25 decoys, 28.8 min)
+[  6/52] OK  B2705/KRWIILGLNK  (25/25 decoys, 29.2 min)
+[  7/52] OK  A1101/KTFPPTEPK  (25/25 decoys, 32.2 min)
+[  8/52] OK  A0201/ITDQVPFSV  (25/25 decoys, 36.2 min)
+[  9/52] OK  A0201/GLCTLVAML  (25/25 decoys, 36.5 min)
+[ 10/52] OK  A0101/EVDPIGHLY  (25/25 decoys, 37.9 min)
+[ 11/52] OK  B4002/REFSKEPEL  (25/25 decoys, 38.2 min)
+[ 12/52] OK  A0201/GILGFVFTL  (25/25 decoys, 38.2 min)
+[ 13/52] OK  A0201/CINGVCWTV  (25/25 decoys, 39.1 min)
+[ 14/52] OK  A0201/YLQPRTFLL  (25/25 decoys, 39.3 min)
+[ 15/52] OK  B3501/LPFDKSTIM  (25/25 decoys, 39.6 min)
+[ 16/52] OK  A0201/RQASLSISV  (25/25 decoys, 39.7 min)
+[ 17/52] OK  A1101/QVPLRPMTYK  (25/25 decoys, 40.6 min)
+[ 18/52] OK  A0201/SLFNTVATLY  (25/25 decoys, 41.0 min)
+[ 19/52] OK  A0201/FLPSDFFPSV  (25/25 decoys, 41.4 min)
+[ 20/52] OK  A0201/SLYNTVATL  (25/25 decoys, 42.1 min)
+[ 21/52] OK  A6801/AIFQSSMTK  (25/25 decoys, 42.4 min)
+[ 22/52] OK  A0101/CTELKLSDY  (25/25 decoys, 42.5 min)
+[ 23/52] OK  A0201/YLEPGPVTA  (25/25 decoys, 42.8 min)
+[ 24/52] OK  A0201/KLTPLCVTL  (25/25 decoys, 43.0 min)
+[ 25/52] OK  B3501/LPFEKSTVM  (25/25 decoys, 43.0 min)
+[ 26/52] OK  A1101/AIFQSSMTK  (25/25 decoys, 43.7 min)
+[ 27/52] OK  A0201/RLQSLQTYV  (25/25 decoys, 46.3 min)
+[ 28/52] OK  B2705/SRYWAIRTR  (25/25 decoys, 47.4 min)
+[ 29/52] OK  A0201/KLVALGINAV  (25/25 decoys, 32.7 min)
+[ 30/52] OK  A0201/RQASIELPSMAV  (25/25 decoys, 33.3 min)
+[ 31/52] OK  A0201/VLHDDLLEA  (25/25 decoys, 33.4 min)
+[ 32/52] OK  A0201/GMSRIGMEV  (25/25 decoys, 36.6 min)
+[ 33/52] OK  B5701/LSSPVTKSF  (25/25 decoys, 26.2 min)
+[ 34/52] OK  A0201/RQISQDVKL  (25/25 decoys, 38.3 min)
+[ 35/52] OK  A0201/AAGIGILTV  (25/25 decoys, 28.3 min)
+[ 36/52] OK  A0201/ALWGPDPAAA  (25/25 decoys, 28.5 min)
+[ 37/52] OK  A0201/GLMWLSYFV  (25/25 decoys, 30.5 min)
+[ 38/52] OK  A0201/CLGGLLTMV  (25/25 decoys, 40.8 min)
+[ 39/52] OK  A2402/LWMRLLPLL  (25/25 decoys, 28.3 min)
+[ 40/52] OK  B0702/LPASPAHQL  (25/25 decoys, 27.4 min)
+[ 41/52] OK  A0201/ALWGFFPVL  (25/25 decoys, 36.1 min)
+[ 42/52] OK  A2402/RYGFVANF  (25/25 decoys, 29.2 min)
+[ 43/52] OK  A0201/CVNGSCFTV  (25/25 decoys, 33.8 min)
+[ 44/52] OK  A2402/LYKKLKREITF  (25/25 decoys, 30.6 min)
+[ 45/52] OK  B5701/VTTDIQVKV  (25/25 decoys, 33.4 min)
+[ 46/52] OK  A0301/AIFQSSMTK  (25/25 decoys, 31.8 min)
+[ 47/52] OK  B1501/ILGPPGSVY  (25/25 decoys, 33.3 min)
+[ 48/52] OK  B0702/RPPIFIRRL  (25/25 decoys, 35.4 min)
+[ 49/52] OK  A0301/QVPLRPMTYK  (25/25 decoys, 33.6 min)
+[ 50/52] OK  B1501/VQQESSFVM  (25/25 decoys, 34.8 min)
+[ 51/52] OK  B0702/EPRSPSHSM  (25/25 decoys, 36.0 min)
+[ 52/52] OK  B0801/HSKKKCDEL  (25/25 decoys, 35.5 min)
+
+======================================================================
+Total time: 78.0 min
+Successful: 52/52
