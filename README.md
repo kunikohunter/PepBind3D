@@ -1,65 +1,103 @@
-# IEDB pHLA dataset — validation analyses
+# PepBind3D — curation and validation code
 
-Validation analyses for the released pHLA dataset
-(https://huggingface.co/datasets/kunikohunter/IEDB_pHLA_binding_data).
+Code for the data descriptor *PepBind3D: Curated peptide-HLA class I binding
+affinities with Rosetta structural ensembles*. This repository contains the
+IEDB curation pipeline, the structure-generation scripts, and the notebooks
+that produce the manuscript figures and supplementary tables.
 
-## Workflow
+The released dataset is on HuggingFace:
+https://huggingface.co/datasets/kunikohunter/IEDB_pHLA_binding_data
 
-Two notebooks, run in order:
+## Curation and structure generation
+
+- `IEDBTestPipeline.py` — curation pipeline: reads the IEDB MHC ligand bulk
+  download, filters to HLA-A/HLA-B with quantitative IC50/Kd measurements,
+  deduplicates per allele, and prepares threaded starting models. Threading
+  proceeds SimpleThreadingMover → NCAA substitution → trim → add receptor →
+  FastRelax (5 repeats) → FlexPepDock prepack, producing the relaxed starting
+  model used as input to docking.
+- `HLA_db.py` — builds and queries the local MHC template database used for
+  threading-template selection (same-allele, same-length, best BLOSUM62).
+
+## Validation and figure notebooks
+
+Run in order; each reads `metadata.csv` and, where noted, the per-pair Rosetta
+score files.
 
 1. `01_structural_validation.ipynb` — peptide-backbone RMSD between FlexPepDock
-   decoys and experimental crystal structures, for the subset of
-   peptide–allele pairs with an `assay_pdb_id` annotation in the metadata.
-   Reports three metrics per pair: best-score decoy RMSD, mean RMSD across
-   the top-5 by score, and lowest RMSD across all 25 decoys. Generates Figure 2.
-2. `02_score_affinity_validation.ipynb` — Spearman correlation of Rosetta
-   summary scores (`rosetta_best_score`, `rosetta_mean_score`) against
-   experimental log(IC50) and log(Kd). Reports per-allele and pooled
-   correlations. Generates Figure 3. Reads only metadata.csv; does not
-   touch structure files.
+   decoys and matched experimental crystal structures, for the 52 pairs with a
+   PDB match. Reports, per pair, the RMSD of the best decoy (lowest I_sc), the
+   mean over the top-5 by I_sc, and the lowest of all 25 decoys, plus the
+   relaxed starting-model RMSD. Produces the data behind Figure 2 and Table S4.
+2. `02_score_affinity_validation.ipynb` — Spearman correlation between Rosetta
+   score metrics and experimental log(IC50)/log(Kd), pooled and per allele.
+   Produces the data behind Figure 3 and Tables S3/S6.
+3. `03_pymol_figures.ipynb` — PyMOL renders of representative decoy/crystal
+   overlays (Figure 2A–C).
+4. `04_figure1_panels.ipynb` — dataset composition panels (Figure 1).
+5. `05_figure2_panels.ipynb` — assembles Figure 2 from the notebook-01 outputs.
+6. `06_figure3_panels.ipynb` — assembles Figure 3 (I_sc) and Supplementary
+   Figure S1 (reweighted_sc).
+7. `07_supplemental_tables.ipynb` — builds Supplementary Tables S1–S6 and writes
+   them to a single .xlsx.
 
-Shared utilities are in the `utils/` package.
+## Score metrics
+
+Three Rosetta score metrics are reported per decoy, each summarized as the best
+(lowest) and mean across the 25-decoy ensemble:
+
+- `I_sc` — interface score (peptide–MHC interaction energy). **Primary metric**;
+  strongest association with experimental affinity.
+- `reweighted_sc` — reweighted score used in prior applications of this pipeline.
+- `total_score` — full-pose Rosetta energy (dominated by MHC internal energy).
+
+All scores are in Rosetta Energy Units (REU); lower is more favorable.
+
+## Helper scripts
+
+- `parse_scorefiles.py` — parses per-pair `score.sc` files into a summary table
+  of best/mean I_sc, reweighted_sc, total_score, and pep_sc.
+- `rebuild_metadata.py` — merges the parsed score summaries into `metadata.csv`,
+  adding the six score-summary columns.
+- `attrition_counts.py` — reproduces the record-attrition funnel (Supplementary
+  Table S2) from the raw IEDB download and the released metadata.
+- `quick_metric_comparison.py` — pooled Spearman correlations for each score
+  metric (Supplementary Table S6).
+- `censoring_sensitivity.py`, `censoring_diagnostic.py` — robustness checks on
+  the assay-detection-limit censoring rule.
 
 ## Paths
 
-These are hardcoded at the top of each notebook. Edit if your layout differs.
+Data paths are hardcoded at the top of each notebook/script and reflect the
+authors' cluster layout; edit them for your environment. Key locations:
 
-- Released dataset: `/home/huntek1/main_project/data/IEDB_data_clean/huggingface/`
-- Local PDB store (one folder per peptide): `/home/huntek1/main_project/data/IEDB_data_clean/pdb/{allele}/{peptide}/`
-- Template PDB database: `/home/huntek1/Data/MHC_database/templates/`
-- Validation outputs: `/home/huntek1/main_project/data/IEDB_data_clean/IEDB_validation/`
-
-## Decoy file convention
-
-Each `pdb/{allele}/{peptide}/` folder contains 25 decoys named
-`{peptide}_input_{0001..0025}.pdb` and a `score.sc` Rosetta scorefile.
-The `description` column in `score.sc` matches the PDB filename stem.
+- Released dataset: `.../IEDB_data_clean/huggingface/`
+- Per-pair Rosetta outputs: `.../IEDB_data_clean/pdb/{allele}/{peptide}/`
+  (25 decoys named `{peptide}_input_{0001..0025}.pdb` plus a `score.sc`
+  scorefile; the `description` column matches each PDB filename stem)
+- Template database: `.../MHC_database/templates/`
 
 ## Chain conventions
 
 - **Modeled structures**: chain A = MHC binding cleft (α₁/α₂ domains,
   ~180 residues); chain B = peptide.
-- **Experimental crystal structures**: chain IDs vary across PDB entries.
-  The peptide chain is identified by sequence match (or by length, 7–15
-  residues, as fallback). The MHC heavy chain is identified as the
-  remaining chain in the 170–290 residue range.
+- **Experimental crystal structures**: chain IDs vary; the peptide chain is
+  identified by sequence match (length 7–15 as fallback), and the MHC heavy
+  chain as the remaining chain in the 170–290 residue range.
 
-## Reproducibility note for users of the HuggingFace release
+## Reproducing from the HuggingFace release
 
-The `pdb/` directory is not part of the public release (it would roughly
-double the dataset size). To reproduce these analyses from the public
-release, first extract the silent files into per-decoy PDBs:
+The per-decoy `pdb/` directory is not part of the public release. To reproduce
+the structural analyses, extract per-decoy PDBs from the released silent files:
 
 ```bash
-# Per peptide-allele pair, from inside structures/{allele}/
+# from inside structures/{allele}/
 extract_pdbs.linuxgccrelease -in:file:silent {peptide}.silent
 ```
 
-The score.sc file is recoverable from the silent file headers if not
-included separately.
-
 ## Dependencies
 
-Standard scientific Python: `pandas`, `numpy`, `scipy`, `matplotlib`,
-`biopython`, `tqdm`. No Rosetta/PyRosetta dependency for analysis (only
-required for the upstream `extract_pdbs` step above).
+`pandas`, `numpy`, `scipy`, `matplotlib`, `biopython`, `tqdm`, `openpyxl`
+(for the .xlsx supplementary tables). See `requirements.txt`. Rosetta is
+required only for structure generation and `extract_pdbs`, not for the
+analysis notebooks. `utils/` holds shared I/O, plotting, and structure helpers.
