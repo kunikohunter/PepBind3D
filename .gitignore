@@ -1,3 +1,8 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+CLAUDE.md
+REVISION_PLAN.md
+.claude/
+PepBind3D_072026_Submitted.docx
+Reviews.docx
