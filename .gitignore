@@ -20,7 +20,7 @@ benchmark/refs/cif/
 benchmark/af2_msa/msa_cache/
 benchmark/wrappers/test_*/
 hlac_production/
-hlac/pdb/
+hlac/
 
 # --- AlphaFold2 / model intermediates ---
 *.pkl
