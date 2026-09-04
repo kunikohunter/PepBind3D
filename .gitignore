@@ -53,3 +53,7 @@ scratchpad/
 
 # Regeneration run records are deliberately tracked as provenance
 !regeneration/*.out
+
+# Companion run trees, symlinked here for grouping only. These point at
+# hundreds of GB and over a million files; git must never walk them.
+run/
