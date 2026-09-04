@@ -150,20 +150,64 @@ def _chain_centroid(chain: Chain) -> np.ndarray:
     return coords.mean(axis=0)
 
 
+def _seq_identity_fraction(candidate_seq: str, reference_seq: str) -> float:
+    """Fraction of `reference_seq` matched by the best global alignment.
+
+    Used to score reference MHC-chain candidates against the modeled MHC
+    chain's sequence (fix for the b2m/TCR chain-selection bug -- see
+    find_copies_in_reference). A cheap, symmetric-enough proxy for identity:
+    the number of matched positions in the best ungapped-scoring global
+    alignment (pairwise2.align.globalxx), normalised by the reference
+    length. Two very differently-sized chains (e.g. b2m vs. a heavy chain)
+    score far lower than same-family chains even under a light-alignment
+    (mismatch/gap-free) scoring scheme.
+    """
+    from Bio import pairwise2
+
+    if not candidate_seq or not reference_seq:
+        return 0.0
+    score = pairwise2.align.globalxx(candidate_seq, reference_seq, score_only=True)
+    return float(score) / len(reference_seq)
+
+
 def find_copies_in_reference(
     structure: Structure,
     expected_peptide: str,
     peptide_length_range: Tuple[int, int] = (8, 15),
     mhc_min_len: int = 100,
+    mhc_reference_seq: Optional[str] = None,
 ) -> List[Tuple[Chain, Chain]]:
     """Enumerate (peptide_chain, mhc_chain) pairs, one per complex copy.
 
     Peptide chains are identified by exact sequence match to
     `expected_peptide` (content-based, never by chain ID -- see fix #2);
     if none match exactly, falls back to any chain in
-    `peptide_length_range`. Each peptide chain is paired with its spatially
-    nearest MHC-length (>= mhc_min_len aa) chain via greedy nearest-centroid
-    matching, without reusing an MHC chain across copies.
+    `peptide_length_range`.
+
+    Each peptide chain is paired with an MHC-length (>= mhc_min_len aa)
+    chain, without reusing an MHC chain across copies. Selection is a
+    two-stage rule, applied in this order:
+
+      1. FILTER: when `mhc_reference_seq` is given (the modeled MHC chain's
+         sequence), every remaining candidate is scored by sequence-identity
+         to that reference (see `_seq_identity_fraction`) and candidates
+         scoring well below the best-scoring one are dropped. This is what
+         excludes beta-2-microglobulin and TCR chains -- they are a
+         different protein family from the class I heavy chain and score
+         far lower -- while every genuine heavy-chain copy in a multi-copy
+         asymmetric unit (near-identical sequence to the reference) survives
+         the filter.
+      2. TIEBREAK: among the surviving (filtered) candidates, the one with
+         the nearest centroid to the peptide chain is chosen. This is what
+         keeps peptide/heavy-chain pairing correct *within the right copy*
+         of a multi-copy ASU -- proximity alone (the original rule) could
+         instead lose to a nearer b2m/TCR chain, and identity alone (an
+         earlier version of this fix) could pick a heavy chain from the
+         *wrong* copy since every copy's heavy chain scores equally well on
+         identity.
+
+    When no `mhc_reference_seq` is supplied, falls back to the original
+    proximity-only rule (no filter stage).
     """
     chains = list(structure[0])
 
@@ -182,9 +226,25 @@ def find_copies_in_reference(
     if not mhc_candidates:
         raise ValueError(f"No MHC-length (>= {mhc_min_len} aa) chain found in {structure.id}")
 
+    # Stage 1 (filter): restrict to chains that are plausibly the same
+    # protein as the modeled MHC chain, by sequence identity. A generous
+    # relative margin (candidates within 20 percentage points of the best
+    # identity score) keeps every true heavy-chain copy in a multi-copy ASU
+    # (which should all score close to the top, near-identical sequence)
+    # while still rejecting b2m/TCR chains, which score far lower.
+    if mhc_reference_seq:
+        identity = {c.id: _seq_identity_fraction(chain_sequence(c), mhc_reference_seq)
+                    for c in mhc_candidates}
+        best_identity = max(identity.values())
+        filtered = [c for c in mhc_candidates if identity[c.id] >= best_identity - 0.2]
+        if filtered:
+            mhc_candidates = filtered
+
     mhc_available = list(mhc_candidates)
     pairs: List[Tuple[Chain, Chain]] = []
     for pep in pep_candidates:
+        # Stage 2 (tiebreak): nearest centroid to the peptide, among the
+        # (already content-filtered) surviving candidates.
         pep_centroid = _chain_centroid(pep)
         mhc_available.sort(key=lambda m: np.linalg.norm(pep_centroid - _chain_centroid(m)))
         best_mhc = mhc_available.pop(0)
@@ -357,7 +417,9 @@ def score_prediction(
     mod_mhc = find_mhc_chain_in_modeled(mod_struct, mod_pep.id)
     mod_atom_map = _peptide_atom_map(mod_pep)
 
-    copies = find_copies_in_reference(ref_struct, expected_peptide)
+    copies = find_copies_in_reference(
+        ref_struct, expected_peptide, mhc_reference_seq=chain_sequence(mod_mhc)
+    )
     n_copies_available = len(copies)
     if copy_policy == "first":
         copies = copies[:1]

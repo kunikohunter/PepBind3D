@@ -1,0 +1,12 @@
+{
+  "n_curated_kd_rows": 35851,
+  "n_matched": 35851,
+  "match_rate": 1.0,
+  "n_ambiguous_raw_groups": 998,
+  "pairwise_ks": {
+    "dissociation constant KD (~EC50) vs dissociation constant KD": {
+      "D": 0.12548180435346779,
+      "p": 1.681502898401454e-101
+    }
+  }
+}

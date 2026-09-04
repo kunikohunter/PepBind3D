@@ -1,11 +1,15 @@
 """
 Phase 1 item 1.3 (REVISION_PLAN.md): KD label pooling.
 
-Three IEDB assay-response labels were normalized to a single "dissociation
-constant (KD)" category during curation (IEDBTestPipeline.py:136):
+Three IEDB assay-response labels were *intended* to be normalized to a single
+"dissociation constant (KD)" category during curation (IEDBTestPipeline.py:136):
   - "dissociation constant KD (~EC50)"
   - "dissociation constant KD"
-  - "dissociation constant (~IC50)"
+  - "dissociation constant KD (~IC50)"  (IEDBTestPipeline.py:136 has a typo,
+    "dissociation constant (~IC50)" missing "KD" -- that string never occurs
+    in the raw IEDB data, so this label's rows never match the pipeline's
+    normalization and are dropped from the curated dataset entirely, not
+    pooled. See the 2026-09-04 note by RAW_LABELS below.)
 
 metadata.csv only stores the post-normalization label, so the original
 three-way split has to be recovered from the raw IEDB bulk download and
@@ -33,13 +37,37 @@ from scipy.stats import kruskal, ks_2samp
 # (HF_DIR/metadata.csv) and is what's used here. Row-level curation (allele,
 # peptide, measurement_type/value, flagged) was confirmed byte-identical
 # between the two files, so this only matters for analyses touching scores.
+#
+# 2026-09-04 fix: HF_DIR/metadata.csv is not present on this filesystem (see
+# 08_revision_figures.ipynb, same finding). The file is public and un-gated
+# on HuggingFace (kunikohunter/PepBind3D), so METADATA_FN now falls back to
+# a local, read-only download of it (fetched via huggingface_hub.hf_hub_download,
+# never written into any huggingface/ or released-dataset directory) if the
+# authors' hardcoded cluster path isn't found. RAW_IEDB_FN is unchanged and
+# was found in place.
 METADATA_FN = "/home/huntek1/main_project/data/IEDB_data_clean/huggingface/metadata.csv"
+METADATA_FN_FALLBACK = (
+    "/tmp/claude-244980/-panfs-accrepfs-vampire-home-huntek1-main-project-scripts/"
+    "d185a2a2-24f4-4441-9ef0-87530bbb58c6/scratchpad/hf_metadata/metadata.csv"
+)
+if not Path(METADATA_FN).is_file() and Path(METADATA_FN_FALLBACK).is_file():
+    METADATA_FN = METADATA_FN_FALLBACK
 RAW_IEDB_FN = "/home/huntek1/Data/MHC_database/build/mhc_ligand_full.csv"
 
+# 2026-09-04 fix: the third label was "dissociation constant (~IC50)" (missing
+# "KD"), copied from the same typo in IEDBTestPipeline.py:136's normalization
+# dict. Scanning the raw IEDB bulk file's actual "Assay Response measured"
+# values shows the real label is "dissociation constant KD (~IC50)" -- the
+# typo'd string never occurs in the raw data. This means the production
+# curation pipeline's `.replace()` for that label silently never fires: rows
+# with this raw label are left as "dissociation constant KD (~IC50)", which
+# isn't in `valid_responses`, so they are dropped entirely rather than pooled
+# into the "Kd" category. Corrected here so the join recovers the true label
+# set; see the run report for what this means for the pooling question.
 RAW_LABELS = [
     "dissociation constant KD (~EC50)",
     "dissociation constant KD",
-    "dissociation constant (~IC50)",
+    "dissociation constant KD (~IC50)",
 ]
 
 
@@ -245,29 +273,76 @@ def main():
 
 
 def plot_distributions(matched, out_dir):
+    # 2026-09-04: house-style fix so this figure is a drop-in match for
+    # Figure 1E (04_figure1_panels.ipynb Panel D, Kd sub-panel) and the
+    # revision figures (08_revision_figures.ipynb): utils.set_plot_style(),
+    # Scientific-Data mm sizing, 300 dpi PNG + PDF, same #4477AA/#CC3311
+    # palette. Previously this used ad hoc inch sizing and 150 dpi PNG.
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
+    # NB: `from utils import set_plot_style` pulls in utils/__init__.py, which
+    # eagerly imports utils.structure -> Bio.PDB (biopython), not installed in
+    # this environment (module load python/3.11.5 scipy-stack/2025a). Rather
+    # than add a biopython dependency to a KD-pooling analysis script, inline
+    # utils.plotting.set_plot_style()'s exact rcParams so the output still
+    # matches house style byte-for-byte.
+    import matplotlib as mpl
+    mpl.rcParams.update({
+        "figure.dpi": 110,
+        "savefig.dpi": 300,
+        "savefig.bbox": "tight",
+        "font.family": "sans-serif",
+        "font.size": 10,
+        "axes.titlesize": 11,
+        "axes.labelsize": 10,
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+        "xtick.labelsize": 9,
+        "ytick.labelsize": 9,
+        "legend.fontsize": 9,
+        "legend.frameon": False,
+        "lines.linewidth": 1.5,
+    })
+
+    MM = 1 / 25.4
+    COL2_WIDTH = 183 * MM  # Scientific Data double-column width, matches 04/08 notebooks
+
+    # Log y-axis (as in 04_figure1_panels.ipynb Panel D/E) -- the raw counts
+    # are dominated by the 20,000 nM detection ceiling, so a linear axis
+    # hides everything else in the distribution.
     censor_values_nM = [5000, 10000, 20000]
-    fig, axes = plt.subplots(1, 3, figsize=(11, 3), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(COL2_WIDTH, COL2_WIDTH / 2.6), sharey=True)
     bins = np.arange(0, 5.05, 0.1)  # log10 nM, 0 to ~100 uM
     for ax, label in zip(axes, RAW_LABELS):
         vals = matched.loc[matched["raw_label"] == label, "measurement_value"].astype(float)
         vals = vals[vals > 0]
         n = len(vals)
         if n > 0:
-            ax.hist(np.log10(vals), bins=bins, color="#4477AA", edgecolor="white", linewidth=0.4)
+            ax.hist(np.log10(vals), bins=bins, color="#4477AA", edgecolor="white", linewidth=0.4, zorder=2)
+        else:
+            ax.text(0.5, 0.5, "n = 0\n(dropped in curation,\nnot pooled -- see report)",
+                    ha="center", va="center", fontsize=6.5, color="#555555",
+                    transform=ax.transAxes)
         for cv in censor_values_nM:
-            ax.axvline(np.log10(cv), color="#CC3311", linestyle="--", linewidth=1, alpha=0.7)
-        ax.set_title(f"{label}\n(n={n})", fontsize=9)
+            ax.axvline(np.log10(cv), color="#CC3311", linestyle="--", linewidth=1, alpha=0.7, zorder=10)
+        ax.set_title(f"{label}\n(n={n:,})", fontsize=8)
         ax.set_xlabel("log10(KD, nM)")
-    axes[0].set_ylabel("count")
-    fig.suptitle("KD label pooling: three raw IEDB assay-response labels normalized to 'dissociation constant (KD)'"
-                 " (dashed red = assay detection ceilings 5,000 / 10,000 / 20,000 nM)", fontsize=8)
+        ax.set_yscale("log")
+        ax.set_ylim(0.8, 40000)
+        ax.minorticks_off()
+        ax.yaxis.grid(True, color="#dddddd", linewidth=0.5, alpha=0.7, zorder=0)
+        ax.set_axisbelow(True)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+    axes[0].set_ylabel("count (log scale)")
+    fig.suptitle("KD label pooling: raw IEDB assay-response labels normalized to 'dissociation constant (KD)'"
+                 " in metadata.csv (dashed red = Fig. 1E assay detection ceilings 5,000 / 10,000 / 20,000 nM)",
+                 fontsize=7.5)
     fig.tight_layout(rect=[0, 0, 1, 0.90])
     fig.savefig(out_dir / "kd_label_distributions.pdf")
-    fig.savefig(out_dir / "kd_label_distributions.png", dpi=150)
+    fig.savefig(out_dir / "kd_label_distributions.png", dpi=300)
     plt.close(fig)
 
 

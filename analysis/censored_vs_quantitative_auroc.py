@@ -26,7 +26,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from scipy.stats import norm
+from scipy.stats import norm, rankdata
 from sklearn.metrics import roc_auc_score
 
 HF_DIR = Path("/home/huntek1/main_project/data/IEDB_data_clean/huggingface")
@@ -51,17 +51,50 @@ def is_censored(values, ceilings, floor):
     return values.isin(ceilings) | (values >= floor)
 
 
-def auroc_and_effect_size(score, is_quantitative):
+def _auc_from_ranks(y, s):
+    """Mann-Whitney-U-based AUROC, equivalent to sklearn's roc_auc_score but
+    much cheaper to call thousands of times in a bootstrap loop (no
+    threshold/curve bookkeeping, just a rank sum)."""
+    r = rankdata(s)
+    n1 = int(y.sum())
+    n0 = len(y) - n1
+    return (r[y == 1].sum() - n1 * (n1 + 1) / 2) / (n1 * n0)
+
+
+def bootstrap_auroc_ci(y, s, n_boot=1000, alpha=0.05, seed=0):
+    """Percentile bootstrap CI for AUROC, resampling pairs with replacement.
+    Skips resamples where a class is missing (can happen for small/rare
+    per-allele groups)."""
+    rng = np.random.default_rng(seed)
+    n = len(y)
+    boots = []
+    for _ in range(n_boot):
+        idx = rng.integers(0, n, n)
+        yb, sb = y[idx], s[idx]
+        if yb.sum() == 0 or (1 - yb).sum() == 0:
+            continue
+        boots.append(_auc_from_ranks(yb, sb))
+    if len(boots) < n_boot // 2:
+        return None, None
+    lo, hi = np.percentile(boots, [100 * alpha / 2, 100 * (1 - alpha / 2)])
+    return float(lo), float(hi)
+
+
+def auroc_and_effect_size(score, is_quantitative, n_boot=1000, seed=0):
     """AUROC for discriminating quantitative (favorable/lower score expected)
     from censored (unfavorable/higher score expected) pairs, plus the
-    rank-biserial effect size (r = 2*AUROC - 1, equivalent to Cliff's delta).
+    rank-biserial effect size (r = 2*AUROC - 1, equivalent to Cliff's delta)
+    and a 95% percentile bootstrap CI on the AUROC.
     Lower Rosetta REU = more favorable, so we score on -value: higher -value
     (i.e. lower raw score) should predict "quantitative" (a real binder)."""
     y = is_quantitative.astype(int).values
     if y.sum() == 0 or (1 - y).sum() == 0:
         return None
-    auc = roc_auc_score(y, -score.values)
-    return {"auroc": float(auc), "rank_biserial": float(2 * auc - 1), "n": int(len(y)),
+    s = -score.values
+    auc = roc_auc_score(y, s)
+    ci_lo, ci_hi = bootstrap_auroc_ci(y, s, n_boot=n_boot, seed=seed)
+    return {"auroc": float(auc), "auroc_ci_lo": ci_lo, "auroc_ci_hi": ci_hi,
+            "rank_biserial": float(2 * auc - 1), "n": int(len(y)),
             "n_quantitative": int(y.sum()), "n_censored": int((1 - y).sum())}
 
 
@@ -99,7 +132,7 @@ def analyze_assay(df, assay_label, meas_type, ceilings, floor, strong_binder_thr
         cens_g = is_censored(g2[COL_MEAS_VALUE], ceilings, floor)
         if (~cens_g).sum() < 10 or cens_g.sum() < 10:
             continue
-        r = auroc_and_effect_size(g2[col], ~cens_g)
+        r = auroc_and_effect_size(g2[col], ~cens_g, n_boot=300)
         if r is not None:
             results["per_allele"].append({"allele": allele, "metric": f"{PRIMARY_METRIC}_best", **r})
 
@@ -146,9 +179,17 @@ def self_test():
 
 
 def plot_distributions(df, out_dir):
+    import sys
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    try:
+        from utils import set_plot_style
+        set_plot_style()
+    except ImportError:
+        pass
 
     fig, axes = plt.subplots(1, 2, figsize=(8, 3.5))
     for ax, (assay_label, meas_type, ceilings, floor) in zip(
@@ -200,13 +241,15 @@ def main():
 
         print(f"\n=== {assay_label} pooled AUROC (censored vs quantitative) ===")
         for metric, r in res["pooled"].items():
-            print(f"  {metric:<20} AUROC={r['auroc']:.3f}  rank-biserial={r['rank_biserial']:+.3f}  "
+            print(f"  {metric:<20} AUROC={r['auroc']:.3f} "
+                  f"[{r['auroc_ci_lo']:.3f}, {r['auroc_ci_hi']:.3f}]  rank-biserial={r['rank_biserial']:+.3f}  "
                   f"n={r['n']:,} (quant={r['n_quantitative']:,}, censored={r['n_censored']:,})")
 
         print(f"\n=== {assay_label} pooled AUROC, strong-binder-only "
               f"(value < {STRONG_BINDER_THRESHOLD_NM:.0f} nM) vs censored ===")
         for metric, r in res["pooled_strong_binder_only"].items():
-            print(f"  {metric:<20} AUROC={r['auroc']:.3f}  rank-biserial={r['rank_biserial']:+.3f}  "
+            print(f"  {metric:<20} AUROC={r['auroc']:.3f} "
+                  f"[{r['auroc_ci_lo']:.3f}, {r['auroc_ci_hi']:.3f}]  rank-biserial={r['rank_biserial']:+.3f}  "
                   f"n={r['n']:,} (quant={r['n_quantitative']:,}, censored={r['n_censored']:,})")
 
         print(f"\n{assay_label}: {len(res['per_allele'])} alleles with n>=10 in both groups "
