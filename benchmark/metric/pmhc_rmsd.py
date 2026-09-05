@@ -30,10 +30,21 @@ Provenance
 exact correspondence and any deviation.
 
 What was added on top (fixes, not metric changes; see task write-up):
-  1. Explicit (residue_index, atom_name) atom pairing for the peptide
-     backbone RMSD, computed only over atoms present in both structures,
-     with counts of atoms used/dropped reported. The original silently
-     zipped two lists that could be different lengths.
+  1. Explicit peptide residue correspondence for the backbone RMSD,
+     established by global pairwise sequence alignment between the
+     modeled and reference peptide chains (same alignment parameters
+     already used for the MHC chain), pairing atoms only where both sides
+     align to the same, non-gapped residue. Counts of atoms used/dropped
+     are reported. A prior version of this fix keyed atoms by each
+     chain's ordinal resolved-residue position and intersected the two
+     independently; that reproduces the original bug whenever the
+     reference peptide is missing an *internal* residue, since every
+     residue after the gap shifts by one position on the reference side
+     only. The original (before either fix) silently zipped two
+     independently-built atom lists that could be different lengths.
+     A minimum-atom-coverage guard (analogous to the MHC superposition's
+     >= 50 paired Ca guard) makes a peptide RMSD computed from too few
+     surviving atom pairs an explicit failure instead of a silent number.
   2. Content-based chain identification is used everywhere (never chain-ID
      based) to survive AlphaFold2's inconsistent A/B vs B/C chain labeling
      across seeds.
@@ -340,33 +351,114 @@ def peptide_backbone_atoms(chain: Chain) -> List:
 
 
 # ---------------------------------------------------------------------------
-# NEW: fix #1, explicit atom pairing guard.
+# Fix #1: explicit residue correspondence by sequence alignment.
 #
-# The original built two backbone-atom lists independently (one per chain)
-# and zipped them positionally:
-#     n = min(len(mod_atoms), len(exp_atoms))
-#     diffs = [mod_atoms[i].coord - exp_atoms[i].coord for i in range(n)]
-# If the modeled and experimental peptide are missing *different* atoms
-# (e.g. exp is missing residue 3's O, modeled is missing residue 1's N),
-# positional zip silently pairs the wrong atoms together. We instead key
-# every backbone atom by (residue_index_in_chain, atom_name) and intersect.
+# The original (and a since-corrected intermediate version) keyed peptide
+# backbone atoms by the residue's *ordinal position among resolved
+# residues* in each chain independently:
+#     idx = 0
+#     for residue in chain:
+#         ...
+#         atom_map[(idx, atom_name)] = residue[atom_name]
+#         idx += 1
+# then intersected the two chains' (idx, atom_name) keys. That is fine when
+# both chains resolve the same set of residues, but when the reference
+# peptide is missing an *internal* residue (e.g. an unresolved side chain's
+# Trp), every resolved residue after the gap shifts down by one ordinal
+# index on the reference side while the modeled side does not shift. The
+# intersection then silently pairs each post-gap modeled residue against
+# the *next* reference residue -- e.g. modeled Trp6 against reference Thr7
+# -- while n_atom_pairs still looks like a clean, full-coverage match.
+#
+# We instead establish correspondence explicitly via global pairwise
+# sequence alignment between the modeled and reference peptide sequences
+# (Bio.pairwise2.align.globalxs, gap-open -2, gap-extend -0.5 -- the same
+# parameters already used for the MHC chain in superpose_on_mhc, for
+# consistency), pairing residues only where both sides align to the same,
+# non-gapped amino acid. An unresolved internal reference residue then
+# produces a gap in the alignment at that position, and every residue
+# downstream of the gap is still paired against its true structural
+# counterpart instead of being shifted by one.
 # ---------------------------------------------------------------------------
 
 
-def _peptide_atom_map(chain: Chain) -> Dict[Tuple[int, str], object]:
-    """Map (residue_index, atom_name) -> Atom for standard residues, chain order."""
-    atom_map: Dict[Tuple[int, str], object] = {}
-    idx = 0
+def _align_peptide_residues(mod_chain: Chain, exp_chain: Chain) -> List[Tuple[object, object]]:
+    """Pair modeled/experimental peptide residues by global sequence alignment.
+
+    Returns a list of (modeled_residue, experimental_residue) for every
+    alignment column where both sides are present (no gap) and identical.
+    A residue unresolved on one side (e.g. an internal reference gap)
+    contributes no pair at that column and does not shift the pairing of
+    any other column, unlike ordinal-position keying.
+    """
+    from Bio import pairwise2
+
+    mod_residues = [r for r in mod_chain if r.id[0] == " " and r.get_resname() in _THREE_TO_ONE]
+    exp_residues = [r for r in exp_chain if r.id[0] == " " and r.get_resname() in _THREE_TO_ONE]
+
+    mod_seq = "".join(_THREE_TO_ONE[r.get_resname()] for r in mod_residues)
+    exp_seq = "".join(_THREE_TO_ONE[r.get_resname()] for r in exp_residues)
+
+    alignments = pairwise2.align.globalxs(mod_seq, exp_seq, -2, -0.5)
+    if not alignments:
+        raise ValueError("Peptide sequence alignment failed")
+    aligned_mod, aligned_exp, *_ = alignments[0]
+
+    pairs: List[Tuple[object, object]] = []
+    mi = ei = 0
+    for mc, ec in zip(aligned_mod, aligned_exp):
+        if mc != "-" and ec != "-":
+            if mc == ec:
+                pairs.append((mod_residues[mi], exp_residues[ei]))
+            mi += 1
+            ei += 1
+        elif mc != "-":
+            mi += 1
+        elif ec != "-":
+            ei += 1
+    return pairs
+
+
+def _peptide_backbone_atom_count(chain: Chain) -> int:
+    """Total number of standard backbone (N, Ca, C, O) atoms present in a peptide chain."""
+    total = 0
     for residue in chain:
-        if residue.id[0] != " ":
+        if residue.id[0] != " " or residue.get_resname() not in _THREE_TO_ONE:
             continue
-        if residue.get_resname() not in _THREE_TO_ONE:
-            continue
+        total += sum(1 for atom_name in ("N", "CA", "C", "O") if atom_name in residue)
+    return total
+
+
+def _peptide_atom_pairs(
+    mod_chain: Chain, exp_chain: Chain
+) -> Tuple[List[Tuple[Tuple[int, str], object, object]], int, int]:
+    """Backbone atom pairs (key, modeled_atom, experimental_atom) via aligned residues.
+
+    Residue correspondence comes from `_align_peptide_residues` (sequence
+    alignment), not ordinal position. Within each aligned residue pair, an
+    atom is included only if present on both sides (handles atom-level, as
+    opposed to residue-level, disorder). Also returns the total backbone
+    atom counts on each side (for n_atoms_dropped bookkeeping).
+    """
+    residue_pairs = _align_peptide_residues(mod_chain, exp_chain)
+    paired: List[Tuple[Tuple[int, str], object, object]] = []
+    for i, (mod_res, exp_res) in enumerate(residue_pairs):
         for atom_name in ("N", "CA", "C", "O"):
-            if atom_name in residue:
-                atom_map[(idx, atom_name)] = residue[atom_name]
-        idx += 1
-    return atom_map
+            if atom_name in mod_res and atom_name in exp_res:
+                paired.append(((i, atom_name), mod_res[atom_name], exp_res[atom_name]))
+    n_mod_atoms = _peptide_backbone_atom_count(mod_chain)
+    n_exp_atoms = _peptide_backbone_atom_count(exp_chain)
+    return paired, n_mod_atoms, n_exp_atoms
+
+
+# Minimum fraction of the modeled peptide's full backbone atom complement
+# (4 atoms/residue) that must survive alignment and be present on both
+# sides before a peptide RMSD is trusted. Analogous in spirit to the MHC
+# superposition's ">= 50 paired Ca atoms" guard: a peptide RMSD computed
+# from only a handful of overlapping atoms (e.g. after a bad alignment, or
+# a mostly-unresolved reference peptide) is not a meaningful number and
+# must fail loudly rather than being silently reported.
+_MIN_PEPTIDE_ATOM_COVERAGE = 0.5
 
 
 # ---------------------------------------------------------------------------
@@ -415,7 +507,6 @@ def score_prediction(
             f"match expected_peptide; used chain-B fallback."
         )
     mod_mhc = find_mhc_chain_in_modeled(mod_struct, mod_pep.id)
-    mod_atom_map = _peptide_atom_map(mod_pep)
 
     copies = find_copies_in_reference(
         ref_struct, expected_peptide, mhc_reference_seq=chain_sequence(mod_mhc)
@@ -433,24 +524,36 @@ def score_prediction(
             continue
 
         rot, tran = sup.rotran
-        transformed = {k: (np.dot(a.coord, rot) + tran) for k, a in mod_atom_map.items()}
-        exp_atom_map = _peptide_atom_map(exp_pep)
+        atom_pairs, n_mod_atoms, n_exp_atoms = _peptide_atom_pairs(mod_pep, exp_pep)
+        n_common = len(atom_pairs)
+        n_dropped = (n_mod_atoms - n_common) + (n_exp_atoms - n_common)
 
-        common_keys = sorted(set(transformed) & set(exp_atom_map))
-        n_dropped = len(set(transformed) ^ set(exp_atom_map))
-        if not common_keys:
+        if n_common == 0:
             warnings.append(
                 f"Copy (pep={exp_pep.id}, mhc={exp_mhc.id}): no overlapping "
                 f"peptide backbone atoms between prediction and reference"
             )
             continue
 
-        diffs = np.array([transformed[k] - exp_atom_map[k].coord for k in common_keys])
+        min_required = _MIN_PEPTIDE_ATOM_COVERAGE * 4 * len(expected_peptide)
+        if n_common < min_required:
+            warnings.append(
+                f"Copy (pep={exp_pep.id}, mhc={exp_mhc.id}): only {n_common} "
+                f"paired peptide backbone atoms (< {min_required:.1f} required, "
+                f"{_MIN_PEPTIDE_ATOM_COVERAGE:.0%} of {4 * len(expected_peptide)} "
+                f"full backbone atoms) -- peptide correspondence is not trustworthy"
+            )
+            continue
+
+        diffs = np.array([
+            (np.dot(mod_atom.coord, rot) + tran) - exp_atom.coord
+            for _, mod_atom, exp_atom in atom_pairs
+        ])
         rmsd = float(np.sqrt(np.mean(np.sum(diffs ** 2, axis=1))))
 
         per_copy.append({
             "peptide_backbone_rmsd": rmsd,
-            "n_atom_pairs": len(common_keys),
+            "n_atom_pairs": n_common,
             "n_atoms_dropped": n_dropped,
             "n_paired_ca": n_paired_ca,
             "superposition_rmsd": mhc_rmsd,
@@ -583,6 +686,63 @@ if __name__ == "__main__":
     res_e_pdb = score_prediction(self_pdb, SINGLE_COPY_CIF, SINGLE_COPY_PEPTIDE)
     print("  cif->cif:", res_e_cif["peptide_backbone_rmsd"])
     print("  pdb->cif:", res_e_pdb["peptide_backbone_rmsd"])
+    print("PASSED\n")
+
+    print("=" * 70)
+    print("TEST (f): reference peptide missing an INTERNAL residue -> pairing")
+    print("           must not desynchronize; RMSD must still match the")
+    print("           analytical shift (regression test for the ordinal-")
+    print("           position pairing bug -- see module docstring, fix #1)")
+    print("=" * 70)
+    s_gapref = load_structure(SINGLE_COPY_CIF)
+    for chain in s_gapref[0]:
+        if chain_sequence(chain) == SINGLE_COPY_PEPTIDE:
+            pep_residues = [
+                r for r in chain if r.id[0] == " " and r.get_resname() in _THREE_TO_ONE
+            ]
+            # Delete an INTERNAL residue (4th of 9; neither first nor last) to
+            # mimic an unresolved side chain in a real reference structure
+            # (e.g. 9ASF/9ASG's unresolved Trp6).
+            internal_res = pep_residues[3]
+            chain.detach_child(internal_res.get_id())
+    gapref_pdb = tmpdir / "22EE_pep_internal_gap.pdb"
+    write_pdb(s_gapref, gapref_pdb)
+
+    expected_gap_seq = SINGLE_COPY_PEPTIDE[:3] + SINGLE_COPY_PEPTIDE[4:]
+    gap_struct_check = load_structure(gapref_pdb)
+    gap_seq = next(
+        chain_sequence(c) for c in gap_struct_check[0] if len(chain_sequence(c)) == 8
+    )
+    assert gap_seq == expected_gap_seq, "TEST (f) setup sanity check failed"
+
+    s_modshift = load_structure(SINGLE_COPY_CIF)
+    shift_f = np.array([2.0, 1.0, 2.0], dtype=float)  # magnitude = 3.0
+    shift_f_mag = float(np.linalg.norm(shift_f))
+    for chain in s_modshift[0]:
+        if chain_sequence(chain) == SINGLE_COPY_PEPTIDE:
+            for residue in chain:
+                for atom in residue:
+                    atom.coord = atom.coord + shift_f
+    modshift_pdb = tmpdir / "22EE_pep_shifted_for_gap_test.pdb"
+    write_pdb(s_modshift, modshift_pdb)
+
+    # expected_peptide is the FULL 9-mer (what the modeled chain has and what
+    # the manifest would record); the reference only resolves 8 of those 9
+    # residues, exactly mirroring the 9ASF/9ASG situation described in the
+    # task write-up (exact-sequence match fails, length-range fallback
+    # accepts the 8-mer).
+    res_f = score_prediction(modshift_pdb, gapref_pdb, SINGLE_COPY_PEPTIDE, copy_policy="best")
+    print(fmt(res_f))
+    print(f"    analytically expected RMSD: {shift_f_mag:.6f}")
+    assert abs(res_f["peptide_backbone_rmsd"] - shift_f_mag) < 1e-3, (
+        "TEST (f) FAILED: an internal reference-peptide gap desynchronized the "
+        "residue pairing (this is exactly the ordinal-position bug this fix "
+        "addresses)"
+    )
+    # 8 resolved reference residues x 4 backbone atoms, all present -> 32 pairs.
+    assert res_f["n_atom_pairs"] == 32, (
+        f"TEST (f) FAILED: expected 32 paired backbone atoms, got {res_f['n_atom_pairs']}"
+    )
     print("PASSED\n")
 
     shutil.rmtree(tmpdir, ignore_errors=True)

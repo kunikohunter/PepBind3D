@@ -85,23 +85,38 @@ for tdir in sorted(ARM.iterdir()):
     scores = read_scores(score_sc)
 
     rms = {}
+    diag = {}
     for d in decoys:
         try:
-            rms[d.stem] = score_prediction(d, ref, pep, copy_policy="best")["peptide_backbone_rmsd"]
+            res = score_prediction(d, ref, pep, copy_policy="best")
         except Exception as e:
             print(f"   ! {tid} {d.name}: {type(e).__name__}: {e}", file=sys.stderr)
+            continue
+        rmsd = res["peptide_backbone_rmsd"]
+        assert rmsd <= 10.0, (
+            f"{tid} {d.name}: peptide_backbone_rmsd={rmsd:.3f} exceeds 10 A "
+            f"sanity ceiling -- treat as a correspondence failure, not a bad model"
+        )
+        rms[d.stem] = rmsd
+        diag[d.stem] = res
 
     if not rms:
         print(f"{tid:8s} SKIP (all decoys failed to score)")
         continue
 
     for tag, rmsd in rms.items():
+        d = diag[tag]
         decoy_rows.append({
             "pdb_id": tid,
             "peptide_seq": pep,
             "decoy": tag,
             "peptide_backbone_rmsd": rmsd,
             "total_score": scores.get(tag, ""),
+            "n_atom_pairs": d.get("n_atom_pairs", ""),
+            "n_atoms_dropped": d.get("n_atoms_dropped", ""),
+            "n_paired_ca": d.get("n_paired_ca", ""),
+            "superposition_rmsd": d.get("superposition_rmsd", ""),
+            "warnings": "; ".join(d.get("warnings", []) or []),
         })
 
     # Rank decoys by ascending RMSD (1 = most accurate) among those we scored.
@@ -154,6 +169,8 @@ with open(SUMMARY_CSV, "w", newline="") as fh:
 with open(DECOYS_CSV, "w", newline="") as fh:
     w = csv.DictWriter(fh, fieldnames=[
         "pdb_id", "peptide_seq", "decoy", "peptide_backbone_rmsd", "total_score",
+        "n_atom_pairs", "n_atoms_dropped", "n_paired_ca", "superposition_rmsd",
+        "warnings",
     ])
     w.writeheader()
     w.writerows(decoy_rows)

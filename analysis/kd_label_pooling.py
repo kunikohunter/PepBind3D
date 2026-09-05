@@ -46,12 +46,6 @@ from scipy.stats import kruskal, ks_2samp
 # authors' hardcoded cluster path isn't found. RAW_IEDB_FN is unchanged and
 # was found in place.
 METADATA_FN = "/home/huntek1/main_project/data/IEDB_data_clean/huggingface/metadata.csv"
-METADATA_FN_FALLBACK = (
-    "/tmp/claude-244980/-panfs-accrepfs-vampire-home-huntek1-main-project-scripts/"
-    "d185a2a2-24f4-4441-9ef0-87530bbb58c6/scratchpad/hf_metadata/metadata.csv"
-)
-if not Path(METADATA_FN).is_file() and Path(METADATA_FN_FALLBACK).is_file():
-    METADATA_FN = METADATA_FN_FALLBACK
 RAW_IEDB_FN = "/home/huntek1/Data/MHC_database/build/mhc_ligand_full.csv"
 
 # 2026-09-04 fix: the third label was "dissociation constant (~IC50)" (missing

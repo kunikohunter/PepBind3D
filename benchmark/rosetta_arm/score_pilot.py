@@ -64,9 +64,18 @@ for tdir in sorted(PILOT.iterdir()):
     rms = {}
     for d in decoys:
         try:
-            rms[d.stem] = score_prediction(d, ref, pep, copy_policy="best")["peptide_backbone_rmsd"]
+            res = score_prediction(d, ref, pep, copy_policy="best")
         except Exception as e:
             print(f"   ! {tid} {d.name}: {type(e).__name__}: {e}", file=sys.stderr)
+            continue
+        rmsd = res["peptide_backbone_rmsd"]
+        assert rmsd <= 10.0, (
+            f"{tid} {d.name}: peptide_backbone_rmsd={rmsd:.3f} exceeds 10 A "
+            f"sanity ceiling -- treat as a correspondence failure, not a bad model"
+        )
+        rms[d.stem] = rmsd
+        for w in res.get("warnings", []) or []:
+            print(f"   ! {tid} {d.name}: {w}", file=sys.stderr)
 
     if not rms:
         print(f"{tid:8s} SKIP (all decoys failed to score)")
