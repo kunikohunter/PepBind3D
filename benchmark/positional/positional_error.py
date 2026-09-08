@@ -32,6 +32,7 @@ ARMS = {
     "Boltz-2":    (f"{B}/cofold_arm/boltz2/results/boltz2_summary.csv", None),
     "Boltz-1":    (f"{B}/cofold_arm/boltz1/results/boltz1_summary.csv", None),
     "Chai-1":     (f"{B}/cofold_arm/chai1/results/chai1_summary.csv", None),
+    "Protenix":   (f"{B}/cofold_arm/protenix/results/protenix_summary.csv", None),
 }
 DECOYS = {
     "Rosetta":    f"{B}/rosetta_arm/results/arm_decoys.csv",
@@ -39,6 +40,7 @@ DECOYS = {
     "Boltz-2":    f"{B}/cofold_arm/boltz2/results/boltz2_decoys.csv",
     "Boltz-1":    f"{B}/cofold_arm/boltz1/results/boltz1_decoys.csv",
     "Chai-1":     f"{B}/cofold_arm/chai1/results/chai1_decoys.csv",
+    "Protenix":   f"{B}/cofold_arm/protenix/results/protenix_decoys.csv",
 }
 SEARCH = {
     "Rosetta":    [f"{B}/rosetta_arm/arm/{{t}}/docking"],
@@ -46,6 +48,7 @@ SEARCH = {
     "Boltz-2":    [f"{B}/cofold_arm/boltz2/out/{{t}}"],
     "Boltz-1":    [f"{B}/cofold_arm/boltz1/out/{{t}}"],
     "Chai-1":     [f"{B}/cofold_arm/chai1/out/{{t}}"],
+    "Protenix":   [f"{B}/cofold_arm/protenix/out/{{t}}/pmhc_input/seed_101/predictions"],
 }
 
 
@@ -64,11 +67,23 @@ def selected_file(arm, target, decoy_name):
                 return f
         hits = sorted(glob.glob(f"{B}/cofold_arm/chai1/out/{target}/structures/**/*.cif", recursive=True))
         return hits[0] if hits else None
+    # Exact stem match, NOT a substring test. A substring test collides:
+    # decoy "model_1" is contained in pmhc_input_model_10.cif ... _model_19.cif,
+    # and likewise "sample_1" in pmhc_input_sample_10.cif, so the wrong
+    # structure could be scored for decoys 1-9 in the Boltz and Protenix arms.
+    # Every arm's filename is either exactly the decoy name (AlphaFold2) or the
+    # decoy name preceded by an underscore (Boltz, Protenix).
+    def _is_match(path):
+        stem = os.path.splitext(os.path.basename(path))[0]
+        return stem == decoy_name or stem.endswith(f"_{decoy_name}")
+
+    if not decoy_name:
+        return None
     for root in SEARCH[arm]:
         base = root.format(t=target)
         for ext in ("pdb", "cif"):
-            hits = [f for f in glob.glob(f"{base}/**/*.{ext}", recursive=True)
-                    if decoy_name and decoy_name in os.path.basename(f)]
+            hits = sorted(f for f in glob.glob(f"{base}/**/*.{ext}", recursive=True)
+                          if _is_match(f))
             if hits:
                 return hits[0]
     return None
@@ -80,7 +95,7 @@ def analyse(pred_path, ref_path, peptide):
     exp = M.load_structure(ref_path)
     mod_pep = M.find_peptide_chain_in_modeled(mod, peptide)
     mod_mhc = M.find_mhc_chain_in_modeled(mod, mod_pep.id)
-    copies = M.find_copies_in_reference(exp, peptide, mod_mhc)
+    copies = M.find_copies_in_reference(exp, peptide, mhc_reference_seq=M.chain_sequence(mod_mhc))  # 3rd positional arg is peptide_length_range, NOT mhc_reference_seq
     if not copies:
         return None
     exp_pep, exp_mhc = copies[0][0], copies[0][1]

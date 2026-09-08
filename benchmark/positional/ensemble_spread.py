@@ -67,10 +67,28 @@ for r in csv.DictReader(open(SUMMARY)):
         probe = M.load_structure(files[0])
         probe_pep = M.find_peptide_chain_in_modeled(probe, pep)
         probe_mhc = M.find_mhc_chain_in_modeled(probe, probe_pep.id)
-        copies = M.find_copies_in_reference(exp, pep, probe_mhc)
+        copies = M.find_copies_in_reference(exp, pep, mhc_reference_seq=M.chain_sequence(probe_mhc))  # 3rd positional arg is peptide_length_range, NOT mhc_reference_seq
         if not copies:
             skipped.append((target, "no peptide/MHC copy in reference")); continue
-        exp_pep, exp_mhc = copies[0][0], copies[0][1]
+        # Try each copy, not just the first, mirroring score_prediction() in the
+        # metric (pmhc_rmsd.py ~line 519), which loops over copies and falls
+        # through on ValueError. This is a consistency measure only: with
+        # mhc_reference_seq passed correctly above, copies[0] is already the
+        # right copy for every target in this benchmark. It is NOT what fixed
+        # the nine previously-dropped targets -- that was the keyword argument.
+        # Kept so the two code paths cannot disagree on which copy they score.
+        exp_pep = exp_mhc = None
+        first_err = None
+        probe_mp = M.find_peptide_chain_in_modeled(probe, pep)
+        for cand_pep, cand_mhc in copies:
+            try:
+                M.superpose_on_mhc(M.find_mhc_chain_in_modeled(probe, probe_mp.id), cand_mhc)
+                exp_pep, exp_mhc = cand_pep, cand_mhc
+                break
+            except ValueError as e:
+                first_err = first_err or e
+        if exp_mhc is None:
+            skipped.append((target, f"no copy superposed ({first_err})")); continue
         exp_res = [x for x in exp_pep if x.id[0] == " "]
         bf = {}
         for i, x in enumerate(exp_res):
