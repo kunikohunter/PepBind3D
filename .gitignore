@@ -57,3 +57,8 @@ scratchpad/
 # Companion run trees, symlinked here for grouping only. These point at
 # hundreds of GB and over a million files; git must never walk them.
 run/
+
+# Per-prediction fold output from analysis/affinity_baseline.py: 88k rows,
+# ~15 MB, fully regenerable from the script. The reported numbers live in
+# affinity_baseline_metrics.json and affinity_baseline_per_allele.csv.
+analysis/results/affinity_baseline_fold_predictions.csv
