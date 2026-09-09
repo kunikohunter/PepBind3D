@@ -28,13 +28,10 @@ Rosetta tree; `formats.py` is unchanged. The generation logic — threading
 order, template selection, docking protocol — is the same. Structures in this
 release stamp `REMARK 220 VERSION 2024.09+release.06b3cf8`.
 
-Note that threading-template selection in the published `HLA_db.py` computes
-`omit_self` but does not apply it, so a pair whose own crystal is in the
-template database is threaded onto itself. This affects only pairs with a
-native PDB in the local database (~0.1% of the release); `regeneration/`
-re-runs the 52 validation pairs with self-exclusion enabled so that the
-structural validation measures modeling accuracy rather than refinement of a
-self-template.
+Threading-template selection in the published `HLA_db.py` computes `omit_self`
+but does not apply it, so a pair whose own crystal is in the template database
+is threaded onto itself (~0.1% of the release). See `regeneration/`, which
+re-runs the 52 validation pairs with self-exclusion enabled.
 
 - `IEDBTestPipeline.py` — curation pipeline: reads the IEDB MHC ligand bulk
   download, filters to HLA-A/HLA-B with quantitative IC50/Kd measurements,
@@ -81,15 +78,15 @@ All scores are in Rosetta Energy Units (REU); lower is more favorable.
 
 ## Helper scripts
 
-- `parse_scorefiles.py` — parses per-pair `score.sc` files into a summary table
+- `release/parse_scorefiles.py` — parses per-pair `score.sc` files into a summary table
   of best/mean I_sc, reweighted_sc, total_score, and pep_sc.
-- `rebuild_metadata.py` — merges the parsed score summaries into `metadata.csv`,
+- `release/rebuild_metadata.py` — merges the parsed score summaries into `metadata.csv`,
   adding the six score-summary columns.
-- `attrition_counts.py` — reproduces the record-attrition funnel (Supplementary
+- `analysis/attrition_counts.py` — reproduces the record-attrition funnel (Supplementary
   Table S2) from the raw IEDB download and the released metadata.
-- `quick_metric_comparison.py` — pooled Spearman correlations for each score
+- `analysis/quick_metric_comparison.py` — pooled Spearman correlations for each score
   metric (Supplementary Table S6).
-- `censoring_sensitivity.py`, `censoring_diagnostic.py` — robustness checks on
+- `analysis/censoring_sensitivity.py`, `analysis/censoring_diagnostic.py` — robustness checks on
   the assay-detection-limit censoring rule.
 
 ## Paths
