@@ -131,6 +131,17 @@ else
     USE_PRECOMPUTED="false"
 fi
 
+# RELAXATION: --models_to_relax=none, matching run_alphafold2.sh. Without it
+# run_alphafold.py defaults to `best`, which Amber-relaxes the top-ranked
+# prediction and writes relaxed_model_*.pdb plus a full ranked_*.pdb series.
+# That is what this script did before 2026-09-08, so every target already on
+# disk carries 25 ranked_* files and 1 relaxed_* file alongside the 25
+# unrelaxed_* ones. Those extras are NOT scored -- score_target.py reads
+# MANIFEST_unrelaxed.txt, ensemble_spread.py filters on "unrelaxed" in the
+# basename, positional_error.py matches decoy names exactly -- so no relaxed
+# structure has ever entered the benchmark numbers and the existing arm does
+# not need re-running. The flag is set here so future runs stop producing 26
+# stray files per target for a consumer to glob into by mistake.
 echo "Running AlphaFold2-Multimer -> $OUT_DIR (use_precomputed_msas=$USE_PRECOMPUTED)"
 
 python "$AF2_REPO/run_alphafold.py" \
@@ -140,7 +151,7 @@ python "$AF2_REPO/run_alphafold.py" \
     --model_preset=multimer \
     --num_multimer_predictions_per_model=5 \
     --max_template_date=2023-12-31 \
-    --use_gpu_relax \
+    --models_to_relax=none \
     --use_precomputed_msas="$USE_PRECOMPUTED" \
     --uniref90_database_path="$AF2_DATADIR/uniref90/uniref90.fasta" \
     --mgnify_database_path="$AF2_DATADIR/mgnify/mgy_clusters_2022_05.fa" \

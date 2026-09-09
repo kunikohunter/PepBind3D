@@ -70,7 +70,14 @@
 #   `best`; confirmed via `flags.DEFINE_enum_class('models_to_relax', ...)`
 #   in run_alphafold.py) to skip Amber relaxation entirely -- this also
 #   saves the relax wall-clock time and means no relaxed_*.pdb or ranked_*
-#   file is ever produced, so there is nothing to accidentally pick up.
+#   file is ever produced BY THIS SCRIPT.
+#
+#   Caveat, found 2026-09-08: the benchmark's af2_reuse arm was not built by
+#   this script. It was built by run_af2_reuse.sh, which until that date did
+#   NOT pass the flag, so relaxed_* and ranked_* files DO exist on disk for
+#   every target in cofold_arm/af2_reuse/out/. They are not scored -- every
+#   consumer selects the unrelaxed set explicitly -- but do not read the
+#   sentence above as a guarantee about what is in that directory.
 #   The canonical scored set is the 25
 #   unrelaxed_model_{1..5}_multimer_v3_pred_{0..4}.pdb files; the wrapper
 #   calls af2_postprocess.py after a successful run to write a manifest
