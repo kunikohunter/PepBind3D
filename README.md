@@ -84,8 +84,6 @@ All scores are in Rosetta Energy Units (REU); lower is more favorable.
   adding the six score-summary columns.
 - `analysis/attrition_counts.py` — reproduces the record-attrition funnel (Supplementary
   Table S2) from the raw IEDB download and the released metadata.
-- `analysis/quick_metric_comparison.py` — pooled Spearman correlations for each score
-  metric (Supplementary Table S6).
 - `analysis/censoring_sensitivity.py`, `analysis/censoring_diagnostic.py` — robustness checks on
   the assay-detection-limit censoring rule.
 

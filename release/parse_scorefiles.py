@@ -21,7 +21,10 @@ from pathlib import Path
 
 import pandas as pd
 
-DEFAULT_METRICS = ("reweighted_sc", "I_sc", "total_score")
+# pep_sc is required: Supplementary Table S6 reports it, and omitting it here
+# is what made S6 irreproducible between 2026-07 and 2026-09 -- score_summary.csv
+# was regenerated without it and the comparison silently dropped from 16 rows to 12.
+DEFAULT_METRICS = ("reweighted_sc", "I_sc", "total_score", "pep_sc")
 
 
 def parse_scorefile(path: Path) -> pd.DataFrame:
