@@ -6,3 +6,59 @@ REVISION_PLAN.md
 .claude/
 PepBind3D_072026_Submitted.docx
 Reviews.docx
+# --- Structure data: belongs in the HuggingFace dataset, never in git ---
+*.pdb
+*.cif
+*.silent
+*.silent.bak
+*.sc
+
+# --- Rosetta / co-folding run trees (tens of GB, regenerable) ---
+benchmark/rosetta_arm/arm/
+benchmark/rosetta_arm/pilot/
+benchmark/refs/cif/
+benchmark/af2_msa/msa_cache/
+benchmark/wrappers/test_*/
+hlac_production/
+hlac/
+
+# --- AlphaFold2 / model intermediates ---
+*.pkl
+*.npz
+msas/
+features.pkl
+result_*.pkl
+ranked_*.pdb
+
+# --- Cluster logs and job artifacts ---
+logs/
+*.out
+*.err
+*.log
+slurm-*.out
+ROSETTA_CRASH.log
+
+# --- Generated job/target lists (rebuilt by build_arm.py) ---
+arm_joblist.txt
+arm_skipped.csv
+dock_tasklist.txt
+
+# --- Revision/manuscript material (public repo) ---
+paper_corrections.md
+
+# --- Local agent/session state ---
+.loops-mem/
+scratchpad/
+.DS_Store
+
+# Regeneration run records are deliberately tracked as provenance
+!regeneration/*.out
+
+# Companion run trees, symlinked here for grouping only. These point at
+# hundreds of GB and over a million files; git must never walk them.
+run/
+
+# Per-prediction fold output from analysis/affinity_baseline.py: 88k rows,
+# ~15 MB, fully regenerable from the script. The reported numbers live in
+# affinity_baseline_metrics.json and affinity_baseline_per_allele.csv.
+analysis/results/affinity_baseline_fold_predictions.csv

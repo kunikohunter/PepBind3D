@@ -1,0 +1,224 @@
+pdb_id,resolution,release_date,locus,allele_text,peptide_seq,peptide_len,heavy_chain_id,b2m_chain_id,peptide_chain_id,n_copies_in_asu,notes
+22EE,1.99,2026-06-24,HLA-A,HLA class I antigen,SLWQLLQAA,9,A,B,C,1,
+24ST,2.7,2026-07-01,HLA-B,HLA-B*81:01,TPQDLNTML,9,A,D,E,1,multiple candidate heavy-chain entities (2); heavy chain entity length atypical (204 aa; expected ~270-280) - possible fusion/tag/truncated construct
+28IL,3.1,2026-07-15,HLA-A,HLA A*2402,NYNYLYRLF,9,A,B,C,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+33CG,2.2,2026-08-26,HLA-A,HLA-A*02:01,GVYDGREHTV,10,A,B,C,1,heavy chain entity length atypical (296 aa; expected ~270-280) - possible fusion/tag/truncated construct
+33CH,2.4,2026-08-26,HLA-A,HLA-A*02:01,GVYDGREHTV,10,A,B,C,1,heavy chain entity length atypical (296 aa; expected ~270-280) - possible fusion/tag/truncated construct
+33CI,2.2,2026-08-26,HLA-A,HLA-A*02:01,GVYDGREHTV,10,A,B,C,1,heavy chain entity length atypical (296 aa; expected ~270-280) - possible fusion/tag/truncated construct
+43RH,3.33,2026-07-29,murine,"Histocompatibility 2, Q region locus 7",HALNVVHDW,9,A,B,P,1,multiple candidate heavy-chain entities (2)
+43RZ,2.0,2026-07-22,murine,"Histocompatibility 2, Q region locus 7",HALNVVHDW,9,A,B,P,1,
+43SK,2.03,2026-07-22,murine,"Histocompatibility 2, Q region locus 7",AALNVVHDW,9,A,B,P,1,
+43SR,2.03,2026-07-29,murine,"Histocompatibility 2, Q region locus 7",HALAVVHDW,9,A,B,P,1,
+43SY,1.8,2026-07-29,murine,"Histocompatibility 2, Q region locus 7",HALNAVHDW,9,A,B,P,1,
+43TE,2.29,2026-07-29,murine,"Histocompatibility 2, Q region locus 7",HALNVVHAW,9,A,B,P,1,
+8EMF,1.80482421415,2024-03-27,HLA-B,HLA-B*35:01,LPFDKSTVM,9,A,B,C,1,
+8EMG,1.83001273614,2024-03-27,HLA-B,HLA-B*35:01,LPFEKSTIM,9,A,B,C,1,
+8EMI,1.57301511861,2024-03-27,HLA-B,HLA-B*35:01,LPFDKATIM,9,A,B,C,1,
+8EMJ,1.75002880736,2024-03-27,HLA-B,HLA-B*35:01,LPFDIATIM,9,A,B,C,1,
+8EMK,1.66523002948,2024-03-27,HLA-B,HLA-B*35:01,LPFDKPTIM,9,A,B,C,1,
+8EN8,2.70001191123,2024-03-27,HLA-B,HLA-B*35:01,LPFDKSTIM,9,A,B,C,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+8ENH,2.50003195312,2024-03-27,HLA-B,HLA-B*35:01,LPFEKSTIM,9,A,B,C,4,"multiple candidate heavy-chain entities (3); >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P'], peptide chains: ['C', 'H', 'M', 'R']); manifest reports FIRST copy only (C)"
+8EO8,2.30000092477,2024-03-27,HLA-B,HLA-B*35:01,LPFDKATIM,9,A,B,C,4,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P'], peptide chains: ['C', 'H', 'M', 'R']); manifest reports FIRST copy only (C)"
+8F5A,1.95,2024-05-22,HLA-B,HLA-B*57:01,TSTLQEQIGW,10,A,B,E,1,multiple candidate heavy-chain entities (2)
+8F7M,1.88,2024-06-05,HLA-B,HLA-B*57:01,TSNLQEQIGW,10,A,B,C,1,
+8FU4,1.6,2024-03-27,HLA-A,HLA-A*02:01,TLFDEPPPL,9,A,B,C,1,
+8J4G,2.49,2024-04-24,unclassified,MHC class I antigen,AEAIIVAMV,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8JHW,3.12,2024-05-29,murine,H-2Kb,VTFEKSYNTV,10,A,B,C,1,
+8JQT,1.99,2024-06-19,unclassified,MHC class I antigen alpha chain,GPAKGIEYD,9,A,B,C,1,
+8JV0,2.2,2024-06-05,HLA-C,MHC class I antigen,YMNCSLPTY,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8K4T,2.3,2025-01-29,HLA-A,HLA-A*11:01,VVVGACGVGK,10,A,B,C,2,"b2m entity length atypical (122 aa; expected ~99) - possible fusion/tag construct; >1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8K4V,3.095,2025-01-29,HLA-A,HLA-A*11:01,VVVGARGVGK,10,A,B,C,4,"b2m entity length atypical (122 aa; expected ~99) - possible fusion/tag construct; >1 copy of complex in ASU (heavy chains: ['A', 'D', 'G', 'J'], peptide chains: ['C', 'F', 'I', 'L']); manifest reports FIRST copy only (C)"
+8K50,2.8,2025-01-29,HLA-A,HLA-A*11:01,VVVGAVGVGK,10,A,B,C,4,"b2m entity length atypical (122 aa; expected ~99) - possible fusion/tag construct; >1 copy of complex in ASU (heavy chains: ['A', 'D', 'G', 'J'], peptide chains: ['C', 'F', 'I', 'L']); manifest reports FIRST copy only (C)"
+8KB0,2.48,2024-05-29,unclassified,MHC class I antigen alpha chain,AEAIIVAMV,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8KB1,2.46,2024-05-29,unclassified,MHC class I antigen,AEAIIVAMV,9,A,B,C,1,
+8KCV,2.39,2024-08-14,unclassified,MHC class I antigen,CAAMDDFQL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8P43,2.43,2024-06-12,murine,"H-2 class I histocompatibility antigen, Qa-1b",AQAERTPEL,9,A,B,P,1,
+8QFY,2.33,2024-05-15,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",RLPAKAPLL,9,AAA,BBB,CCC,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['AAA', 'FFF'], peptide chains: ['CCC', 'HHH']); manifest reports FIRST copy only (CCC)"
+8RBU,2.7,2024-05-15,HLA-A,HLA-A*11:01,SVLNDILARL,10,A,B,C,1,heavy chain entity length atypical (365 aa; expected ~270-280) - possible fusion/tag/truncated construct
+8RBV,1.8,2024-05-15,HLA-A,HLA-A*02:01,VLNDILARL,9,A,B,C,1,heavy chain entity length atypical (365 aa; expected ~270-280) - possible fusion/tag/truncated construct
+8RCV,1.65,2024-05-15,HLA-B,HLA B*13:01,SVLNDIFSRL,10,A,B,C,1,heavy chain entity length atypical (362 aa; expected ~270-280) - possible fusion/tag/truncated construct
+8REF,1.9,2024-05-15,HLA-B,HLA B*13:01,SVLNDILARL,10,A,B,C,1,heavy chain entity length atypical (362 aa; expected ~270-280) - possible fusion/tag/truncated construct
+8RH6,3.32,2024-05-15,HLA-A,HLA-A*11:01,SVLNDILSRL,10,A,B,G,3,"heavy chain entity length atypical (365 aa; expected ~270-280) - possible fusion/tag/truncated construct; >1 copy of complex in ASU (heavy chains: ['A', 'C', 'E'], peptide chains: ['G', 'H', 'I']); manifest reports FIRST copy only (G)"
+8RHQ,2.0,2024-05-15,HLA-A,HLA-A*11:01,SVLNDIFSRL,10,A,B,G,3,"heavy chain entity length atypical (365 aa; expected ~270-280) - possible fusion/tag/truncated construct; >1 copy of complex in ASU (heavy chains: ['A', 'C', 'E'], peptide chains: ['G', 'H', 'I']); manifest reports FIRST copy only (G)"
+8RJ5,3.02,2025-01-01,HLA-A,HLA A*2402,NYNYLYRLF,9,A,B,C,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+8RJH,2.6,2025-01-01,HLA-A,HLA A*2402,NYNYLFRLF,9,A,B,C,6,">1 copy of complex in ASU (heavy chains: ['A', 'D', 'G', 'J', 'M', 'P'], peptide chains: ['C', 'F', 'I', 'L', 'O', 'R']); manifest reports FIRST copy only (C)"
+8RJI,2.3,2025-01-01,HLA-A,HLA A*2402,NYNYRYRLF,9,A,B,C,4,">1 copy of complex in ASU (heavy chains: ['A', 'D', 'G', 'J'], peptide chains: ['C', 'F', 'I', 'L']); manifest reports FIRST copy only (C)"
+8RLT,2.25,2024-10-16,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",ILSPFLPLL,9,A,B,C,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+8RLU,2.35,2024-10-16,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",ILNPFLPLL,9,A,B,C,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+8RLV,2.609,2024-10-16,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",ILSPFIPLL,9,A,B,C,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+8RNE,1.71,2024-12-04,other-nonclassical,"HLA class I histocompatibility antigen, E alpha chain variant",VMPLSAPTL,9,A,B,E,3,">1 copy of complex in ASU (heavy chains: ['A', 'C', 'F'], peptide chains: ['E', 'H', 'P']); manifest reports FIRST copy only (E)"
+8RNF,1.872,2024-12-04,other-nonclassical,"HLA class I histocompatibility antigen, E alpha chain variant",VIPLSAPTL,9,A,B,E,3,">1 copy of complex in ASU (heavy chains: ['A', 'C', 'F'], peptide chains: ['E', 'H', 'P']); manifest reports FIRST copy only (E)"
+8RNG,1.45,2024-05-08,HLA-B,HLA B*18:01,TEVETYVL,8,A,B,C,1,
+8RNH,1.6,2024-05-08,HLA-B,HLA B*18:01,EEIEITTHF,9,A,B,C,1,
+8RNI,2.49,2025-01-22,HLA-A,HLA-A*03:01,VVVGAVGVGK,10,A,B,C,1,
+8ROO,1.4,2024-05-08,HLA-B,HLA B*18:01,YERMCNIL,8,A,C,B,1,
+8ROP,1.15,2024-05-08,HLA-B,HLA B*18:01,QEIRTFSF,8,A,B,C,1,
+8RRO,3.5,2024-11-20,HLA-A,"HLA class I histocompatibility antigen, A alpha chain",VVVGAVGVGK,10,A,D,E,8,"multiple candidate heavy-chain entities (2); heavy chain entity length atypical (206 aa; expected ~270-280) - possible fusion/tag/truncated construct; >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P', 'U', 'Z', 'e', 'j'], peptide chains: ['E', 'J', 'O', 'T', 'Y', 'd', 'i', 'n']); manifest reports FIRST copy only (E)"
+8RYM,2.34,2024-09-04,HLA-A,HLA-A*03:01,ELFSYLIEK,9,A,B,C,1,
+8RYN,1.97,2024-09-04,HLA-A,HLA-A*11:01,ELFSYLIEK,9,A,B,C,1,
+8RYO,2.05,2024-09-04,HLA-A,HLA-A*03:01,ELFSYLIEK,9,A,B,C,1,
+8RYP,1.81,2024-09-04,HLA-A,HLA-A*03:01,ELFSYLIEK,9,A,B,C,1,
+8RYQ,2.49,2024-09-04,HLA-A,HLA-A*11:01,ELFSYLIEK,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+8T6M,3.14,2024-12-25,HLA-A,MHC class I antigen,VTEHDTLLY,9,E,F,G,1,heavy chain entity length atypical (181 aa; expected ~270-280) - possible fusion/tag/truncated construct
+8T7R,3.84,2024-12-25,HLA-A,MHC class I antigen (Fragment),VTEHDTLLY,9,C,D,0,9,">1 copy of complex in ASU (heavy chains: ['C', 'G', 'K', 'O', 'S', 'W', 'a', 'e', 'i'], peptide chains: ['0', '1', '2', '3', '4', '5', '6', '7', '8']); manifest reports FIRST copy only (0)"
+8TBV,2.64,2024-01-17,HLA-A,HLA-A*02:01,KLSHQLVLL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8TBW,2.081,2024-01-10,HLA-A,HLA-A*02:01,KLSHQPVLL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8TMU,2.9,2024-12-18,HLA-B,HLA-B*73:01,NRFAGFGIGL,10,A,B,E,1,
+8TQ4,3.59,2025-02-05,murine,D-d,RGPGRAFVTI,10,A,B,G,2,">1 copy of complex in ASU (heavy chains: ['A', 'E'], peptide chains: ['G', 'P']); manifest reports FIRST copy only (G)"
+8TQ5,2.3,2025-02-05,HLA-B,HLA-B*44:05,EEFGRAFSF,9,A,B,P,1,
+8TQ6,3.2,2025-02-05,HLA-B,HLA-B*44:05,EEFGRAFSF,9,A,B,E,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['E', 'P']); manifest reports FIRST copy only (E)"
+8TQ7,2.8,2024-03-20,murine,D-D,RGPGRAFVTI,10,A,B,E,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['E', 'P']); manifest reports FIRST copy only (E)"
+8TQ8,2.69,2024-03-20,murine,D-D,RGPGRAFVTI,10,A,B,E,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['E', 'P']); manifest reports FIRST copy only (E)"
+8TQ9,2.9,2024-03-20,murine,D-D,RGPGRAFVTI,10,A,B,P,1,
+8TQA,2.6,2024-03-20,murine,D-B,ASNENMETM,9,A,B,P,1,
+8TUB,2.4,2024-03-13,HLA-B,B-7,HPNGYKSLSTL,11,C,A,D,4,">1 copy of complex in ASU (heavy chains: ['C', 'F', 'G', 'J'], peptide chains: ['D', 'H', 'K', 'Q']); manifest reports FIRST copy only (D)"
+8TUH,2.20010596362,2024-03-13,HLA-B,B-7,RPIIRPATL,9,A,B,F,1,
+8U9G,2.87,2024-01-10,HLA-A,HLA-A*02:01,KLSHQLVLL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8UDR,3.1,2024-10-16,HLA-A,"HLA class I histocompatibility antigen, A alpha chain",VVVGACGVGK,10,A,B,C,1,
+8UMO,2.6,2024-01-17,murine,"H-2 class I histocompatibility antigen, D-37 alpha chain",AMAPRTLLL,9,A,B,P,1,
+8UTC,2.4,2025-03-19,HLA-B,"HLA class I histocompatibility antigen, B alpha chain",SPRWYFFYL,9,A,B,E,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['E', 'F']); manifest reports FIRST copy only (E)"
+8V4Z,2.40000208775,2024-12-18,HLA-B,HLA-B*35:01,LPFEKSTIM,9,A,B,C,4,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P'], peptide chains: ['C', 'H', 'M', 'R']); manifest reports FIRST copy only (C)"
+8V50,2.6500177696,2024-12-18,HLA-B,HLA-B35,LPFDKSTVM,9,A,B,C,4,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P'], peptide chains: ['C', 'H', 'M', 'R']); manifest reports FIRST copy only (C)"
+8V51,2.10000032944,2024-12-18,HLA-B,HLA-B35,LPFEKSTVM,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+8V8Q,1.85,2025-03-19,HLA-B,"HLA class I histocompatibility antigen, B alpha chain",SPRWYFYYT,9,A,B,C,1,
+8VCL,2.4,2024-12-11,HLA-A,HLA-A*03:01,ALHGGWTTK,9,A,B,C,1,
+8VJZ,1.9,2024-12-11,HLA-A,HLA-A*03:01,VVVGAGGVGK,10,A,B,C,1,
+8VR9,3.06,2024-09-04,HLA-A,"HLA class I histocompatibility antigen, A alpha chain",VVGACGVGK,9,A,B,C,1,
+8VRA,3.12,2024-09-04,HLA-A,"HLA class I histocompatibility antigen, A alpha chain",VVVGACGVGK,10,A,B,C,1,
+8VRB,3.25,2024-09-04,HLA-A,HLA-A antigen,VVVGACGVGK,10,A,B,C,1,
+8W6L,2.03,2024-08-07,HLA-C,MHC class I antigen,TMYSLGYIF,9,A,B,C,1,
+8WO9,1.55,2024-10-09,unclassified,MHC class I antigen,IMFSNKMAR,9,A,B,C,1,
+8WTE,2.17,2024-05-01,HLA-A,HLA-A*11:01,VVGAVGVGK,9,A,F,G,2,"multiple candidate heavy-chain entities (2); heavy chain entity length atypical (198 aa; expected ~270-280) - possible fusion/tag/truncated construct; >1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['G', 'J']); manifest reports FIRST copy only (G)"
+8WUL,2.36,2024-05-01,HLA-A,HLA-A*11:01,VVGAVGVGK,9,A,J,K,4,"multiple candidate heavy-chain entities (2); heavy chain entity length atypical (198 aa; expected ~270-280) - possible fusion/tag/truncated construct; >1 copy of complex in ASU (heavy chains: ['A', 'C', 'E', 'G'], peptide chains: ['K', 'N', 'Q', 'T']); manifest reports FIRST copy only (K)"
+8XES,1.78,2024-07-10,HLA-A,HLA class I heavy chain,DVMTYIHSM,9,A,B,C,1,
+8XFZ,2.32,2024-07-10,HLA-A,HLA class I heavy chain,YVARTNIYY,9,A,B,C,1,
+8XG2,1.84,2024-07-10,HLA-A,HLA class I heavy chain,EVFNATRFASVY,12,A,B,C,1,
+8XKC,2.18,2024-07-10,HLA-A,HLA class I heavy chain,CVADYSVLY,9,A,B,C,1,
+8XKE,1.92,2024-07-10,HLA-A,HLA class I heavy chain,EVDNATRFASVY,12,A,B,M,1,
+8Y74,1.9,2024-07-10,unclassified,MHC class I alpha chain 2,WIIRNWETV,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8YE4,3.2,2024-08-21,HLA-A,HLA-A24,NYNYLYRLF,9,A,B,E,2,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['E', 'F']); manifest reports FIRST copy only (E)"
+8YIV,2.101,2024-12-04,HLA-A,MHC class I antigen,ILDTAGKEEY,10,A,B,C,1,
+8YJ2,2.261,2024-12-04,HLA-A,human leukocyte antigen,ILDTAGREEY,10,A,B,C,1,heavy chain identified by length only (description lacked expected keywords); multiple candidate heavy-chain entities (3)
+8YZR,1.8,2025-01-29,HLA-A,HLA-A*2402,NYNYLYRLL,9,A,B,E,1,
+8YZW,2.36,2025-01-29,HLA-A,HLA-A*2402,NYDYWYRLF,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+8YZZ,1.88,2025-01-29,HLA-A,HLA-A*2402,NYNYLYRLF,9,A,B,E,1,
+8Z05,1.96,2025-01-29,HLA-A,HLA-A*0201,LLLDRLNKL,9,A,B,C,1,
+8Z06,2.39,2025-01-29,HLA-A,HLA-A*2402,NYDYWYRSF,9,A,B,E,1,
+8Z07,2.7,2025-01-29,HLA-A,HLA-A*2402,NYNYRYRLF,9,A,B,C,1,
+8Z08,2.01,2025-01-29,HLA-A,HLA-A*2402,NYNYQYRLF,9,C,D,F,1,
+8Z0H,1.72,2025-01-15,unclassified,MHC class I alpha chain 2,SALQAFREV,9,A,B,C,4,">1 copy of complex in ASU (heavy chains: ['A', 'D', 'G', 'J'], peptide chains: ['C', 'F', 'I', 'L']); manifest reports FIRST copy only (C)"
+8ZV9,2.6,2024-08-21,HLA-A,MHC class I antigen,NYNYLFRLF,9,A,B,C,3,">1 copy of complex in ASU (heavy chains: ['A', 'D', 'G'], peptide chains: ['C', 'F', 'I']); manifest reports FIRST copy only (C)"
+9ASF,1.77,2024-12-11,HLA-A,HLA-A*03:01,AHHGGWTTK,9,A,B,C,1,non-standard/HETATM residue(s) on peptide chain: 4OG
+9ASG,2.03,2024-12-11,HLA-A,HLA-A*03:01,ALHGGWTTK,9,A,B,C,1,non-standard/HETATM residue(s) on peptide chain: 4OG
+9BL2,2.1,2024-11-13,HLA-B,HLA-B*57:03,ASLNLPAVSW,10,A,B,C,1,
+9BL3,2.0,2024-11-13,HLA-B,HLA-B*57:03,ASLNLPAVSW,10,A,B,C,1,
+9BL4,1.75,2024-11-13,HLA-B,HLA-B*57:03,ASLNLPAVSW,10,A,B,C,1,
+9BL5,2.0,2024-11-13,HLA-A,HLA-A*24:02,TYQWIIRNW,9,A,B,C,1,
+9BL6,2.4,2024-11-13,HLA-A,HLA-A*24:02,TYQWIIRNW,9,A,B,C,1,
+9BL9,2.6,2024-11-13,HLA-A,HLA-A*24:02,RYPLTFGW,8,A,B,C,1,
+9BLA,3.0,2024-11-13,HLA-A,HLA-A*24:02,RYPLTFGW,8,A,B,C,1,
+9CWY,1.98,2026-02-04,HLA-A,HLA-A*03:02,AHHGGWTTK,9,A,B,C,1,
+9CWZ,2.05,2026-02-04,HLA-A,HLA-A*03:02,ALHGGWTTK,9,A,B,C,1,
+9CX0,1.92,2026-02-04,HLA-A,HLA-A*03:01,ALHGGWTTK,9,A,B,C,1,
+9CX1,2.0,2026-02-04,HLA-A,HLA-A*03:01,ALHGGWTTK,9,A,B,C,1,
+9CX2,2.3,2026-02-04,HLA-A,HLA-A*03:01,ALHGGWTTK,9,A,B,C,1,
+9D72,2.67,2026-02-04,murine,D-D,RGPGRAFVTI,10,A,B,P,1,
+9D73,3.02,2026-02-04,HLA-B,HLA-B*44:05,EEFGRAFSF,9,A,B,P,1,
+9D74,3.31,2026-02-11,HLA-B,HLA-B*44:05,EEFGRAFSF,9,A,B,P,1,
+9D95,2.8,2025-09-03,HLA-B,MHC class I antigen,YHLIVDTDSL,10,A,B,C,4,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P'], peptide chains: ['C', 'H', 'M', 'R']); manifest reports FIRST copy only (C)"
+9D96,2.4,2025-09-03,HLA-B,MHC class I antigen,YHLIVDTDSL,10,A,B,C,1,
+9D97,1.6,2025-09-03,HLA-B,MHC class I antigen,YHEDIHTYL,9,A,B,C,1,
+9DL1,2.3,2024-11-20,HLA-A,HLA-A*02:01,SLLMWITQV,9,B,C,E,2,">1 copy of complex in ASU (heavy chains: ['B', 'F'], peptide chains: ['E', 'H']); manifest reports FIRST copy only (E)"
+9DY8,2.0,2025-08-13,HLA-B,HLA-B*18:01,PEMTFFSVK,9,A,B,C,1,
+9EIQ,2.21,2026-06-24,HLA-B,HLA-B*07:02,RPILTIITL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9EJD,2.15,2026-06-24,HLA-B,HLA-B*07:02,SPILTIITL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9EK4,2.05,2026-06-24,HLA-B,HLA-B*07:02,MPILTIITL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9F13,1.61,2025-08-06,HLA-C,HLA-C*12:02,KAYNVTQAF,9,A,B,C,1,heavy chain entity length atypical (366 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9FE1,3.1,2025-05-28,HLA-A,HLA-A0201,SLLMWITQV,9,A,B,C,1,heavy chain entity length atypical (291 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9GV6,2.77,2025-04-23,HLA-A,MHC class I antigen,SLSNRLYYL,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'G'], peptide chains: ['C', 'I']); manifest reports FIRST copy only (C)"
+9GV7,1.86,2025-04-23,HLA-A,MHC class I antigen,SLAGGLDDMKA,11,A,B,C,1,
+9HKQ,3.3,2025-12-17,HLA-A,HLA-A*02:01,SLLMWITQC,9,B,C,A,1,
+9HLJ,2.54,2025-08-06,HLA-C,HLA-C*12:02,KAYNVTQAF,9,D,B,C,1,multiple candidate heavy-chain entities (2); heavy chain entity length atypical (204 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9IKY,3.45,2025-06-18,HLA-A,HLA-A*11:01,VVGAVGVGK,9,A,B,C,10,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P', 'U', 'Z', 'e', 'j', 'o', 't'], peptide chains: ['C', 'H', 'M', 'R', 'W', 'b', 'g', 'l', 'q', 'v']); manifest reports FIRST copy only (C)"
+9J4S,2.95,2025-08-13,HLA-B,"HLA class I histocompatibility antigen, B alpha chain",SPRWYFYYL,9,C,D,E,2,">1 copy of complex in ASU (heavy chains: ['C', 'F'], peptide chains: ['E', 'J']); manifest reports FIRST copy only (E)"
+9J4T,2.04,2025-08-13,HLA-B,"HLA class I histocompatibility antigen, B alpha chain",SPRWYFYYL,9,A,B,C,1,
+9J4U,2.17,2025-08-13,HLA-A,MHC class I antigen,LLLDRLNQL,9,A,B,C,1,
+9J4V,1.98,2025-08-13,HLA-B,"HLA class I histocompatibility antigen, B alpha chain",SPRWYFYYL,9,A,B,E,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['E', 'F']); manifest reports FIRST copy only (E)"
+9K2I,3.05,2025-10-22,HLA-A,MHC class I antigen,FSGEYIPTV,9,A,B,C,4,">1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P'], peptide chains: ['C', 'H', 'M', 'R']); manifest reports FIRST copy only (C)"
+9K2R,2.98,2025-09-17,HLA-C,HLA-C*1202,ILKEPVHGVYY,11,A,B,C,3,"multiple candidate heavy-chain entities (2); >1 copy of complex in ASU (heavy chains: ['A', 'D', 'G'], peptide chains: ['C', 'F', 'I']); manifest reports FIRST copy only (C)"
+9K2S,2.4,2025-09-17,HLA-C,HLA-C*1202,ILKEPVHGVY,10,A,B,D,1,b2m entity length atypical (119 aa; expected ~99) - possible fusion/tag construct
+9K2T,2.2,2025-09-17,HLA-C,HLA-C*1202,ILKEPVHGVY,10,A,B,C,1,
+9K2U,2.1,2025-09-17,HLA-C,HLA-C*1202,ILKEPVHGAYY,11,A,B,C,1,
+9L47,2.8,2025-03-19,HLA-C,HLA-C*12:03,MARELHPEY,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9L48,1.9,2025-03-19,HLA-C,HLA-C*12:02,RAFPGLRYV,9,A,B,C,1,
+9L49,3.0,2025-03-19,HLA-C,HLA-C*12:03,RAFPGLRYV,9,A,B,C,1,
+9L4A,1.9,2025-03-19,HLA-C,HLA-C*12:02,MARELHPEY,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9L4G,2.7,2025-12-24,HLA-C,HLA-C*14:03,LYNTVATL,8,A,B,C,1,
+9L4H,3.1,2025-12-24,HLA-C,HLA-C*14:03,LYNTVATL,8,A,B,C,1,
+9L4I,2.5,2025-12-24,HLA-C,HLA-C*14:02,LYNTVATL,8,A,B,C,1,
+9LLU,2.87,2026-07-22,HLA-A,MHC class I antigen,VVPDEPPEV,9,A,B,C,1,
+9LTG,2.53,2026-08-12,murine,H-2Kb,FLFLFENV,8,A,E,I,4,">1 copy of complex in ASU (heavy chains: ['A', 'B', 'C', 'D'], peptide chains: ['I', 'J', 'K', 'L']); manifest reports FIRST copy only (I)"
+9LUD,2.501,2026-02-11,unclassified,MHC class I antigen,IRNLHIPEV,9,A,B,C,1,
+9M01,1.56,2026-02-11,HLA-B,MHC class I antigen,SSISDISPV,9,A,B,C,1,
+9M4L,1.61,2026-03-11,unclassified,MHC class I antigen,SRYLTDMTL,9,A,B,E,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['E', 'F']); manifest reports FIRST copy only (E)"
+9M63,2.352,2026-03-11,unclassified,MHC class I antigen,IRHENRMVL,9,A,B,C,1,
+9MIN,2.05,2025-08-06,HLA-A,HLA class I antigen,SLLMWITQV,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'F'], peptide chains: ['C', 'H']); manifest reports FIRST copy only (C)"
+9NFB,3.23,2025-10-08,HLA-A,MHC class I antigen,KLVVVGACGV,10,A,B,C,1,heavy chain entity length atypical (307 aa; expected ~270-280) - possible fusion/tag/truncated construct; observed 11/10 residues; backbone atom(s) missing at residue(s): 301; gap in residue numbering; non-standard/HETATM residue(s) on peptide chain: A1AWR
+9NFC,2.58,2025-10-08,HLA-A,"HLA class I histocompatibility antigen, A alpha chain",VVVGACGVGK,10,A,B,C,1,heavy chain entity length atypical (307 aa; expected ~270-280) - possible fusion/tag/truncated construct; observed 11/10 residues; backbone atom(s) missing at residue(s): 301; gap in residue numbering; non-standard/HETATM residue(s) on peptide chain: A1AWR
+9NMU,2.1,2026-03-18,HLA-A,HLA A*02:01,TLMSAMTNL,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+9NMV,1.97,2026-03-18,HLA-A,HLA A*02:01,TLMSAMTNL,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+9NMW,2.11,2026-03-18,HLA-A,HLA A*02:01,TLMSAMTNL,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+9NMX,2.19,2026-03-18,HLA-A,HLA A*02:01,TLMSAMTNL,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+9NMY,2.01,2026-03-18,HLA-A,HLA A*02:01,TLMSAMTNL,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+9NNF,3.8,2025-07-23,HLA-A,HLA-A*02:01,SLLMWITQC,9,B,C,D,1,
+9NU7,3.6,2026-07-29,murine,H-2Db,ASNENMETM,9,C,D,P,1,
+9NV2,1.95,2026-07-29,murine,H-2Db,ASNENMETM,9,C,D,P,1,
+9NV6,2.18,2026-07-29,murine,H-2Db,ASNENMETM,9,C,D,P,1,
+9NVA,2.78,2026-07-29,murine,H-2Db,ASNENMETM,9,C,D,P,1,
+9NVE,2.1,2026-07-29,murine,H-2Db,ASNENMETM,9,C,D,P,1,
+9NW2,4.44,2026-07-29,murine,H-2Db,ASNENMETM,9,C,D,E,2,">1 copy of complex in ASU (heavy chains: ['C', 'H'], peptide chains: ['E', 'J']); manifest reports FIRST copy only (E)"
+9NW6,3.1,2026-03-25,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",VMAPRTLLL,9,A,B,F,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['F', 'P']); manifest reports FIRST copy only (F)"
+9NW7,2.1,2026-03-25,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",VMAPRTLLL,9,A,B,P,1,
+9NW8,2.3,2026-03-25,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",RLPAKAPLL,9,A,B,P,1,
+9NW9,2.3,2026-03-25,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain E",RMYSPTSIL,9,A,B,P,1,
+9O5S,2.27,2025-07-23,HLA-A,"HLA class I histocompatibility antigen, A alpha chain",ELAGIGILTV,10,A,B,E,4,">1 copy of complex in ASU (heavy chains: ['A', 'C', 'H', 'L'], peptide chains: ['E', 'J', 'N', 'P']); manifest reports FIRST copy only (E)"
+9OBF,3.25,2026-06-24,HLA-A,MHC class I antigen,GLAPPQHLIRV,11,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9PBG,2.0,2026-03-18,HLA-B,HLA B*27:05,LRVMMLAPF,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+9PBH,2.13,2026-03-18,HLA-B,HLA B*27:05,GRLPLLNPI,9,A,B,C,1,multiple candidate heavy-chain entities (2)
+9PIX,2.35,2025-10-01,HLA-A,MHC class I antigen,FLPSDFFPSV,10,A,B,P,1,heavy chain entity length atypical (301 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9PKC,2.5,2025-10-01,HLA-A,MHC class I antigen,FLPSDFFPSV,10,A,B,P,1,heavy chain entity length atypical (301 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9PKF,2.6,2025-10-01,HLA-A,MHC class I antigen,FLPSDFFPSI,10,A,B,P,1,heavy chain entity length atypical (301 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9PKV,2.72,2025-10-01,HLA-A,MHC class I antigen,SLLQHLIGL,9,A,B,P,1,heavy chain entity length atypical (301 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9QG8,2.15,2025-07-23,unclassified,MHC class I antigen,KTMMAHDL,8,A,B,K,1,b2m entity length atypical (122 aa; expected ~99) - possible fusion/tag construct
+9QQE,2.78,2026-04-15,HLA-A,HLA-A*02:01,VLHDDLLEA,9,A,B,P,1,
+9QQF,3.23,2026-04-15,HLA-A,HLA-A*11:01,SVNLNVIVK,9,A,B,P,1,heavy chain entity length atypical (341 aa; expected ~270-280) - possible fusion/tag/truncated construct; b2m entity length atypical (119 aa; expected ~99) - possible fusion/tag construct
+9RUP,4.11,2025-08-13,HLA-A,MHC class I antigen,FTSDYYQLY,9,A,E,D,2,"multiple candidate heavy-chain entities (2); heavy chain entity length atypical (209 aa; expected ~270-280) - possible fusion/tag/truncated construct; >1 copy of complex in ASU (heavy chains: ['A', 'a'], peptide chains: ['D', 'd']); manifest reports FIRST copy only (D)"
+9RWI,3.45,2026-07-22,other-nonclassical,"HLA class I histocompatibility antigen, alpha chain G",IIPRHLQL,8,A,B,P,1,
+9RXM,3.0,2025-08-13,HLA-A,MHC class I antigen,FTSDYYQLY,9,A,F,D,1,multiple candidate heavy-chain entities (2); heavy chain entity length atypical (205 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9SKO,1.49,2025-09-17,HLA-A,HLA-A0201,LLWNGPMAVS,10,A,B,C,1,
+9SKP,1.89,2025-09-17,HLA-A,HLA-A0201,SLLWNGPMAV,10,A,B,C,1,
+9SL0,1.6,2025-09-17,HLA-A,HLA-A0201,LLWNGPMAV,9,A,B,C,1,
+9SQN,3.5,2026-08-12,HLA-A,HLA-A*02:01,KILGFVFX,8,A,B,C,1,heavy chain entity length atypical (301 aa; expected ~270-280) - possible fusion/tag/truncated construct; backbone atom(s) missing at residue(s): 8; non-standard/HETATM residue(s) on peptide chain: NH2
+9SQP,3.5,2026-08-12,HLA-A,HLA-A*02:01,KILGFVFX,8,A,B,C,1,heavy chain entity length atypical (301 aa; expected ~270-280) - possible fusion/tag/truncated construct; backbone atom(s) missing at residue(s): 8; non-standard/HETATM residue(s) on peptide chain: NH2
+9UL1,2.323,2025-08-13,HLA-B,MHC class I antigen,ALLSSKTSV,9,A,B,C,1,
+9UV8,1.79,2025-12-24,HLA-A,HLA-A*11:01,VVGADGVGK,9,A,B,C,1,b2m entity length atypical (122 aa; expected ~99) - possible fusion/tag construct
+9VSO,3.03,2026-07-15,HLA-A,HLA-A*02:01,RMFPNAPYL,9,A,B,M,2,">1 copy of complex in ASU (heavy chains: ['A', 'C'], peptide chains: ['M', 'T']); manifest reports FIRST copy only (M)"
+9W6A,2.35,2026-08-05,HLA-A,HLA-A*11:01,TTLEQQYNK,9,C,D,E,1,multiple candidate heavy-chain entities (2)
+9WBD,2.75,2025-11-19,HLA-B,HLA-B*07:02,SPRWYFYYL,9,A,D,E,4,"multiple candidate heavy-chain entities (2); heavy chain entity length atypical (206 aa; expected ~270-280) - possible fusion/tag/truncated construct; >1 copy of complex in ASU (heavy chains: ['A', 'F', 'K', 'P'], peptide chains: ['E', 'J', 'O', 'T']); manifest reports FIRST copy only (E)"
+9WC2,2.25,2026-07-15,HLA-A,HLA-A*02:01,RMFPNAPYL,9,A,D,E,1,multiple candidate heavy-chain entities (2); heavy chain entity length atypical (201 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9WC3,2.4,2026-07-15,HLA-A,HLA-A 0201,YMFPNAPYL,9,A,D,E,1,multiple candidate heavy-chain entities (2); heavy chain entity length atypical (199 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9WE1,1.7,2026-08-26,HLA-A,HLA-A*11:01,VTGAVGVGK,9,A,B,C,1,
+9WE2,2.19,2026-08-26,HLA-A,HLA-A*11:01,IVGAVGIAK,9,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9WFS,3.0,2026-08-26,HLA-A,HLA-A*11:01,ITGAVGIAK,9,A,L,P,1,multiple candidate heavy-chain entities (2); heavy chain entity length atypical (220 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9WFT,3.09,2026-08-26,HLA-A,HLA-A*11:01,VVGAVGVGK,9,H,L,P,1,multiple candidate heavy-chain entities (2)
+9WJ6,4.54,2026-06-24,HLA-C,HLA class I antigen,GADGVGKSAL,10,E,F,I,2,">1 copy of complex in ASU (heavy chains: ['E', 'M'], peptide chains: ['I', 'P']); manifest reports FIRST copy only (I)"
+9WK0,1.8,2026-06-17,HLA-A,MHC class I antigen,FSGEYIPTV,9,A,B,C,1,
+9WVE,2.8,2025-12-24,HLA-A,HLA-A*11:01,VVVGAAGVGK,10,A,B,C,4,"b2m entity length atypical (122 aa; expected ~99) - possible fusion/tag construct; >1 copy of complex in ASU (heavy chains: ['A', 'D', 'G', 'J'], peptide chains: ['C', 'F', 'I', 'L']); manifest reports FIRST copy only (C)"
+9WVF,2.8,2025-12-24,HLA-A,HLA-A*11:01,VVVGASGVGK,10,A,B,C,4,">1 copy of complex in ASU (heavy chains: ['A', 'D', 'G', 'J'], peptide chains: ['C', 'F', 'I', 'L']); manifest reports FIRST copy only (C)"
+9XJD,2.5,2026-07-15,HLA-A,MHC class I antigen,RVSSFIRGTR,10,B,C,A,1,
+9XMR,2.6,2026-07-15,HLA-A,MHC class I antigen,RVSSFIRGKK,10,A,B,C,1,
+9YTD,2.5,2025-12-17,HLA-A,HLA A*02:01,TLMSAMTNL,9,A,B,C,1,
+9YTF,2.6,2025-12-17,HLA-A,MHC class I antigen,EVDPIGHLY,9,A,B,C,1,
+9YW4,3.1,2026-06-17,HLA-A,A-1,ILDTAGKEEY,10,A,E,P,1,multiple candidate heavy-chain entities (2); heavy chain entity length atypical (206 aa; expected ~270-280) - possible fusion/tag/truncated construct
+9YZH,3.25,2026-06-24,HLA-A,MHC class I antigen,GLAPPQHLFRV,11,A,B,C,2,">1 copy of complex in ASU (heavy chains: ['A', 'D'], peptide chains: ['C', 'F']); manifest reports FIRST copy only (C)"
+9ZCL,2.3,2026-06-17,HLA-A,HLA class I histocompatibility antigen,ILDTAGKEEY,10,C,D,P,1,

@@ -6,18 +6,13 @@ using the patched `HLA_db.py` with self-template exclusion enabled
 
 ## Why this exists
 
-The originally released structures for these 52 pairs were generated using
-their own native crystal structures as threading templates, because the
-self-exclusion code path in `HLA_db.get_peptide_template` was non-functional
-(scoping bug on `db_records`, and `omit_self` computed but unused). The
-patched version of `HLA_db.py` fixes both issues. This directory regenerates
-just the validation subset using the patch, so that the structural validation
-analysis measures real modeling accuracy rather than refinement perturbation
-of a self-template.
-
-The 49,924 released structures themselves are not affected for the ~99.9% of
-pairs whose native PDB was not in the local template database — only this
-small validation subset.
+The released structures for these 52 pairs were threaded onto their own
+crystal, because the self-exclusion path in `HLA_db.get_peptide_template` did
+not run. The patched `HLA_db.py` fixes it, and this directory re-runs the
+validation subset so the analysis measures modelling accuracy rather than
+refinement of a self-template. Only pairs whose native PDB is in the local
+template database are affected — roughly 0.1% of the 49,268 released
+structures.
 
 ## Workflow
 
@@ -91,13 +86,3 @@ data/IEDB_data_clean/IEDB_validation/regeneration/
     │        as the released pdb/ directory)
     └── ...
 ```
-
-## Validation methodology note for the paper
-
-The Methods section should state: *"For the 52 validation pairs, structural
-ensembles were regenerated using the same pipeline as the released dataset
-(`IEDBTestPipeline.py`) with the `--ignore_epitope_match` flag enabled and
-a corrected version of `HLA_db.get_peptide_template` that properly excludes
-peptide-identical templates from the threading template pool. The released
-dataset itself was generated without this flag; the regenerated subset
-described here is used only for the validation analyses in Figure 2."*

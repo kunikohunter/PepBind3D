@@ -1,0 +1,224 @@
+pdb_id,allele_text_original,resolved_allele,percent_identity,match_type,category,usable_for_rosetta
+22EE,HLA class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+24ST,HLA-B*81:01,B*81:01,100.0,exact,classical HLA (resolved by sequence),yes
+28IL,HLA A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+33CG,HLA-A*02:01,A*02:624,99.4,nearest,"classical HLA (resolved by sequence, nearest-neighbour)",yes
+33CH,HLA-A*02:01,A*02:624,99.4,nearest,"classical HLA (resolved by sequence, nearest-neighbour)",yes
+33CI,HLA-A*02:01,A*02:624,99.4,nearest,"classical HLA (resolved by sequence, nearest-neighbour)",yes
+43RH,"Histocompatibility 2, Q region locus 7",,0.0,unresolved,non-human (murine H-2),no
+43RZ,"Histocompatibility 2, Q region locus 7",,0.0,unresolved,non-human (murine H-2),no
+43SK,"Histocompatibility 2, Q region locus 7",,0.0,unresolved,non-human (murine H-2),no
+43SR,"Histocompatibility 2, Q region locus 7",,0.0,unresolved,non-human (murine H-2),no
+43SY,"Histocompatibility 2, Q region locus 7",,0.0,unresolved,non-human (murine H-2),no
+43TE,"Histocompatibility 2, Q region locus 7",,0.0,unresolved,non-human (murine H-2),no
+8EMF,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8EMG,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8EMI,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8EMJ,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8EMK,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8EN8,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8ENH,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8EO8,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8F5A,HLA-B*57:01,B*57:01,100.0,exact,classical HLA (resolved by sequence),yes
+8F7M,HLA-B*57:01,B*57:01,100.0,exact,classical HLA (resolved by sequence),yes
+8FU4,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+8J4G,MHC class I antigen,,26.1,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+8JHW,H-2Kb,,0.0,unresolved,non-human (murine H-2),no
+8JQT,MHC class I antigen alpha chain,,24.4,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+8JV0,MHC class I antigen,,76.4,unresolved,"classical HLA, depositor gave no subtype",no
+8K4T,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8K4V,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8K50,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8KB0,MHC class I antigen alpha chain,,26.1,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+8KB1,MHC class I antigen,,26.1,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+8KCV,MHC class I antigen,,25.6,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+8P43,"H-2 class I histocompatibility antigen, Qa-1b",,0.0,unresolved,non-human (murine H-2),no
+8QFY,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+8RBU,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RBV,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RCV,HLA B*13:01,B*13:01,100.0,exact,classical HLA (resolved by sequence),yes
+8REF,HLA B*13:01,B*13:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RH6,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RHQ,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RJ5,HLA A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8RJH,HLA A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8RJI,HLA A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8RLT,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+8RLU,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+8RLV,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+8RNE,"HLA class I histocompatibility antigen, E alpha chain variant",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+8RNF,"HLA class I histocompatibility antigen, E alpha chain variant",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+8RNG,HLA B*18:01,B*18:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RNH,HLA B*18:01,B*18:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RNI,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8ROO,HLA B*18:01,B*18:01,100.0,exact,classical HLA (resolved by sequence),yes
+8ROP,HLA B*18:01,B*18:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RRO,"HLA class I histocompatibility antigen, A alpha chain",A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RYM,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RYN,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RYO,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RYP,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8RYQ,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8T6M,MHC class I antigen,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+8T7R,MHC class I antigen (Fragment),A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+8TBV,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+8TBW,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+8TMU,HLA-B*73:01,B*73:01,100.0,exact,classical HLA (resolved by sequence),yes
+8TQ4,D-d,,0.0,unresolved,non-human (murine H-2),no
+8TQ5,HLA-B*44:05,B*44:05,100.0,exact,classical HLA (resolved by sequence),yes
+8TQ6,HLA-B*44:05,B*44:05,100.0,exact,classical HLA (resolved by sequence),yes
+8TQ7,D-D,,0.0,unresolved,non-human (murine H-2),no
+8TQ8,D-D,,0.0,unresolved,non-human (murine H-2),no
+8TQ9,D-D,,0.0,unresolved,non-human (murine H-2),no
+8TQA,D-B,,0.0,unresolved,non-human (murine H-2),no
+8TUB,B-7,B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+8TUH,B-7,B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+8U9G,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+8UDR,"HLA class I histocompatibility antigen, A alpha chain",A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8UMO,"H-2 class I histocompatibility antigen, D-37 alpha chain",,0.0,unresolved,non-human (murine H-2),no
+8UTC,"HLA class I histocompatibility antigen, B alpha chain",B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+8V4Z,HLA-B*35:01,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8V50,HLA-B35,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8V51,HLA-B35,B*35:01,100.0,exact,classical HLA (resolved by sequence),yes
+8V8Q,"HLA class I histocompatibility antigen, B alpha chain",B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+8VCL,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8VJZ,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8VR9,"HLA class I histocompatibility antigen, A alpha chain",A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8VRA,"HLA class I histocompatibility antigen, A alpha chain",A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+8VRB,HLA-A antigen,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8W6L,MHC class I antigen,,76.4,unresolved,"classical HLA, depositor gave no subtype",no
+8WO9,MHC class I antigen,,24.4,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+8WTE,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8WUL,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+8XES,HLA class I heavy chain,A*26:01,100.0,exact,classical HLA (resolved by sequence),yes
+8XFZ,HLA class I heavy chain,A*26:01,100.0,exact,classical HLA (resolved by sequence),yes
+8XG2,HLA class I heavy chain,A*26:01,100.0,exact,classical HLA (resolved by sequence),yes
+8XKC,HLA class I heavy chain,A*26:01,100.0,exact,classical HLA (resolved by sequence),yes
+8XKE,HLA class I heavy chain,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+8Y74,MHC class I alpha chain 2,,0.0,unresolved,non-human (murine H-2),no
+8YE4,HLA-A24,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8YIV,MHC class I antigen,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+8YJ2,human leukocyte antigen,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+8YZR,HLA-A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8YZW,HLA-A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8YZZ,HLA-A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8Z05,HLA-A*0201,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+8Z06,HLA-A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8Z07,HLA-A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8Z08,HLA-A*2402,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+8Z0H,MHC class I alpha chain 2,,0.0,unresolved,non-human (murine H-2),no
+8ZV9,MHC class I antigen,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+9ASF,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+9ASG,HLA-A*03:01,A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+9BL2,HLA-B*57:03,B*57:03,100.0,exact,classical HLA (resolved by sequence),yes
+9BL3,HLA-B*57:03,B*57:03,100.0,exact,classical HLA (resolved by sequence),yes
+9BL4,HLA-B*57:03,B*57:03,100.0,exact,classical HLA (resolved by sequence),yes
+9BL5,HLA-A*24:02,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+9BL6,HLA-A*24:02,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+9BL9,HLA-A*24:02,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+9BLA,HLA-A*24:02,A*24:02,100.0,exact,classical HLA (resolved by sequence),yes
+9CWY,HLA-A*03:02,A*03:02,100.0,exact,classical HLA (resolved by sequence),yes
+9CWZ,HLA-A*03:02,A*03:02,100.0,exact,classical HLA (resolved by sequence),yes
+9CX0,HLA-A*03:01,A*03:07,100.0,exact,classical HLA (resolved by sequence),yes
+9CX1,HLA-A*03:01,A*03:65,100.0,exact,classical HLA (resolved by sequence),yes
+9CX2,HLA-A*03:01,A*03:65,100.0,exact,classical HLA (resolved by sequence),yes
+9D72,D-D,,0.0,unresolved,non-human (murine H-2),no
+9D73,HLA-B*44:05,B*44:05,100.0,exact,classical HLA (resolved by sequence),yes
+9D74,HLA-B*44:05,B*44:05,100.0,exact,classical HLA (resolved by sequence),yes
+9D95,MHC class I antigen,B*38:01,100.0,exact,classical HLA (resolved by sequence),yes
+9D96,MHC class I antigen,B*38:01,100.0,exact,classical HLA (resolved by sequence),yes
+9D97,MHC class I antigen,B*38:01,100.0,exact,classical HLA (resolved by sequence),yes
+9DL1,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9DY8,HLA-B*18:01,B*18:01,100.0,exact,classical HLA (resolved by sequence),yes
+9EIQ,HLA-B*07:02,B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+9EJD,HLA-B*07:02,B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+9EK4,HLA-B*07:02,B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+9F13,HLA-C*12:02,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9FE1,HLA-A0201,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9GV6,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9GV7,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9HKQ,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9HLJ,HLA-C*12:02,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9IKY,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9J4S,"HLA class I histocompatibility antigen, B alpha chain",B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+9J4T,"HLA class I histocompatibility antigen, B alpha chain",B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+9J4U,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9J4V,"HLA class I histocompatibility antigen, B alpha chain",B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+9K2I,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9K2R,HLA-C*1202,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9K2S,HLA-C*1202,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9K2T,HLA-C*1202,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9K2U,HLA-C*1202,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9L47,HLA-C*12:03,C*12:03,100.0,exact,classical HLA (resolved by sequence),yes
+9L48,HLA-C*12:02,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9L49,HLA-C*12:03,C*12:03,100.0,exact,classical HLA (resolved by sequence),yes
+9L4A,HLA-C*12:02,C*12:02,100.0,exact,classical HLA (resolved by sequence),yes
+9L4G,HLA-C*14:03,C*14:03,100.0,exact,classical HLA (resolved by sequence),yes
+9L4H,HLA-C*14:03,C*14:03,100.0,exact,classical HLA (resolved by sequence),yes
+9L4I,HLA-C*14:02,C*14:02,100.0,exact,classical HLA (resolved by sequence),yes
+9LLU,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9LTG,H-2Kb,,0.0,unresolved,non-human (murine H-2),no
+9LUD,MHC class I antigen,,25.0,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+9M01,MHC class I antigen,,77.3,unresolved,"classical HLA, depositor gave no subtype",no
+9M4L,MHC class I antigen,,25.0,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+9M63,MHC class I antigen,,25.0,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+9MIN,HLA class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NFB,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NFC,"HLA class I histocompatibility antigen, A alpha chain",A*03:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NMU,HLA A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NMV,HLA A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NMW,HLA A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NMX,HLA A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NMY,HLA A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NNF,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9NU7,H-2Db,,0.0,unresolved,non-human (murine H-2),no
+9NV2,H-2Db,,0.0,unresolved,non-human (murine H-2),no
+9NV6,H-2Db,,0.0,unresolved,non-human (murine H-2),no
+9NVA,H-2Db,,0.0,unresolved,non-human (murine H-2),no
+9NVE,H-2Db,,0.0,unresolved,non-human (murine H-2),no
+9NW2,H-2Db,,0.0,unresolved,non-human (murine H-2),no
+9NW6,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+9NW7,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+9NW8,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+9NW9,"HLA class I histocompatibility antigen, alpha chain E",,77.9,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+9O5S,"HLA class I histocompatibility antigen, A alpha chain",A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9OBF,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9PBG,HLA B*27:05,B*27:13,99.5,nearest,"classical HLA (resolved by sequence, nearest-neighbour)",yes
+9PBH,HLA B*27:05,B*27:13,99.5,nearest,"classical HLA (resolved by sequence, nearest-neighbour)",yes
+9PIX,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9PKC,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9PKF,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9PKV,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9QG8,MHC class I antigen,,23.3,unresolved,unidentified: text says 'MHC class I antigen' but sequence does not resemble classical HLA-A/B/C (likely non-classical or highly divergent),no
+9QQE,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9QQF,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9RUP,MHC class I antigen,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+9RWI,"HLA class I histocompatibility antigen, alpha chain G",,85.1,unresolved,"non-classical human (HLA-E/F/G, MR1, CD1)",no
+9RXM,MHC class I antigen,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+9SKO,HLA-A0201,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9SKP,HLA-A0201,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9SL0,HLA-A0201,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9SQN,HLA-A*02:01,A*02:24,99.4,nearest,"classical HLA (resolved by sequence, nearest-neighbour)",yes
+9SQP,HLA-A*02:01,A*02:24,99.4,nearest,"classical HLA (resolved by sequence, nearest-neighbour)",yes
+9UL1,MHC class I antigen,,77.9,unresolved,"classical HLA, depositor gave no subtype",no
+9UV8,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9VSO,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9W6A,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WBD,HLA-B*07:02,B*07:02,100.0,exact,classical HLA (resolved by sequence),yes
+9WC2,HLA-A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WC3,HLA-A 0201,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WE1,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WE2,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WFS,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WFT,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WJ6,HLA class I antigen,C*08:02,100.0,exact,classical HLA (resolved by sequence),yes
+9WK0,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WVE,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9WVF,HLA-A*11:01,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9XJD,MHC class I antigen,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9XMR,MHC class I antigen,A*11:01,100.0,exact,classical HLA (resolved by sequence),yes
+9YTD,HLA A*02:01,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9YTF,MHC class I antigen,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+9YW4,A-1,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes
+9YZH,MHC class I antigen,A*02:01,100.0,exact,classical HLA (resolved by sequence),yes
+9ZCL,HLA class I histocompatibility antigen,A*01:01,100.0,exact,classical HLA (resolved by sequence),yes

@@ -215,6 +215,94 @@ def peptide_backbone_atoms(chain: Chain) -> List:
     return atoms
 
 
+def _align_peptide_residues(mod_chain: Chain, exp_chain: Chain) -> List[Tuple[object, object]]:
+    """Pair modeled/experimental peptide residues by global sequence alignment.
+
+    Returns a list of (modeled_residue, experimental_residue) for every
+    alignment column where both sides are present (no gap) and identical.
+
+    This replaces pairing peptide residues by ordinal resolved-residue
+    position (the previous approach in compute_peptide_rmsd, effectively a
+    positional zip of two independently-built atom lists). Ordinal pairing
+    is correct only when both chains resolve the same set of residues; if
+    the experimental peptide is missing an *internal* residue (e.g. an
+    unresolved Trp side chain), every residue after the gap shifts down by
+    one position on the experimental side only, so every downstream residue
+    is silently compared against the wrong partner while the atom count
+    still looks like a clean match. Global sequence alignment (same
+    parameters as superpose_on_mhc: Bio.pairwise2.align.globalxs, gap-open
+    -2, gap-extend -0.5) places a gap at the unresolved residue instead, so
+    every residue downstream of it still pairs against its true structural
+    counterpart.
+    """
+    from Bio import pairwise2
+
+    mod_residues = [r for r in mod_chain if r.id[0] == " " and r.get_resname() in _THREE_TO_ONE]
+    exp_residues = [r for r in exp_chain if r.id[0] == " " and r.get_resname() in _THREE_TO_ONE]
+
+    mod_seq = "".join(_THREE_TO_ONE[r.get_resname()] for r in mod_residues)
+    exp_seq = "".join(_THREE_TO_ONE[r.get_resname()] for r in exp_residues)
+
+    alignments = pairwise2.align.globalxs(mod_seq, exp_seq, -2, -0.5)
+    if not alignments:
+        raise ValueError("Peptide sequence alignment failed")
+    aligned_mod, aligned_exp, *_ = alignments[0]
+
+    pairs: List[Tuple[object, object]] = []
+    mi = ei = 0
+    for mc, ec in zip(aligned_mod, aligned_exp):
+        if mc != "-" and ec != "-":
+            if mc == ec:
+                pairs.append((mod_residues[mi], exp_residues[ei]))
+            mi += 1
+            ei += 1
+        elif mc != "-":
+            mi += 1
+        elif ec != "-":
+            ei += 1
+    return pairs
+
+
+def _peptide_backbone_atom_count(chain: Chain) -> int:
+    """Total number of standard backbone (N, Cα, C, O) atoms present in a peptide chain."""
+    total = 0
+    for residue in chain:
+        if residue.id[0] != " " or residue.get_resname() not in _THREE_TO_ONE:
+            continue
+        total += sum(1 for atom_name in ("N", "CA", "C", "O") if atom_name in residue)
+    return total
+
+
+def _peptide_atom_pairs(mod_chain: Chain, exp_chain: Chain) -> Tuple[List[Tuple[object, object]], int, int]:
+    """Backbone atom pairs (modeled_atom, experimental_atom) via aligned residues.
+
+    Residue correspondence comes from `_align_peptide_residues` (sequence
+    alignment), not ordinal position. Within each aligned residue pair, an
+    atom is included only if present on both sides (handles atom-level, as
+    opposed to residue-level, disorder). Also returns the total backbone
+    atom counts on each side (modeled, experimental), for a coverage check.
+    """
+    residue_pairs = _align_peptide_residues(mod_chain, exp_chain)
+    paired: List[Tuple[object, object]] = []
+    for mod_res, exp_res in residue_pairs:
+        for atom_name in ("N", "CA", "C", "O"):
+            if atom_name in mod_res and atom_name in exp_res:
+                paired.append((mod_res[atom_name], exp_res[atom_name]))
+    n_mod_atoms = _peptide_backbone_atom_count(mod_chain)
+    n_exp_atoms = _peptide_backbone_atom_count(exp_chain)
+    return paired, n_mod_atoms, n_exp_atoms
+
+
+# Minimum fraction of the modeled peptide's full backbone atom complement
+# (4 atoms/residue) that must survive alignment and be present on both
+# sides before a peptide RMSD is trusted. Analogous in spirit to
+# superpose_on_mhc's ">= 50 paired Cα atoms" guard: a peptide RMSD computed
+# from only a handful of overlapping atoms (e.g. after a bad alignment, or
+# a mostly-unresolved reference peptide) is not a meaningful number and
+# must fail loudly rather than being silently reported.
+_MIN_PEPTIDE_ATOM_COVERAGE = 0.5
+
+
 def compute_peptide_rmsd(
     modeled_pdb: Path,
     experimental_pdb: Path,
@@ -229,10 +317,13 @@ def compute_peptide_rmsd(
       3. Experimental: identify peptide chain by sequence, MHC by length.
       4. Superpose on MHC binding cleft (first n_align_residues Cα atoms).
       5. Apply transform to all modeled atoms.
-      6. Compute RMSD on peptide backbone atoms (N, Cα, C, O).
+      6. Compute RMSD on peptide backbone atoms (N, Cα, C, O), pairing
+         residues by global sequence alignment (not ordinal position) so
+         an unresolved internal experimental residue does not shift the
+         pairing of every downstream residue.
 
-    Returns dict: rmsd, mhc_alignment_rmsd, n_atoms, modeled_peptide_chain,
-    experimental_peptide_chain.
+    Returns dict: rmsd, mhc_alignment_rmsd, n_atoms, n_atoms_dropped,
+    modeled_peptide_chain, experimental_peptide_chain.
     """
     mod_struct = load_structure(modeled_pdb)
     exp_struct = load_structure(experimental_pdb)
@@ -246,14 +337,23 @@ def compute_peptide_rmsd(
     sup, mhc_rmsd = superpose_on_mhc(mod_mhc, exp_mhc, n_align_residues)
     sup.apply(list(mod_struct.get_atoms()))
 
-    mod_atoms = peptide_backbone_atoms(mod_pep)
-    exp_atoms = peptide_backbone_atoms(exp_pep)
-    n = min(len(mod_atoms), len(exp_atoms))
+    atom_pairs, n_mod_atoms, n_exp_atoms = _peptide_atom_pairs(mod_pep, exp_pep)
+    n = len(atom_pairs)
+    n_dropped = (n_mod_atoms - n) + (n_exp_atoms - n)
     if n == 0:
         raise ValueError("No peptide backbone atoms to compare")
 
+    min_required = _MIN_PEPTIDE_ATOM_COVERAGE * 4 * len(expected_peptide_seq)
+    if n < min_required:
+        raise ValueError(
+            f"Only {n} paired peptide backbone atoms (< {min_required:.1f} "
+            f"required, {_MIN_PEPTIDE_ATOM_COVERAGE:.0%} of "
+            f"{4 * len(expected_peptide_seq)} full backbone atoms) -- "
+            f"peptide correspondence is not trustworthy"
+        )
+
     diffs = np.array(
-        [mod_atoms[i].coord - exp_atoms[i].coord for i in range(n)]
+        [mod_atom.coord - exp_atom.coord for mod_atom, exp_atom in atom_pairs]
     )
     rmsd = float(np.sqrt(np.mean(np.sum(diffs ** 2, axis=1))))
 
@@ -261,6 +361,7 @@ def compute_peptide_rmsd(
         "rmsd": rmsd,
         "mhc_alignment_rmsd": mhc_rmsd,
         "n_atoms": n,
+        "n_atoms_dropped": n_dropped,
         "modeled_peptide_chain": mod_pep.id,
         "experimental_peptide_chain": exp_pep.id,
     }

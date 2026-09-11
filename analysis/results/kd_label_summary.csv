@@ -1,0 +1,4 @@
+raw_label,n,median_nM,log10_median,log10_q1,log10_q3
+dissociation constant KD (~EC50),25500,20000.0,4.301029995663981,4.155791034159261,4.301029995663981
+dissociation constant KD,10351,20000.0,4.301029995663981,3.1739579831019156,4.301029995663981
+dissociation constant KD (~IC50),0,,,,
