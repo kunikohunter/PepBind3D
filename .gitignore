@@ -51,6 +51,9 @@ paper_corrections.md
 scratchpad/
 .DS_Store
 
+# --- Working notes, task prompts, discovery/inventory dumps (never public) ---
+notes/
+
 # Regeneration run records are deliberately tracked as provenance
 !regeneration/*.out
 
