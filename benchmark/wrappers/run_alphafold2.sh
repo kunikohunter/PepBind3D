@@ -138,6 +138,7 @@ python "$AF2_REPO/run_alphafold.py" \
     --num_multimer_predictions_per_model=5 \
     --max_template_date=2023-12-31 \
     --models_to_relax=none \
+    --use_gpu_relax=false \
     --uniref90_database_path="$AF2_DATADIR/uniref90/uniref90.fasta" \
     --mgnify_database_path="$AF2_DATADIR/mgnify/mgy_clusters_2022_05.fa" \
     --uniref30_database_path="$AF2_DATADIR/uniref30/UniRef30_2021_03" \
