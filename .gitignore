@@ -7,6 +7,11 @@ CLAUDE.md
 # --- Revision material: reviews, plan, manuscript drafts, response letter ---
 # Private to the revision; never goes in the public code repo.
 revisions/
+# ...except the revision tooling itself, which is code and must not be lost.
+# Manuscripts, reviews, the plan and the response letter stay ignored.
+!revisions/
+revisions/*
+!revisions/*.py
 # kept as a safety net in case these are re-dropped at the repo root
 REVISION_PLAN.md
 PepBind3D_072026_Submitted.docx
