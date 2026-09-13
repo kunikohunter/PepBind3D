@@ -12,26 +12,45 @@ This computes the three reported metrics for all 76:
 Every pair is computed from the release silent files, including the 52 that
 already have numbers from 01_structural_validation.ipynb.
 
-IMPORTANT -- why these numbers differ from the notebook's, and why that is not
-a bug. The notebook read decoys from
-    IEDB_data_clean/IEDB_validation/regeneration/pdb/{allele}/{peptide}/
-which is a SEPARATE re-docking of the validation pairs, while the released
-silent files were converted from the production decoy tree
-    IEDB_data_clean/pdb/{allele}/{peptide}/
-Verified on A0201/GLCTLVAML: the released silent's per-decoy I_sc values
-(0005 = -77.656, 0003 = -75.483, 0024 = -74.264, ...) match the production
-score.sc exactly, and none of them appear in the regeneration score.sc
-(0019 = -79.215, 0004 = -78.116, ...). They are two different docking runs of
-the same pair.
+*** READ THIS BEFORE QUOTING ANY NUMBER THIS SCRIPT PRODUCES ***
 
-That means the submitted manuscript's Validation 1 figures were measured on
-re-docked structures rather than on the structures the dataset actually
-distributes. This script measures the released structures, which is what a
-Data Descriptor's validation has to describe. verify_extraction() is the
-known-answer check that the extraction is faithful: it asserts the silent's
-per-decoy I_sc equals the production score.sc value for the same decoy. The
-notebook comparison is still printed, but as a comparison of two docking runs,
-not as a pass/fail test.
+The RMSDs here are measured on the RELEASED structures, and for crystal-matched
+pairs those are LEAKED: they were threaded onto their own crystal, so their
+agreement with that crystal measures refinement of a self-template, not
+modelling accuracy. They must not be used as Validation 1.
+
+Why. Template selection (HLA_db.MHCdatabase.get_peptide_template, called from
+IEDBTestPipeline.thread_template) pools every same-length peptide from every
+allele of the same gene and ranks them by BLOSUM62 similarity to the target. An
+identical peptide therefore scores highest and is chosen first. Self-exclusion
+exists (omit=["self"], matching on identical peptide sequence) but only runs
+when the pipeline is given --ignore_epitope_match, which the production run did
+not pass. regeneration/README.md states the consequence directly: "The released
+structures for these 52 pairs were threaded onto their own crystal, because the
+self-exclusion path in HLA_db.get_peptide_template did not run." It affects only
+pairs whose native PDB is in the local template database -- about 0.1% of the
+release -- but those are exactly the pairs Validation 1 uses.
+
+That is why 01_structural_validation.ipynb reads decoys from
+IEDB_data_clean/IEDB_validation/regeneration/pdb/ instead: a deliberate
+re-docking of the 52 pairs with --ignore_epitope_match, so the measurement is
+leakage-free. The manuscript's 1.14 A is the honest number; the ~0.88 A this
+script gets on the same pairs is the leakage.
+
+The two trees are genuinely different runs -- verified on A0201/GLCTLVAML, where
+the released silent's per-decoy I_sc values (0005 = -77.656, 0003 = -75.483,
+...) match the production score.sc exactly and none appear in the regeneration
+score.sc (0019 = -79.215, 0004 = -78.116, ...).
+
+So what is this script still good for?
+  * quantifying the leakage, by differencing released against regenerated on the
+    50 shared pairs (~0.24 A median, released closer in 43 of 50);
+  * verifying extraction fidelity (verify_extraction asserts the silent's
+    per-decoy I_sc equals the production score.sc value, 25/25 per pair);
+  * providing the released-structure numbers for the 24 newly matched v2 pairs,
+    which are an UPPER BOUND on their accuracy, not an estimate of it. Getting a
+    usable Validation 1 for those 24 requires re-docking them with
+    --ignore_epitope_match the way the original 52 were.
 
 RMSD itself is not reimplemented: utils.structure.compute_peptide_rmsd is the
 same function the notebook and the benchmark metric use (peptide backbone
@@ -299,10 +318,12 @@ def main():
                   f"IQR {v.quantile(.25):.2f}-{v.quantile(.75):.2f}  "
                   f"<=2A {100*(v <= 2).mean():.1f}%")
 
-    summarise(df, "ALL matched pairs")
+    print("\n*** these are SELF-TEMPLATED pairs; the numbers below are upper "
+          "bounds, not validation figures. See the module docstring. ***")
+    summarise(df, "ALL matched pairs (released structures)")
     if "source_version" in df:
-        summarise(df[df.source_version == "v1"], "v1 batch (known-answer check)")
-        summarise(df[df.source_version == "v2"], "newly matched v2 pairs")
+        summarise(df[df.source_version == "v1"], "v1 batch (released, leaked)")
+        summarise(df[df.source_version == "v2"], "newly matched v2 pairs (released, leaked)")
 
     # known-answer check against the notebook's stored 52
     if NOTEBOOK_RMSD.exists() and not df.empty:
@@ -311,15 +332,14 @@ def main():
         if len(j):
             d = (j["rmsd_best_score"] - j["rmsd_best_score_nb"]).abs()
             better = int((j["rmsd_best_score"] < j["rmsd_best_score_nb"]).sum())
-            print(f"\nreleased structures vs the notebook's separate re-docking "
-                  f"({len(j)} shared pairs):")
-            print(f"  released median {j['rmsd_best_score'].median():.2f} A, "
-                  f"re-docked median {j['rmsd_best_score_nb'].median():.2f} A")
-            print(f"  |difference|: median {d.median():.2f} A, max {d.max():.2f} A")
-            print(f"  released closer to the crystal in {better}/{len(j)} pairs")
-            print("  (two different docking runs of the same pairs -- see the module "
-                  "docstring; the released numbers are the ones that describe the "
-                  "distributed dataset)")
+            print(f"\nLEAKAGE ESTIMATE -- released (self-templated) vs regenerated "
+                  f"(self-excluded), {len(j)} shared pairs:")
+            print(f"  released  median {j['rmsd_best_score'].median():.2f} A  "
+                  f"<- self-templated, NOT a validation number")
+            print(f"  regenerated median {j['rmsd_best_score_nb'].median():.2f} A  "
+                  f"<- leakage-free, this is Validation 1")
+            print(f"  leakage: median {d.median():.2f} A, max {d.max():.2f} A; "
+                  f"released closer to its own crystal in {better}/{len(j)} pairs")
 
     msg = f"\nwrote {out / 'crystal_rmsd_per_pair.csv'}"
     if failures:
