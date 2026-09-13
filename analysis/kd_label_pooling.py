@@ -45,7 +45,13 @@ from scipy.stats import kruskal, ks_2samp
 # never written into any huggingface/ or released-dataset directory) if the
 # authors' hardcoded cluster path isn't found. RAW_IEDB_FN is unchanged and
 # was found in place.
-METADATA_FN = "<HOME>/main_project/data/IEDB_data_clean/huggingface/metadata.csv"
+#
+# 2026-09-13: the release is now the merged v2 set (95 alleles, 112,378 pairs,
+# 118,751 measurement rows, HLA-C included), so the default metadata is
+# release_v2_final/metadata.csv -- 97,574 unflagged KD rows against v1's
+# 35,851. The v1-scope run stays reproducible via --metadata.
+METADATA_FN = "<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata.csv"
+METADATA_V1_FN = "<HOME>/main_project/data/IEDB_data_clean/huggingface/metadata.csv"
 RAW_IEDB_FN = "<HOME>/Data/MHC_database/build/mhc_ligand_full.csv"
 
 # 2026-09-04 fix: the third label was "dissociation constant (~IC50)" (missing
@@ -71,28 +77,54 @@ def flatten_columns(df):
     return df
 
 
+def normalize_pmid(s):
+    """PMIDs arrive as floats whenever the column holds any NaN, so the same
+    reference is "22508927.0" in one file and "22508927" in the other. Strip a
+    trailing ".0" on both sides or the join silently matches nothing."""
+    return (s.astype(str).str.strip()
+             .str.replace(r"\.0$", "", regex=True))
+
+
 def load_curated_kd_rows(metadata_fn):
-    df = pd.read_csv(metadata_fn)
-    kd = df[(df["measurement_type"] == "Kd") & (df["flagged"] == False)].copy()  # noqa: E712
+    df = pd.read_csv(metadata_fn, low_memory=False)
+    kd = df[df["measurement_type"] == "Kd"].copy()
+    # The merged v2 metadata has no `flagged` column: flagged rows were dropped
+    # during reconciliation rather than carried with a marker. Only filter when
+    # the column is actually present (v1 huggingface/metadata.csv).
+    if "flagged" in kd.columns:
+        kd = kd[kd["flagged"] == False]  # noqa: E712
     kd["measurement_value"] = pd.to_numeric(kd["measurement_value"], errors="coerce")
     kd = kd.dropna(subset=["measurement_value"])
-    return kd[["allele_iedb", "peptide", "measurement_value", "pubmed_id"]].copy()
+    cols = ["allele_iedb", "peptide", "measurement_value", "pubmed_id"]
+    # merged v2 metadata only; lets the report attribute each label to the
+    # release batch that produced it (see the typo note in main()).
+    if "source_version" in kd.columns:
+        cols.append("source_version")
+    return kd[cols].copy()
 
 
-def scan_raw_labels(raw_fn, chunksz=500_000, verbose=True):
-    """Stream the raw IEDB bulk download, keep only HLA-A/B rows whose raw
-    assay-response label is one of the three KD variants, and return the
-    minimal columns needed to join back onto metadata.csv."""
+def scan_raw_labels(raw_fn, alleles, chunksz=500_000, verbose=True):
+    """Stream the raw IEDB bulk download, keep rows whose raw assay-response
+    label is one of the three KD variants AND whose allele appears in the
+    curated release, and return the minimal columns needed to join back onto
+    metadata.csv.
+
+    `alleles` is the set of curated allele keys in filesystem-safe form
+    (e.g. "HLA-B_35_03"). Filtering on release membership rather than on an
+    "HLA-A*"/"HLA-B*" substring is what makes this correct for the merged v2
+    release, which added HLA-C: a hardcoded locus filter would drop every
+    HLA-C row before the join and report them as unmatched.
+    """
     keep = []
     with pd.read_csv(raw_fn, header=[0, 1], chunksize=chunksz, low_memory=False) as reader:
         for i, chunk in enumerate(reader):
             chunk = flatten_columns(chunk)
-            allele_col = chunk["MHC Restriction Name"]
-            is_ab = allele_col.str.contains("HLA-A*", regex=False, na=False) | allele_col.str.contains(
-                "HLA-B*", regex=False, na=False
-            )
+            allele_key = (chunk["MHC Restriction Name"].astype(str)
+                          .str.replace(":", "_", regex=False)
+                          .str.replace("*", "_", regex=False))
+            in_release = allele_key.isin(alleles)
             is_kd_variant = chunk["Assay Response measured"].isin(RAW_LABELS)
-            sub = chunk.loc[is_ab & is_kd_variant, [
+            sub = chunk.loc[in_release & is_kd_variant, [
                 "MHC Restriction Name",
                 "Epitope Name",
                 "Assay Quantitative measurement",
@@ -126,7 +158,7 @@ def join_labels(curated_kd, raw_kd):
     ambiguous (many-to-one) or missing match are reported, not silently
     dropped."""
     for df in (curated_kd, raw_kd):
-        df["pubmed_id"] = df["pubmed_id"].astype(str).str.strip()
+        df["pubmed_id"] = normalize_pmid(df["pubmed_id"])
         df["peptide"] = df["peptide"].astype(str).str.strip()
         df["allele_iedb"] = df["allele_iedb"].astype(str).str.strip()
 
@@ -159,6 +191,42 @@ def summarize(merged):
             "log10_q3": float(log_vals.quantile(0.75)) if len(log_vals) else float("nan"),
         })
     return pd.DataFrame(rows), matched
+
+
+# KD assay detection ceilings (same values as the correlation analyses; see
+# CLAUDE.md "Conventions"). Needed here because the two true-KD labels are
+# 71-74% censored while the (~IC50) label is 1% censored, so a pooling test on
+# raw values measures the difference in censoring rate, not a difference in
+# reported affinity. Both versions of the test are reported.
+KD_CEILINGS = (5000.0, 10000.0, 20000.0)
+
+
+def stratify_by_censoring(matched):
+    """Per-label censoring rate and quantitative-only log10 distribution.
+
+    This is the comparison that answers the pooling question: if the labels
+    differ only in how often they hit the ceiling, pooling is defensible; if
+    they still differ once censored values are removed, they are measuring
+    different things and must not be pooled silently."""
+    m = matched.copy()
+    m["measurement_value"] = m["measurement_value"].astype(float)
+    m["censored"] = m["measurement_value"].isin(KD_CEILINGS)
+    rows = []
+    for label in RAW_LABELS:
+        sub = m[m["raw_label"] == label]
+        q = sub[(~sub["censored"]) & (sub["measurement_value"] > 0)]
+        lg = np.log10(q["measurement_value"])
+        rows.append({
+            "raw_label": label,
+            "n": int(len(sub)),
+            "n_censored": int(sub["censored"].sum()),
+            "censored_frac": float(sub["censored"].mean()) if len(sub) else float("nan"),
+            "n_quantitative": int(len(lg)),
+            "quant_log10_median": float(lg.median()) if len(lg) else float("nan"),
+            "quant_log10_q1": float(lg.quantile(0.25)) if len(lg) else float("nan"),
+            "quant_log10_q3": float(lg.quantile(0.75)) if len(lg) else float("nan"),
+        })
+    return pd.DataFrame(rows), m[~m["censored"] & (m["measurement_value"] > 0)]
 
 
 def run_tests(matched):
@@ -218,6 +286,9 @@ def main():
                      help="Directory to write outputs (label_recovery.csv, kd_label_summary.csv, "
                           "kd_label_tests.json). Required unless --self-test.")
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--metadata", type=str, default=METADATA_FN,
+                    help=f"metadata.csv to analyse. Default: the merged v2 release "
+                         f"({METADATA_FN}). Pass {METADATA_V1_FN} to reproduce the v1-scope run.")
     args = ap.parse_args()
 
     if args.self_test:
@@ -229,13 +300,15 @@ def main():
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    print("Loading curated KD rows from metadata.csv...", file=sys.stderr)
-    curated_kd = load_curated_kd_rows(METADATA_FN)
-    print(f"  {len(curated_kd)} curated, unflagged KD rows", file=sys.stderr)
+    print(f"Loading curated KD rows from {args.metadata} ...", file=sys.stderr)
+    curated_kd = load_curated_kd_rows(args.metadata)
+    alleles = set(curated_kd["allele_iedb"].astype(str).str.strip())
+    print(f"  {len(curated_kd)} curated, unflagged KD rows across {len(alleles)} alleles",
+          file=sys.stderr)
 
     print(f"Scanning raw IEDB bulk file for original KD-variant labels ({RAW_IEDB_FN})...", file=sys.stderr)
-    raw_kd = scan_raw_labels(RAW_IEDB_FN)
-    print(f"  {len(raw_kd)} raw HLA-A/B rows with a KD-variant label", file=sys.stderr)
+    raw_kd = scan_raw_labels(RAW_IEDB_FN, alleles)
+    print(f"  {len(raw_kd)} raw rows with a KD-variant label in a released allele", file=sys.stderr)
 
     merged, n_ambiguous = join_labels(curated_kd, raw_kd)
     n_matched = merged["raw_label"].notna().sum()
@@ -250,10 +323,29 @@ def main():
     summary_df.to_csv(out_dir / "kd_label_summary.csv", index=False)
     print(summary_df.to_string(index=False))
 
+    # Which release version contributed each label. This is how the
+    # IEDBTestPipeline.py:136 typo shows up in the data: the "(~IC50)" label has
+    # zero v1 rows (the .replace() never fired, so those records were dropped)
+    # and 42,551 v2 rows (the v2 curation run matches the real IEDB string). The
+    # released v1 dataset is missing them; the merged release contains them.
+    if "source_version" in matched.columns:
+        by_version = matched.groupby(["raw_label", "source_version"]).size().unstack(fill_value=0)
+        by_version.to_csv(out_dir / "kd_label_by_source_version.csv")
+        print("\nraw_label x source_version:\n" + by_version.to_string())
+
+    censor_df, quant = stratify_by_censoring(matched)
+    censor_df.to_csv(out_dir / "kd_label_censoring.csv", index=False)
+    print("\nper-label censoring and quantitative-only distribution:")
+    print(censor_df.to_string(index=False))
+
+    quant_tests = run_tests(quant)
     test_results = run_tests(matched)
+    test_results["quantitative_only"] = quant_tests
     import json
     with open(out_dir / "kd_label_tests.json", "w") as f:
         json.dump({
+            "metadata_file": str(args.metadata),
+            "n_alleles": len(alleles),
             "n_curated_kd_rows": int(n_total),
             "n_matched": int(n_matched),
             "match_rate": float(n_matched / n_total),

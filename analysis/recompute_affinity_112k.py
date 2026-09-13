@@ -81,12 +81,53 @@ def run_affinity(df, out_dir):
     return out
 
 
+def run_affinity_by_kd_label(df, kd_labels_csv, out_dir):
+    """Split the KD score-affinity correlation by the ORIGINAL IEDB assay-response
+    label recovered by kd_label_pooling.py.
+
+    Necessary because the three labels pooled into "Kd" are not one population:
+    the two true-KD labels are 71-74% censored, while "dissociation constant KD
+    (~IC50)" is 1% censored and sits ~1 log unit weaker. A single pooled rho over
+    all 48,311 quantitative KD rows therefore averages over two different assay
+    populations, and the response letter should report the split."""
+    rec = pd.read_csv(kd_labels_csv, low_memory=False).dropna(subset=["raw_label"])
+    key = ["allele_iedb", "peptide", "measurement_value"]
+    for d in (rec, df):
+        d["allele_iedb"] = d["allele_iedb"].astype(str).str.strip()
+        d["peptide"] = d["peptide"].astype(str).str.strip()
+        d["measurement_value"] = pd.to_numeric(d["measurement_value"], errors="coerce")
+    rec = rec.drop_duplicates(subset=key)[key + ["raw_label"]]
+
+    kd = df[df["measurement_type"] == "Kd"].merge(rec, on=key, how="left")
+    cens = is_censored(kd["measurement_value"], KD_CEILINGS, KD_FLOOR)
+    q = kd[(~cens) & (kd["measurement_value"] > 0)].dropna(subset=[f"{PRIMARY_METRIC}_best"])
+    rows = []
+    for label, sub in q.groupby("raw_label"):
+        if len(sub) < 10:
+            continue
+        r = spearmanr(sub[f"{PRIMARY_METRIC}_best"], np.log10(sub["measurement_value"]))
+        rows.append({"raw_label": label, "n": int(len(sub)),
+                     "rho": float(r.statistic), "p": float(r.pvalue)})
+    res = pd.DataFrame(rows).sort_values("n", ascending=False)
+    res.to_csv(out_dir / "score_affinity_112k_by_kd_label.csv", index=False)
+    n_unlabelled = int(q["raw_label"].isna().sum())
+    print(f"\n=== KD score-affinity split by original IEDB label "
+          f"({PRIMARY_METRIC}_best, quantitative; {n_unlabelled:,} rows unlabelled) ===")
+    print(res.to_string(index=False))
+    return res
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--out-dir", required=True)
+    ap.add_argument("--kd-labels", default=None,
+                    help="kd_label_recovery.csv from kd_label_pooling.py; if given, "
+                         "the KD correlation is also reported split by original label.")
     args = ap.parse_args(); out = Path(args.out_dir); out.mkdir(parents=True, exist_ok=True)
     df = build_scored_metadata()
     cens = run_censored(df, out)
     aff = run_affinity(df, out)
+    if args.kd_labels:
+        run_affinity_by_kd_label(df, args.kd_labels, out)
     print("\n=== censored-vs-quantitative (I_sc_best, pooled) ===")
     for r in cens:
         if r["metric"] == "I_sc_best" and r["comparison"] == "pooled":
