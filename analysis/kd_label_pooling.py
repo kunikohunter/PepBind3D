@@ -88,9 +88,11 @@ def normalize_pmid(s):
 def load_curated_kd_rows(metadata_fn):
     df = pd.read_csv(metadata_fn, low_memory=False)
     kd = df[df["measurement_type"] == "Kd"].copy()
-    # The merged v2 metadata has no `flagged` column: flagged rows were dropped
-    # during reconciliation rather than carried with a marker. Only filter when
-    # the column is actually present (v1 huggingface/metadata.csv).
+    # The merged v2 metadata has no `flagged` column. NB it is the COLUMN that
+    # the reconciliation dropped, not the rows: all 15 flagged v1 measurements
+    # are still present in the merged file, just unmarked. Restored by
+    # release/add_release_columns.py; point --metadata at its output to get the
+    # filter back. Only filter when the column is actually present.
     if "flagged" in kd.columns:
         kd = kd[kd["flagged"] == False]  # noqa: E712
     kd["measurement_value"] = pd.to_numeric(kd["measurement_value"], errors="coerce")
