@@ -81,6 +81,126 @@ def run_affinity(df, out_dir):
     return out
 
 
+MIN_N_PER_ALLELE = 10          # Table S3 / Figure 3C convention
+WELL_SAMPLED_N = 50            # the n>=50 labelling convention in Figure 3C
+
+
+def run_per_allele(df, out_dir):
+    """Per-allele Spearman between best-decoy I_sc and log affinity -- the
+    Supplementary Table S3 / Figure 3C content, regenerated for 95 alleles.
+
+    Same convention as the submitted paper: one row per (allele, assay) with at
+    least MIN_N_PER_ALLELE quantitative measurements, censored values excluded.
+    Also returns the summary statistics the Results text quotes (median rho,
+    IQR, how many alleles are significant, and the strongest alleles among the
+    well-sampled ones) so those sentences do not have to be read off a figure."""
+    rows = []
+    for assay, ceil, floor in [("IC50", IC50_CEILINGS, IC50_FLOOR),
+                               ("Kd", KD_CEILINGS, KD_FLOOR)]:
+        sub = df[df["measurement_type"] == assay]
+        cens = is_censored(sub["measurement_value"], ceil, floor)
+        q = sub[(~cens) & (sub["measurement_value"] > 0)].dropna(
+            subset=[f"{PRIMARY_METRIC}_best"])
+        for allele, g in q.groupby("allele"):
+            if len(g) < MIN_N_PER_ALLELE:
+                continue
+            r = spearmanr(g[f"{PRIMARY_METRIC}_best"], np.log10(g["measurement_value"]))
+            rows.append({"assay": assay, "allele": allele, "n": int(len(g)),
+                         "rho": float(r.statistic), "p": float(r.pvalue),
+                         "significant_p05": bool(r.pvalue < 0.05)})
+    per_allele = pd.DataFrame(rows).sort_values(["assay", "n"], ascending=[True, False])
+
+    # Holm-Bonferroni within each assay. Needed for one specific claim: the
+    # submitted paper says no allele shows a significant negative correlation.
+    # On 112k one does at nominal alpha (B*15:42, KD, n=16, rho=-0.50,
+    # p=0.047), so the claim has to be stated against corrected p-values, where
+    # it still holds.
+    per_allele["p_holm"] = np.nan
+    for assay, g in per_allele.groupby("assay"):
+        g = g.sort_values("p")
+        m = len(g)
+        adj, running = [], 0.0
+        for rank, p in enumerate(g["p"].values):
+            running = max(running, min(1.0, p * (m - rank)))
+            adj.append(running)          # enforce monotonicity, as Holm requires
+        per_allele.loc[g.index, "p_holm"] = adj
+    per_allele["significant_holm"] = per_allele["p_holm"] < 0.05
+    per_allele.to_csv(out_dir / "per_allele_spearman_112k.csv", index=False)
+
+    summary = {}
+    print("\n=== per-allele Spearman (Table S3 / Figure 3C), 112k ===")
+    for assay, g in per_allele.groupby("assay"):
+        ws = g[g["n"] >= WELL_SAMPLED_N]
+        top = ws.nlargest(3, "rho")[["allele", "rho", "p", "n"]].to_dict("records")
+        bot = ws.nsmallest(1, "rho")[["allele", "rho", "p", "n"]].to_dict("records")
+        summary[assay] = {
+            "n_alleles": int(len(g)),
+            "n_significant": int(g["significant_p05"].sum()),
+            "median_rho": float(g["rho"].median()),
+            "iqr": [float(g["rho"].quantile(.25)), float(g["rho"].quantile(.75))],
+            "n_well_sampled": int(len(ws)),
+            "strongest_positive": top,
+            "most_negative": bot,
+            "n_significant_holm": int(g["significant_holm"].sum()),
+            "n_significant_negative": int(((g["rho"] < 0) & g["significant_p05"]).sum()),
+            "n_significant_negative_holm": int(
+                ((g["rho"] < 0) & g["significant_holm"]).sum()),
+            "nominal_negative_alleles": g.loc[
+                (g["rho"] < 0) & g["significant_p05"],
+                ["allele", "n", "rho", "p", "p_holm"]].to_dict("records"),
+        }
+        s = summary[assay]
+        print(f"  {assay}: {s['n_alleles']} alleles (n>={MIN_N_PER_ALLELE}), "
+              f"median rho={s['median_rho']:.2f} "
+              f"IQR {s['iqr'][0]:.2f}-{s['iqr'][1]:.2f}, "
+              f"{s['n_significant']} significant at p<0.05 "
+              f"({s['n_significant_holm']} after Holm)")
+        print(f"    strongest (n>={WELL_SAMPLED_N}): " + ", ".join(
+            f"{t['allele']} rho={t['rho']:.2f} n={t['n']}" for t in top))
+        print(f"    most negative: " + ", ".join(
+            f"{t['allele']} rho={t['rho']:.2f} p={t['p']:.2g} n={t['n']}" for t in bot)
+            + f"; nominally significant negatives: {s['n_significant_negative']}"
+              f", after Holm: {s['n_significant_negative_holm']}")
+        for a in s["nominal_negative_alleles"]:
+            print(f"      {a['allele']} n={a['n']} rho={a['rho']:.2f} "
+                  f"p={a['p']:.3f} p_holm={a['p_holm']:.2f}")
+    with open(out_dir / "per_allele_spearman_112k_summary.json", "w") as f:
+        json.dump(summary, f, indent=2)
+    return per_allele, summary
+
+
+def run_composition(df, out_dir):
+    """Supplementary Table S5: per-allele composition -- unique peptides, pairs,
+    IC50/KD measurement counts, peptide-length range, and share of the dataset."""
+    pairs = df[["allele", "allele_compact", "peptide", "peptide_length"]].drop_duplicates(
+        subset=["allele_compact", "peptide"])
+    total_pairs = len(pairs)
+    g = pairs.groupby("allele")
+    comp = pd.DataFrame({
+        "n_unique_peptides": g["peptide"].nunique(),
+        "n_pairs": g.size(),
+        "peptide_len_min": g["peptide_length"].min(),
+        "peptide_len_max": g["peptide_length"].max(),
+    })
+    counts = (df.groupby(["allele", "measurement_type"]).size()
+                .unstack(fill_value=0).rename(columns={"IC50": "n_IC50", "Kd": "n_KD"}))
+    comp = comp.join(counts, how="left").fillna({"n_IC50": 0, "n_KD": 0})
+    comp["pct_of_pairs"] = 100 * comp["n_pairs"] / total_pairs
+    comp = comp.sort_values("n_pairs", ascending=False).reset_index()
+    comp.to_csv(out_dir / "per_allele_composition_112k.csv", index=False)
+
+    top = comp.iloc[0]
+    few = comp[comp["n_pairs"] < 5]["allele"].tolist()
+    single_assay = comp[(comp["n_IC50"] == 0) | (comp["n_KD"] == 0)]
+    print("\n=== per-allele composition (Table S5), 112k ===")
+    print(f"  {len(comp)} alleles, {total_pairs:,} pairs")
+    print(f"  most represented: {top['allele']} with {int(top['n_pairs']):,} pairs "
+          f"({top['pct_of_pairs']:.1f}%)")
+    print(f"  alleles with only one assay type: {len(single_assay)}")
+    print(f"  alleles with fewer than 5 pairs ({len(few)}): {', '.join(few) if few else 'none'}")
+    return comp
+
+
 def run_affinity_by_kd_label(df, kd_labels_csv, out_dir):
     """Split the KD score-affinity correlation by the ORIGINAL IEDB assay-response
     label recovered by kd_label_pooling.py.
@@ -126,6 +246,8 @@ def main():
     df = build_scored_metadata()
     cens = run_censored(df, out)
     aff = run_affinity(df, out)
+    run_per_allele(df, out)
+    run_composition(df, out)
     if args.kd_labels:
         run_affinity_by_kd_label(df, args.kd_labels, out)
     print("\n=== censored-vs-quantitative (I_sc_best, pooled) ===")
