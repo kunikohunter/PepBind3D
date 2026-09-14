@@ -89,6 +89,33 @@ def templates_from_logs(log_root=LOG_ROOT):
     return df
 
 
+# The 24 newly matched pairs were re-docked separately and their logs arrived
+# in a different layout: <allele_compact>/<peptide>_ROSETTA.log rather than
+# <allele>_batch/<peptide>/<peptide>_ROSETTA.log. Namespaced by allele
+# deliberately -- FLPSDFFPSV appears on three A*02 subtypes with three different
+# crystals, so flat filenames would have collided.
+LOG_ROOT_24 = BASE / "results_incoming" / "rosetta_logs_24"
+RMSD_CSV_24 = BASE / "IEDB_validation" / "crystal_rmsd_24" / "crystal_rmsd_per_pair.csv"
+
+
+def templates_from_flat_logs(log_root=LOG_ROOT_24):
+    """(allele_dir, peptide) -> template PDB, for <allele>/<peptide>_ROSETTA.log."""
+    rows = []
+    for log in sorted(log_root.rglob("*_ROSETTA.log")):
+        m = TEMPLATE_RE.search(log.read_text(errors="ignore"))
+        if not m:
+            continue
+        rows.append({"allele_dir": log.parent.name,
+                     "peptide": log.stem.replace("_ROSETTA", ""),
+                     "template_used": m.group(1).upper()})
+    df = pd.DataFrame(rows)
+    dup = df.duplicated(subset=["allele_dir", "peptide"], keep=False)
+    if dup.any():
+        raise SystemExit(f"two logs for the same (allele, peptide):\n"
+                         f"{df[dup].to_string(index=False)}")
+    return df
+
+
 def build(rmsd_csv=RMSD_CSV, log_root=LOG_ROOT, mhc_db=MHC_DB):
     rmsd = pd.read_csv(rmsd_csv)
     rmsd["allele_dir"] = rmsd["allele"].map(allele_to_dir)
@@ -207,6 +234,9 @@ def plot(d, out, res):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir")
+    ap.add_argument("--include-24", action="store_true",
+                    help="also score the 24 newly matched pairs, giving Figure 2G "
+                         "on all 76 rather than the original 52")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
     if args.self_test:
@@ -218,6 +248,29 @@ def main():
     self_test(); print()
 
     d, problems = build()
+    if args.include_24:
+        d24 = pd.read_csv(RMSD_CSV_24)
+        d24["allele_dir"] = d24["allele"].map(allele_to_dir)
+        logs24 = templates_from_flat_logs()
+        db = pd.read_csv(mhc_db_path := MHC_DB)
+        pdb_to_pep = (db.assign(PDB_ID=db["PDB_ID"].astype(str).str.upper())
+                        .drop_duplicates(subset=["PDB_ID"])
+                        .set_index("PDB_ID")["Epitope_Description"].astype(str).to_dict())
+        d24 = d24.merge(logs24, on=["allele_dir", "peptide"], how="left")
+        d24["template_peptide_used"] = d24["template_used"].map(pdb_to_pep)
+        ident = []
+        for r in d24.itertuples(index=False):
+            tp = getattr(r, "template_peptide_used")
+            try:
+                ident.append(percent_identity(r.peptide, tp) if isinstance(tp, str) else np.nan)
+            except ValueError:
+                ident.append(np.nan)
+        d24["template_identity_used"] = ident
+        d24["is_self_template"] = (d24["template_used"].astype(str).str.upper()
+                                   == d24["matched_pdb_id"].astype(str).str.upper())
+        print(f"added {len(d24)} newly matched pairs from {LOG_ROOT_24.name}; "
+              f"self-templated among them: {int(d24['is_self_template'].sum())}")
+        d = pd.concat([d, d24], ignore_index=True)
     print(f"{len(d)} validation pairs; template recovered from logs for "
           f"{int(d['template_used'].notna().sum())}")
     n_self = int(d["is_self_template"].sum())
