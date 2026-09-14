@@ -12,24 +12,74 @@ each (2,809,450 structures, ~124 GB), 118,751 measurement rows. Structures came
 from two Rosetta builds — 3.14 for the initial batch, 2024.09+release.06b3cf8
 for the alleles added later; `metadata.csv`'s `source_version` column says which.
 
-## Structure generation is not in this repository
+## Structure generation: where to start reading
 
-It was published with Bloodworth N, Chen W, Hunter K, Patrick D, et al.
-*Posttranslationally modified self-peptides promote hypertension in mouse
-models.* J Clin Invest. 2024;134(16):e174374. doi:10.1172/JCI174374 — code at
-https://github.com/meilerlab/discovery-self-peptides-hypertension (`code/`).
+`IEDBTestPipeline_ACCRE.py` (~1,700 lines, 16 top-level functions, no classes) is
+the production script. It is long, and most of it is not on the path that
+produced this dataset, so start here rather than at the top of the file.
 
-This dataset used an adapted copy. The adaptation adds SLURM batch-array
-execution (`--batch_index`, `--slurm_setup`, `--threads`, `create_batch_list`,
-`safe_thread_all`) and column-standardization helpers, and points at a newer
-Rosetta tree. The generation logic — threading order, template selection,
-docking protocol — is unchanged.
+**Two independent jobs live in one file.** Curation and structure generation
+share it but do not call each other:
 
-- `IEDBTestPipeline.py` / `IEDBTestPipeline_ACCRE.py` — curation and threaded
-  starting models. Threading is SimpleThreadingMover → NCAA substitution → trim
-  → add receptor → FastRelax (5 repeats, ref2015) → FlexPepDock prepack.
-  Refinement is `-pep_refine -nstruct 25 -ex1 -ex2aro`.
-- `HLA_db.py` — builds and queries the local MHC template database.
+| | entry point | what it does |
+|---|---|---|
+| curation | `get_peplist` → `clean_peplist` (+ `standardize_columns`, `rename_columns`, `flatten_columns`) | reads the IEDB bulk export, filters to quantitative IC50/KD on HLA-A/B/C, deduplicates per allele, writes the peptide lists |
+| structure generation | `thread_all` → `thread_template` | builds one prepacked starting model per peptide, and optionally the SLURM + options files for the FlexPepDock production run |
+
+**The generation path, in order** (all inside `thread_template`):
+
+1. `HLA_db.MHCdatabase.get_peptide_template` picks the threading template —
+   every same-length peptide from every allele of the same **gene**, ranked by
+   BLOSUM62 similarity to the target. See the caveat below.
+2. `SimpleThreadingMover` mounts the query peptide on the template peptide's
+   backbone.
+3. `DeleteRegionMover` trims the receptor to the α₁/α₂ cleft and removes
+   template overhang.
+4. `add_NCAA` substitutes non-canonical residues where a `.params` file is
+   supplied.
+5. the receptor is added and the complex relaxed — `FastRelax`, 5 repeats,
+   ref2015.
+6. FlexPepDock **prepack** produces the starting model that docking consumes.
+
+Refinement itself is a separate SLURM array, not this script:
+`-pep_refine -nstruct 25 -ex1 -ex2aro`.
+
+**Reading the rest.** `postprocessing_affinity`, `build_scorefile` and
+`stats_from_scorefile` are post-run bookkeeping over completed docking output.
+`make_batch` / `create_batch_list` / `safe_thread_all` and the `--threads`,
+`--slurm_setup`, `--batch_index` flags are the SLURM batch-array layer added for
+this dataset; the generation logic underneath is unchanged from the published
+version.
+
+**Flags that change the output.** `--ignore_epitope_match` enables
+self-template exclusion (`omit=["self"]`). It is **off** by default, which is how
+the released structures were generated; `regeneration/` re-runs the
+crystal-matched validation subset with it **on**. `--find_worst_template`
+inverts the template ranking and exists for diagnostics only.
+
+`HLA_db.py` holds the template database. `MHCdatabase` builds and queries it;
+`residueSelect` and `chainSelect` are BioPython `PDBIO.Select` subclasses, so
+their `accept_*` methods are called by BioPython rather than from this codebase.
+
+## Provenance: the published prior version
+
+The pipeline began as the code published with Bloodworth N, Chen W, Hunter K,
+Patrick D, et al. *Posttranslationally modified self-peptides promote
+hypertension in mouse models.* J Clin Invest. 2024;134(16):e174374.
+doi:10.1172/JCI174374 — https://github.com/meilerlab/discovery-self-peptides-hypertension
+(`code/`).
+
+This dataset used an adapted copy, included here because it, not the published
+version, is what produced these structures. The adaptation adds SLURM
+batch-array execution (`--batch_index`, `--slurm_setup`, `--threads`,
+`create_batch_list`, `safe_thread_all`) and column-standardization helpers, and
+points at a newer Rosetta tree. The generation logic — threading order,
+template selection, docking protocol — is unchanged from the published version.
+
+Structures came from two Rosetta builds: **3.14** for the initial batch of
+alleles and **2024.09+release.06b3cf8** for those added subsequently. Both share
+the FlexPepDock protocol and the ref2015 weights, and `metadata.csv`'s
+`source_version` column records which produced each pair.
 
 ### Template selection, and the self-templating caveat
 
@@ -76,6 +126,8 @@ each has a `--self-test` with an analytically known answer.
 |---|---|
 | `crystal_match.py` | matches release pairs to crystal structures in the template DB (76 pairs on the merged release; reproduces 52 on the earlier batch) |
 | `crystal_rmsd.py` | RMSD for those pairs from the release silents — **upper bounds only**, see the self-templating caveat |
+| `screen_decoy_content.py` | audits a decoy tree for content defects (spurious extra chain, truncated peptide) that no score-based check can see |
+| `figure2g_template_identity.py` | rebuilds Figure 2G from the templates actually recorded in the threading logs |
 | `ensemble_diversity.py` | decoy-to-decoy vs decoy-to-crystal spread, for the validation pairs |
 | `recompute_affinity_112k.py` | censoring AUROC, pooled and per-allele Spearman, composition table |
 | `kd_label_pooling.py` | recovers the original IEDB assay-response label for every KD row and tests whether the three are poolable |
@@ -90,7 +142,8 @@ each has a `--self-test` with an analytically known answer.
 |---|---|
 | `release/parse_scorefiles.py` | per-pair `score.sc` → summary of best/mean `I_sc`, `reweighted_sc`, `total_score`, `pep_sc` |
 | `release/convert_to_silent.py` | per-pair PDBs → one silent file, scores attached; hard-fails if the decoy count disagrees |
-| `release/add_release_columns.py` | adds `flagged`, `has_structures`, `num_pdbs`, `pdb_dir` and the score columns to the merged metadata |
+| `release/add_release_columns.py` | adds `flagged`, `self_templated`, `has_structures`, `num_pdbs`, `pdb_dir` and the score columns to the merged metadata |
+| `release/decoy_content.py` | the decoy content test, shared by the converter's gate and the audit script so the two cannot drift |
 | `release/rebuild_metadata.py` | merges score summaries into `metadata.csv` |
 
 ## Score metrics
