@@ -11,9 +11,25 @@ Pure stdlib on purpose: the converter runs in a PyRosetta environment and is
 fanned out over 112k pairs, so this must not drag in biopython or matplotlib.
 That rules out importing `utils`, whose __init__ eagerly imports both.
 
-The defects this catches all come from threading a shorter query peptide onto a
-longer template: surplus template residues are left behind as their own chain,
-and FlexPepDock then refines whichever chain it takes to be the peptide.
+The defects this catches come from two independent bugs in the generation
+pipeline, both diagnosed on the ACCRE side and both confirmed here from the
+residue sequences:
+
+  * the receptor trim builds DeleteRegionMover with end=f"{count}{chain}",
+    using a residue COUNT as a residue NUMBER. When the MHC chain has numbering
+    gaps, count < max residue number, so every residue numbered above the count
+    SURVIVES the trim and becomes its own chain. The remnant is therefore
+    untrimmed RECEPTOR (e.g. B5801/TRTSPNIPK carried chain B =
+    "HVQHEGLPKPLTLRWEP", alpha2/alpha3 junction sequence), not template peptide
+    overhang. The remnant's size equals the number of numbering gaps, which
+    predicts every observed case.
+  * Rosetta drops occupancy=0 atoms by default, so a template with an
+    unresolved peptide middle loads short and the query threads onto fewer
+    positions, truncating it.
+
+FlexPepDock then refines whichever chain it takes to be the peptide, which for
+an extra_chain pair is the remnant -- so the real peptide never moves and the
+25 "decoys" share one pose.
 
   extra_chain       3+ chains. If the remnant is too small to touch the
                     receptor every interface term is exactly 0.000, which is

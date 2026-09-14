@@ -14,11 +14,14 @@ decoy, only how many decoys there are:
         (INVISIBLE to any score-based screen; the structure does not contain
         the peptide it claims)
 
-All three come from threading a shorter query peptide onto a longer template:
-surplus template residues are left behind as their own chain, and FlexPepDock
-then refines whichever chain it takes to be the peptide. See
+Two independent pipeline bugs produce these, not one. The receptor trim uses a
+residue COUNT as a residue NUMBER, so with MHC numbering gaps the residues
+numbered above the count survive as their own chain (A and B above) -- the
+remnant is untrimmed RECEPTOR, confirmed from its sequence. And Rosetta drops
+occupancy=0 atoms by default, so templates with an unresolved peptide middle
+thread short (C above). See release/decoy_content.py for the full diagnosis and
 the threading step
-for that run.
+that run.
 
 The reliable test is chain composition plus sequence identity against the
 curated peptide -- exactly what ACCRE's stage_redock.py / stage_regen.py assert
