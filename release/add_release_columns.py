@@ -58,6 +58,7 @@ SCORE_SUMMARIES = [
     BASE / "IEDB_validation" / "scores_out" / "score_summary.csv",
     BASE / "IEDB_validation" / "scores_out_v2" / "score_summary.csv",
     BASE / "IEDB_validation" / "scores_out_1162" / "score_summary.csv",
+    BASE / "IEDB_validation" / "scores_out_183" / "score_summary.csv",
 ]
 
 MHC_DB = Path("<HOME>/Data/MHC_database/database.info")

@@ -47,6 +47,9 @@ def main():
     ap.add_argument("--new", required=True, help="tree of new silents, {allele}/{peptide}.silent")
     ap.add_argument("--pairs", required=True, help="CSV with allele_dir + peptide")
     ap.add_argument("--apply", action="store_true")
+    ap.add_argument("--allow-new", action="store_true",
+                    help="permit pairs that have no staging file yet (recovered "
+                         "orphans, which are additions rather than replacements)")
     args = ap.parse_args()
 
     new_root = Path(args.new)
@@ -60,9 +63,12 @@ def main():
         if not src.exists():
             missing_new.append(str(src)); continue
         if not dst.exists():
-            missing_old.append(str(dst)); continue
-        st = dst.stat()
-        plan.append((src, dst, st.st_nlink))
+            if not args.allow_new:
+                missing_old.append(str(dst)); continue
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            plan.append((src, dst, 0))          # nlink 0 => a new path, nothing to unlink
+            continue
+        plan.append((src, dst, dst.stat().st_nlink))
 
     print(f"pairs requested        : {len(pairs):,}")
     print(f"new silents found      : {len(plan) + len(missing_old):,}")
@@ -90,11 +96,16 @@ def main():
     print(f"\nrecorded {len(witness)} source-tree digests as witnesses")
 
     replaced = 0
-    for src, dst, _ in plan:
-        os.unlink(dst)          # decrements link count; source file survives
+    added = 0
+    for src, dst, nlink in plan:
+        if nlink:
+            os.unlink(dst)      # decrements link count; source file survives
+            replaced += 1
+        else:
+            added += 1
         os.link(src, dst)       # hardlink, no extra disk
-        replaced += 1
-    print(f"replaced {replaced:,} staging silents (unlink-then-link)")
+    print(f"replaced {replaced:,} staging silents (unlink-then-link), "
+          f"added {added:,} new")
 
     bad = [f for f, d in witness.items() if digest(Path(f)) != d]
     print(f"source-tree witnesses unchanged: {len(witness) - len(bad)}/{len(witness)}")
