@@ -38,6 +38,7 @@ Tungsten that is the v1 batch; the v2 decoy PDBs were deleted after the silents
 were built, so v2 must be screened where its tree lives.
 """
 import argparse
+import pathlib
 import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
@@ -56,9 +57,18 @@ SCORE_SUMMARIES = [
     BASE / "IEDB_validation" / "scores_out_v2" / "score_summary.csv",
 ]
 
+_ROOT = PDB_ROOT   # overridden by --pdb-root so an incoming re-dock tree can be
+                   # screened with the same code that screened the release
+
+
+def _init(root):
+    global _ROOT
+    _ROOT = pathlib.Path(root)
+
+
 def _one(args):
     allele_dir, peptide = args
-    d = PDB_ROOT / allele_dir / peptide
+    d = _ROOT / allele_dir / peptide
     pdbs = sorted(d.glob(f"{peptide}_input_[0-9][0-9][0-9][0-9].pdb"))
     if not pdbs:
         return {"allele_dir": allele_dir, "peptide": peptide,
@@ -80,6 +90,10 @@ def main():
                     help="parallel readers. Keep modest: this is a shared "
                          "filesystem and an aggressive walk degrades the machine.")
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--pdb-root", default=str(PDB_ROOT),
+                    help="decoy tree to screen (default: the v1 release tree)")
+    ap.add_argument("--pairs-from", default=None,
+                    help="CSV with allele_dir+peptide; default is the score summaries")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
     if args.self_test:
@@ -90,14 +104,18 @@ def main():
 
     self_test(); print()
 
-    s = pd.concat([pd.read_csv(p) for p in SCORE_SUMMARIES], ignore_index=True)
+    if args.pairs_from:
+        s = pd.read_csv(args.pairs_from)
+    else:
+        s = pd.concat([pd.read_csv(p) for p in SCORE_SUMMARIES], ignore_index=True)
     jobs = list(zip(s["allele_dir"], s["peptide"]))
     if args.limit:
         jobs = jobs[:args.limit]
     print(f"screening {len(jobs):,} pairs with {args.workers} workers", flush=True)
 
     rows = []
-    with ProcessPoolExecutor(max_workers=args.workers) as ex:
+    with ProcessPoolExecutor(max_workers=args.workers,
+                             initializer=_init, initargs=(args.pdb_root,)) as ex:
         for i, r in enumerate(ex.map(_one, jobs, chunksize=64), 1):
             rows.append(r)
             if i % 5000 == 0:
