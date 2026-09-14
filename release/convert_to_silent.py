@@ -1,7 +1,15 @@
 import os
+import sys
 from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from tqdm import tqdm
+
+# Shared with analysis/screen_decoy_content.py so the release gate and the
+# retrospective audit cannot drift apart. Imported by path rather than as
+# `utils.decoy_content` because utils/__init__ eagerly imports biopython and
+# matplotlib, neither of which belongs in a conversion worker.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from decoy_content import check_decoy, OK as CONTENT_OK  # noqa: E402
 
 PDB_DIR = Path("<HOME>/main_project/data/IEDB_data_clean/pdb")
 HF_STRUCT_DIR = Path("<HOME>/main_project/data/IEDB_data_clean/huggingface/structures")
@@ -77,6 +85,20 @@ def convert_peptide(args):
     pdbs = sorted(pep_dir.glob(f"{peptide}_input_[0-9][0-9][0-9][0-9].pdb"))
     if not pdbs:
         return allele, peptide, "no_pdbs"
+
+    # CONTENT gate. The count check further down catches "25 PDBs in, 24 out",
+    # but nothing validated what is INSIDE a decoy -- which is how 363 released
+    # v1 pairs shipped with a spurious remnant chain and all-zero interface
+    # terms, and how pairs whose peptide is truncated shipped looking healthy
+    # (a normal I_sc computed for the wrong chain is invisible to any
+    # score-based check). Refuse to write the silent file instead.
+    #
+    # Checked on the first decoy only: the defect is created at threading, so
+    # it is present in every decoy of an affected pair, and reading all 25 would
+    # cost 25x for no extra information.
+    verdict, detail = check_decoy(pdbs[0], peptide)
+    if verdict != CONTENT_OK:
+        return allele, peptide, f"ERROR: decoy content {verdict} -- {detail}"
 
     import pyrosetta
     from pyrosetta.rosetta.core.io.silent import SilentFileData, SilentFileOptions, BinarySilentStruct
