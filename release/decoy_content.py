@@ -49,12 +49,26 @@ def chain_sequences(path):
     """{chain_id: one-letter sequence} from CA records, in file order.
 
     Parsed by fixed column positions rather than whitespace splitting: PDB is a
-    fixed-column format and adjacent fields can abut in wide files."""
+    fixed-column format and adjacent fields can abut in wide files.
+
+    Residues are deduplicated on (chain, resSeq+iCode) so a residue with
+    alternate conformations counts once. Rosetta output does not need this --
+    measured over 400 released decoys, all 76,122 CA records carry a blank
+    altLoc and there are no duplicate keys -- but the same function is useful
+    against experimental structures, which do carry altLocs, and there
+    double-counting would silently inflate a chain and turn a truncated peptide
+    into an apparent match. Matches the dedup in ACCRE's independent screen.
+    """
     seqs = collections.OrderedDict()
+    seen = set()
     with open(path) as fh:
         for line in fh:
             if not line.startswith("ATOM") or line[12:16] != " CA ":
                 continue
+            key = (line[21], line[22:27])
+            if key in seen:
+                continue
+            seen.add(key)
             seqs.setdefault(line[21], []).append(
                 THREE_TO_ONE.get(line[17:20].strip().upper(), "X"))
     return {k: "".join(v) for k, v in seqs.items()}
@@ -105,12 +119,16 @@ def self_test():
     import tempfile
     from pathlib import Path
 
-    def pdb(chain_res):
+    def pdb(chain_res, altloc_dup=False):
         out, i = [], 1
         for ch, residues in chain_res:
             for r in residues:
                 out.append(f"ATOM  {i:5d}  CA  {r} {ch}{i:4d}"
                            f"      0.000   0.000   0.000  1.00  0.00           C")
+                if altloc_dup:
+                    # same residue number, alternate conformation 'B'
+                    out.append(f"ATOM  {i:5d}  CA B{r} {ch}{i:4d}"
+                               f"      0.000   0.000   0.000  1.00  0.00           C")
                 i += 1
         return "\n".join(out) + "\n"
 
@@ -135,6 +153,18 @@ def self_test():
         # an empty file must not pass as ok
         e = Path(td) / "empty.pdb"; e.write_text("")
         assert check_decoy(e, "VVAN")[0] == "unreadable"
+
+        # altLoc: every residue written twice as alternate conformations must
+        # still read as its true length. Without dedup the truncated case below
+        # would count 4 residues and pass as ok -- a FALSE NEGATIVE, the
+        # dangerous direction.
+        a = Path(td) / "altloc_ok.pdb"
+        a.write_text(pdb([("A", rec), ("B", ["VAL", "VAL", "ALA", "ASN"])],
+                         altloc_dup=True))
+        assert check_decoy(a, "VVAN") == (OK, ""), check_decoy(a, "VVAN")
+        b = Path(td) / "altloc_trunc.pdb"
+        b.write_text(pdb([("A", rec), ("B", ["VAL", "VAL"])], altloc_dup=True))
+        assert check_decoy(b, "VVAN")[0] == "truncated_peptide", check_decoy(b, "VVAN")
     print("decoy_content self-test PASSED: healthy decoys pass; extra chains, "
           "truncated peptides, wrong residues, bad receptor size and empty files "
           "are each classified correctly, and the real peptide's chain is named.")
