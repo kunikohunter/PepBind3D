@@ -1110,10 +1110,7 @@ def thread_template(input_fasta, db, ROSETTA_PATH, params=False, user_defined_re
  		# COUNT whenever the chain has numbering gaps (unresolved residues), and
  		# the receptor trim below needs the number, not the count: deleting
  		# 182..count leaves every residue numbered above the count behind as a
- 		# spurious extra chain. This was a defect: 984 pairs in an earlier build
- 		# of the dataset carried an untrimmed receptor fragment as their own
- 		# chain, the remnant size equalling the numbering-gap count exactly.
- 		# Always uses the number now.
+ 		# spurious extra chain.
  		template_resmax = max((r.id[1] for r in chain if r.id[0] == " "), default=template_rescount)
 
  		receptor_default = db.receptor
@@ -1174,8 +1171,10 @@ def thread_template(input_fasta, db, ROSETTA_PATH, params=False, user_defined_re
  		# If the template is longer, remove extra residues
  		resdiff = template_rescount - receptor_rescount
  		if resdiff > 0:
- 			# Trim to the highest residue NUMBER, not the residue count, or any
- 			# residue numbered above the count survives as a spurious chain.
+ 			# Trim to the highest residue NUMBER, not the residue count. On a
+ 			# chain with numbering gaps count < max number, so trimming to the
+ 			# count leaves every residue numbered above it behind as a spurious
+ 			# chain of untrimmed receptor whose size equals the gap count.
  			trim_end = template_resmax
  			ET.SubElement(protocols, "Add", mover="deleteRes_receptor")
  			ET.SubElement(movers, "DeleteRegionMover", name="deleteRes_receptor",
@@ -1239,13 +1238,13 @@ def thread_template(input_fasta, db, ROSETTA_PATH, params=False, user_defined_re
  		#log_file = os.path.join(parent_dir, f"{os.path.basename(input_fasta)[:-6]}_rosetta.log")
  		args = [f"{ROSETTA_PATH}/source/bin/rosetta_scripts.linuxgccrelease", "-s", best_pdb_fn, "-parser:protocol", XML_filename, "-database", f"{ROSETTA_PATH}/database", "-overwrite", "-out:level", "300"]
  		# "-mute", "all"
- 		# Load depositor coordinates flagged occupancy=0 (disordered peptide
- 		# residues) so templates with a soft middle thread full-length instead
- 		# of being silently truncated.
- 		# This was a defect: 178 pairs in an earlier build threaded
- 		# short because Rosetta drops occupancy=0 atoms by default, so the
- 		# released structure did not contain the full peptide it claimed.
- 		# Always loads them now.
+ 		# Load depositor coordinates flagged occupancy=0. Rosetta drops
+ 		# zero-occupancy atoms by default, so a template whose peptide has an
+ 		# unresolved middle loads short and the threaded query is silently
+ 		# truncated (1QR1: 9 peptide CA but only 6 Rosetta-loadable, so a 9-mer
+ 		# threads as 6). The disordered coordinates are still a valid starting
+ 		# placement: the anchors are resolved and FastRelax + FlexPepDock
+ 		# -pep_refine resample the peptide anyway.
  		args.extend(["-ignore_zero_occupancy", "false"])
  		if params and os.path.exists(params):
  			args.extend(["-extra_res_fa", os.path.abspath(params)])
