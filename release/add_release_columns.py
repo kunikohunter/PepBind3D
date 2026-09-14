@@ -54,6 +54,8 @@ SCORE_SUMMARIES = [
     BASE / "IEDB_validation" / "scores_out_v2" / "score_summary.csv",
 ]
 
+MHC_DB = Path("<HOME>/Data/MHC_database/database.info")
+
 SCORE_METRICS = ("I_sc", "reweighted_sc", "total_score")
 PEP_SC = "pep_sc"
 # v1 column order, so the restored file is a drop-in for code that reads v1.
@@ -62,7 +64,7 @@ V1_COLUMN_ORDER = [
     "measurement_type", "measurement_value", "measurement_units",
     "assay_method", "assay_response", "pubmed_id", "parent_protein",
     "protein_accession", "source_organism", "assay_pdb_id", "source_version",
-    "flagged", "has_structures", "num_pdbs",
+    "flagged", "self_templated", "has_structures", "num_pdbs",
     "I_sc_best", "I_sc_mean", "reweighted_sc_best", "reweighted_sc_mean",
     "total_score_best", "total_score_mean",
     "rosetta_best_score", "rosetta_mean_score", "pdb_dir",
@@ -93,7 +95,24 @@ def load_scores(with_pep_sc):
     return scores, metrics
 
 
-def add_columns(md, scores, flags, metrics):
+def mark_self_templated(md, db_peptides):
+    """Flag pairs that were threaded onto their own crystal structure.
+
+    `get_peptide_template` ranks same-length peptides from every allele of the
+    same gene by BLOSUM62 similarity to the target, so an identical peptide wins;
+    self-exclusion runs only under --ignore_epitope_match, which the production
+    runs did not pass. Membership of the target peptide in database.info is
+    exactly the self-exclusion criterion (HLA_db.py matches on
+    Epitope_Description == query_sequence, across all alleles), so it identifies
+    precisely the affected pairs.
+
+    These structures are the MOST accurate in the release -- they were built from
+    real coordinates. The column exists so users can exclude them when measuring
+    structure-prediction accuracy, where including them inflates the result."""
+    return md["peptide"].astype(str).isin(db_peptides)
+
+
+def add_columns(md, scores, flags, metrics, db_peptides=None):
     """Attach the release columns. Returns (dataframe, stats dict)."""
     md = md.merge(scores, how="left",
                   left_on=["allele_compact", "peptide"],
@@ -107,6 +126,9 @@ def add_columns(md, scores, flags, metrics):
     # legacy aliases; asserted equal to total_score in released v1
     md["rosetta_best_score"] = md["total_score_best"]
     md["rosetta_mean_score"] = md["total_score_mean"]
+
+    if db_peptides is not None:
+        md["self_templated"] = mark_self_templated(md, db_peptides)
 
     md = md.merge(flags, how="left", on=FLAG_KEY)
     n_flagged_matched = int(md["flagged"].notna().sum())
@@ -125,6 +147,7 @@ def add_columns(md, scores, flags, metrics):
         "flagged_carried": n_flagged_matched,
         "missing_score": int(md[f"{metrics[0]}_best"].isna().sum()),
         "num_pdbs_lt_25": int((md["num_pdbs"] < 25).sum()),
+        "self_templated": int(md["self_templated"].sum()) if "self_templated" in md else None,
     }
     return md, stats
 
@@ -152,7 +175,17 @@ def self_test():
         "allele_iedb": ["HLA-A_02_01"], "peptide": ["AAAAAAAAA"],
         "measurement_type": ["Kd"], "measurement_value": [20.0], "flagged": [True],
     })
-    out, stats = add_columns(md, scores, flags, list(SCORE_METRICS))
+    # AAAAAAAAA has a crystal in the template DB, CCCCCCCCC does not
+    out, stats = add_columns(md, scores, flags, list(SCORE_METRICS),
+                             db_peptides={"AAAAAAAAA", "UNRELATEDPEP"})
+    assert list(out["self_templated"]) == [True, True, False], list(out["self_templated"])
+    assert stats["self_templated"] == 2, stats
+
+    # omitting db_peptides must leave the column off entirely, not write False
+    out_no, stats_no = add_columns(md, scores, flags, list(SCORE_METRICS))
+    assert "self_templated" not in out_no.columns
+    assert stats_no["self_templated"] is None
+
 
     assert list(out["has_structures"]) == [True, True, False], list(out["has_structures"])
     # Int64 keeps the missing entry as pd.NA, not None -- compare the present
@@ -214,7 +247,10 @@ def main():
         subset=FLAG_KEY)
     print(f"flagged rows in released v1: {len(flags)}")
 
-    result, stats = add_columns(md, scores, flags, metrics)
+    db_peptides = set(pd.read_csv(MHC_DB)["Epitope_Description"].astype(str))
+    print(f"template database: {len(db_peptides):,} distinct peptides")
+
+    result, stats = add_columns(md, scores, flags, metrics, db_peptides)
     result.to_csv(out, index=False)
 
     print(f"\nwrote {out}")
@@ -223,6 +259,12 @@ def main():
     print(f"  pairs missing a score {stats['missing_score']:,}")
     print(f"  rows w/o structures   {stats['no_structures']:,}")
     print(f"  num_pdbs < 25         {stats['num_pdbs_lt_25']:,}")
+    if stats.get("self_templated") is not None:
+        n = stats["self_templated"]
+        pairs = result.drop_duplicates(subset=["allele_compact", "peptide"])
+        print(f"  self_templated rows   {n:,} "
+              f"({int(pairs['self_templated'].sum()):,} distinct pairs, "
+              f"{100*pairs['self_templated'].mean():.3f}% of pairs)")
     print(f"  flagged == True       {stats['flagged_true']} "
           f"(carried {stats['flagged_carried']} from released v1)")
 
