@@ -181,6 +181,25 @@ def extract_decoys(silent_path, scratch):
     return out
 
 
+def decoys_from_pdb_tree(pep_dir, score_col=PRIMARY_SCORE):
+    """[(pdb_path, {score: value}), ...] from a decoy PDB directory + score.sc.
+
+    The leakage-free validation ensembles are re-docks delivered as PDB trees,
+    not silents, so Validation 1 reads them here rather than through
+    extract_decoys(). Scores come from score.sc keyed on `description`, which
+    matches each PDB's filename stem."""
+    import sys as _sys
+    _sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from utils.io import read_score_file
+    sc = read_score_file(pep_dir / "score.sc").set_index("description")
+    out = []
+    for pdb in sorted(pep_dir.glob(f"{pep_dir.name}_input_[0-9][0-9][0-9][0-9].pdb")):
+        if pdb.stem not in sc.index:
+            continue
+        out.append((pdb, {score_col: float(sc.loc[pdb.stem, score_col])}))
+    return out
+
+
 def score_pair(decoys, exp_pdb, peptide):
     """Return the three metrics for one pair, or (None, reason)."""
     rows = []
@@ -248,6 +267,15 @@ def main():
     ap.add_argument("--out-dir")
     ap.add_argument("--scratch", default="<HOME>/.claude/jobs/3d3aeb22/tmp/rmsd_scratch")
     ap.add_argument("--limit", type=int, default=None, help="first N pairs only (smoke test)")
+    ap.add_argument("--pdb-tree", default=None,
+                    help="score decoys from this PDB tree ({allele}/{peptide}/) "
+                         "instead of the release silents. This is how the "
+                         "LEAKAGE-FREE validation ensembles are read: they were "
+                         "re-docked with --ignore_epitope_match and delivered as "
+                         "PDBs, so unlike the silent path these numbers ARE "
+                         "Validation 1 rather than an upper bound.")
+    ap.add_argument("--matched", default=str(MATCHED),
+                    help="pair list to score (default: all 76 matched pairs)")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
 
@@ -265,26 +293,36 @@ def main():
     from pyrosetta import init
     init("-mute all -in:file:silent_struct_type binary")
 
-    pairs = pd.read_csv(MATCHED)
+    pairs = pd.read_csv(args.matched)
     if args.limit:
         pairs = pairs.head(args.limit)
     print(f"{len(pairs)} matched pairs to score")
 
-    print("\nverifying extraction fidelity against the production score.sc:", flush=True)
-    verify_extraction(pairs)
+    if not args.pdb_tree:
+        print("\nverifying extraction fidelity against the production score.sc:", flush=True)
+        verify_extraction(pairs)
+    else:
+        print(f"\nreading decoys from PDB tree {args.pdb_tree}\n"
+              f"  these are the LEAKAGE-FREE re-docked ensembles, so these ARE "
+              f"Validation 1 numbers", flush=True)
     print(flush=True)
 
     results, failures = [], []
     for i, r in enumerate(pairs.itertuples(index=False), 1):
         silent = SILENT_ROOT / r.allele_compact / f"{r.peptide}.silent"
         exp_pdb = TEMPLATE_DIR / f"{r.matched_pdb_id}.pdb"
-        if not silent.exists() or not exp_pdb.exists():
+        need_silent = not args.pdb_tree
+        if (need_silent and not silent.exists()) or not exp_pdb.exists():
             failures.append({"allele": r.allele, "peptide": r.peptide,
                              "reason": f"missing {'silent' if not silent.exists() else 'exp pdb'}"})
             continue
         pair_scratch = scratch / f"{r.allele_compact}_{r.peptide}"
         try:
-            decoys = extract_decoys(silent, pair_scratch)
+            if args.pdb_tree:
+                decoys = decoys_from_pdb_tree(
+                    Path(args.pdb_tree) / r.allele_compact / r.peptide)
+            else:
+                decoys = extract_decoys(silent, pair_scratch)
             metrics, err = score_pair(decoys, exp_pdb, r.peptide)
         except Exception as e:
             metrics, err = None, f"{type(e).__name__}: {e}"
@@ -318,12 +356,13 @@ def main():
                   f"IQR {v.quantile(.25):.2f}-{v.quantile(.75):.2f}  "
                   f"<=2A {100*(v <= 2).mean():.1f}%")
 
-    print("\n*** these are SELF-TEMPLATED pairs; the numbers below are upper "
-          "bounds, not validation figures. See the module docstring. ***")
-    summarise(df, "ALL matched pairs (released structures)")
+    if not args.pdb_tree:
+        print("\n*** these are SELF-TEMPLATED pairs; the numbers below are upper "
+              "bounds, not validation figures. See the module docstring. ***")
+    summarise(df, "ALL matched pairs")
     if "source_version" in df:
-        summarise(df[df.source_version == "v1"], "v1 batch (released, leaked)")
-        summarise(df[df.source_version == "v2"], "newly matched v2 pairs (released, leaked)")
+        summarise(df[df.source_version == "v1"], "v1 batch")
+        summarise(df[df.source_version == "v2"], "newly matched v2 pairs")
 
     # known-answer check against the notebook's stored 52
     if NOTEBOOK_RMSD.exists() and not df.empty:
