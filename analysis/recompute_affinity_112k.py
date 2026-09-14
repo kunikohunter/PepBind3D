@@ -22,7 +22,12 @@ from censored_vs_quantitative_auroc import (
     METRICS, PRIMARY_METRIC,
 )
 
-METADATA = Path("<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata.csv")
+# metadata_full.csv is the release file: it already carries the score columns,
+# joined by release/add_release_columns.py with the re-docked 1,162 overriding
+# their defective originals. Reading it avoids repeating that join here, where
+# the override ordering could silently drift out of step and reintroduce the
+# wrong-chain I_sc values.
+METADATA = Path("<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata_full.csv")
 V1_SCORES = Path("<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/scores_out/score_summary.csv")
 V2_SCORES = Path("<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/scores_out_v2/score_summary.csv")
 
@@ -31,6 +36,12 @@ SCORE_COLS = [f"{m}_{agg}" for m in METRICS for agg in ("best", "mean")]
 
 def build_scored_metadata():
     md = pd.read_csv(METADATA, low_memory=False)
+    if f"{PRIMARY_METRIC}_best" in md.columns:
+        n_missing = md[f"{PRIMARY_METRIC}_best"].isna().sum()
+        print(f"metadata already carries score columns: {len(md):,} rows; "
+              f"pairs missing a score: {n_missing:,} "
+              f"({100*n_missing/len(md):.2f}%)", flush=True)
+        return md
     s1 = pd.read_csv(V1_SCORES); s2 = pd.read_csv(V2_SCORES)
     scores = pd.concat([s1, s2], ignore_index=True).drop_duplicates(subset=["allele_dir", "peptide"])
     keep = ["allele_dir", "peptide"] + [c for c in SCORE_COLS if c in scores.columns]

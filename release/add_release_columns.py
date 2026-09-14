@@ -49,9 +49,15 @@ import pandas as pd
 BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
 MERGED = BASE / "release_v2_final" / "metadata.csv"
 V1_RELEASED = BASE / "huggingface" / "metadata.csv"
+# ORDER MATTERS. load_scores() dedups on (allele_dir, peptide) with keep="last",
+# so a later file overrides an earlier one for the same pair. The 1,162
+# re-docked pairs must therefore come LAST: their entries in scores_out/ are the
+# defective originals, whose I_sc was computed for the wrong chain (median
+# -11.60 REU against -68.57 after the re-dock) or for a truncated peptide.
 SCORE_SUMMARIES = [
     BASE / "IEDB_validation" / "scores_out" / "score_summary.csv",
     BASE / "IEDB_validation" / "scores_out_v2" / "score_summary.csv",
+    BASE / "IEDB_validation" / "scores_out_1162" / "score_summary.csv",
 ]
 
 MHC_DB = Path("<HOME>/Data/MHC_database/database.info")

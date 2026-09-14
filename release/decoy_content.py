@@ -31,6 +31,22 @@ FlexPepDock then refines whichever chain it takes to be the peptide, which for
 an extra_chain pair is the remnant -- so the real peptide never moves and the
 25 "decoys" share one pose.
 
+Two invariants follow from the trim being applied to the HEAVY CHAIN only
+(DeleteRegionMover start=receptor_rescount+1 end=template_rescount on mhcChain),
+and both are useful as diagnostics rather than just description:
+
+  * the remnant SIZE equals the heavy chain's numbering-gap count (8ZV9 11,
+    3REW 4, 1JF1 2, 1QR1 0 -- and 1QR1 accordingly never produced an
+    extra_chain, only truncation);
+  * the remnant SEQUENCE is always a C-terminal heavy-chain fragment. A remnant
+    that looked peptide-like would therefore indicate a DIFFERENT bug, not this
+    one.
+
+The two classes are mechanically disjoint -- gapped heavy-chain numbering causes
+extra_chain, occupancy-0 peptide residues cause truncation -- so a pair can be
+attributed to one cause or the other after the fact, and no pair needed both
+fixes for the same reason.
+
   extra_chain       3+ chains. If the remnant is too small to touch the
                     receptor every interface term is exactly 0.000, which is
                     score-visible; if it is large enough, I_sc looks perfectly
