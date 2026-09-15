@@ -8,7 +8,6 @@ FileNotFoundError. Set these before running anything:
 
     export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean
     export PEPBIND3D_MHC_DB=/your/path/to/MHC_database
-    export PEPBIND3D_CLUSTER=/your/cluster/scratch
 
 `python3 paths.py` prints the resolved roots and whether each one exists, which
 is the quickest way to check before a long run.
@@ -32,8 +31,8 @@ MHC_DB_ROOT = Path(os.environ.get(
     "PEPBIND3D_MHC_DB",
     "<HOME>/Data/MHC_database"))
 
-# Cluster scratch root for run trees that live on the allocation. Nothing in
-# the release pipeline or the analyses needs it.
+# Cluster scratch root, for run trees that live on the allocation rather than
+# in the data tree. Nothing in the release pipeline or the analyses needs it.
 CLUSTER_ROOT = Path(os.environ.get(
     "PEPBIND3D_CLUSTER",
     "<CLUSTER>"))

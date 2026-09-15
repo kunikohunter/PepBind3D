@@ -2,8 +2,8 @@
 
 Code for the Scientific Data descriptor pairing curated IEDB peptide-HLA class I
 binding affinities with Rosetta FlexPepDock structural ensembles: notebooks that
-produce the manuscript figures and tables, the analysis scripts behind every
-reported number.
+produce the manuscript figures and tables, and the analysis scripts behind
+reported numbers.
 
 Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
@@ -84,7 +84,7 @@ Each takes a `--self-test` flag.
 | `crystal_rmsd.py` | RMSD for those pairs from the release silents, **upper bounds only**, see the self-templating caveat |
 | `screen_decoy_content.py` | audits a decoy tree for content defects (spurious extra chain, truncated peptide) that no score-based check can see |
 | `figure2g_template_identity.py` | rebuilds Figure 2G from the templates actually recorded in the threading logs |
-| `ensemble_diversity.py` | decoy-to-decoy vs decoy-to-crystal spread, for the validation pairs |
+| `ensemble_diversity.py` | decoy-to-decoy vs decoy-to-crystal spread for the validation pairs |
 | `recompute_affinity_112k.py` | censoring AUROC, pooled and per-allele Spearman, composition table |
 | `kd_label_pooling.py` | recovers the original IEDB assay-response label for every KD row and tests whether the three are poolable |
 | `affinity_baseline.py` | minimal sequence/structure affinity predictors |

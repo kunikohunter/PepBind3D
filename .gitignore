@@ -11,22 +11,9 @@ __pycache__/
 *.sc
 
 # Rosetta run trees: tens of GB, regenerable from the scripts
-benchmark/rosetta_arm/arm/
-benchmark/rosetta_arm/pilot/
-benchmark/refs/cif/
-benchmark/af2_msa/msa_cache/
-benchmark/wrappers/test_*/
 hlac_production/
 hlac/
 run/
-
-# AlphaFold2 and model intermediates
-*.pkl
-*.npz
-msas/
-features.pkl
-result_*.pkl
-ranked_*.pdb
 
 # Cluster logs and job artifacts
 logs/
@@ -38,9 +25,7 @@ ROSETTA_CRASH.log
 # except the regeneration run records, kept as provenance
 !regeneration/*.out
 
-# Job lists rebuilt by build_arm.py
-arm_joblist.txt
-arm_skipped.csv
+# Job lists rebuilt by the docking scripts
 dock_tasklist.txt
 
 # Per-prediction fold output from analysis/affinity_baseline.py: 88k rows,

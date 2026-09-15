@@ -56,8 +56,8 @@ fixes for the same reason.
                     peptide -- the structure does not contain the sequence it
                     claims.
 
-See the threading step
-defect for that run, and its docstring for why chain composition
+See the threading step for where this defect originates, and below for why
+chain composition
 rather than the score terms is the reliable test.
 """
 import collections

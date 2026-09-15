@@ -53,7 +53,7 @@ So what is this script still good for?
     --ignore_epitope_match the way the original 52 were.
 
 RMSD itself is not reimplemented: utils.structure.compute_peptide_rmsd is the
-same function the notebook and the benchmark metric use (peptide backbone
+same function the notebook uses (peptide backbone
 N/Ca/C/O after superposition on the first 180 MHC Ca atoms, residues paired by
 sequence alignment).
 

@@ -16,8 +16,8 @@ median/mean/max of each distribution and the ratio median_d2c / median_d2d,
 then summarize across pairs.
 
 RMSD is computed by reusing utils.structure.superpose_on_mhc and
-_peptide_atom_pairs verbatim (the same functions notebook 01 /
-the notebook uses) -- no second RMSD implementation. Structures are loaded
+_peptide_atom_pairs verbatim (the same functions notebook 01
+uses) -- no second RMSD implementation. Structures are loaded
 once per pair and transformed non-destructively (the superposition rotran is
 applied to a numpy copy of the peptide coords, never to the shared structure),
 so a decoy reused as mobile in 24 comparisons is never corrupted.
@@ -50,10 +50,6 @@ import sys as _sys; from pathlib import Path as _P
 _sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
 from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
 
-# --- arm mode inputs (the 167-target leakage-controlled set) ---
-BENCH_ARM_ROOT = DATA_ROOT / "arm_incoming/rosetta_arm/arm"
-BENCH_ARM_DECOYS_CSV = DATA_ROOT / "arm_incoming/rosetta_arm/arm_decoys.csv"
-BENCH_MANIFEST = Path(__file__).resolve().parent.parent / "benchmark" / "refs" / "reference_manifest.csv"
 
 RMSD_PER_PAIR = DATA_ROOT / "IEDB_validation/01_structural_regen/rmsd_per_pair.csv"
 REGEN_ROOT = DATA_ROOT / "IEDB_validation/regeneration/pdb"
@@ -144,99 +140,6 @@ def analyze_pair(allele, peptide, matched_pdb_id):
     return d2d, d2c, None
 
 
-def analyze_arm_target(tid, pep_seq, d2c_by_target):
-    """Benchmark-arm (167-target) version: decoy-to-decoy computed from the
-    arm's docking PDBs with the same metric; decoy-to-crystal taken from
-    arm_decoys.csv (already computed with the algorithmically-identical
-    benchmark RMSD -- verified byte-identical to utils.structure this session).
-    Returns a record dict or None."""
-    dock_dir = BENCH_ARM_ROOT / tid / "docking"
-    decoy_paths = sorted(dock_dir.glob(f"*_[0-9][0-9][0-9][0-9].pdb"))
-    if len(decoy_paths) < 2:
-        return None, f"only {len(decoy_paths)} decoys"
-
-    decoys = []
-    for p in decoy_paths:
-        try:
-            s = load_structure(p)
-            pep_ch, mhc_ch = get_pep_mhc_chains(s, pep_seq)
-            decoys.append((pep_ch, mhc_ch))
-        except Exception as e:  # noqa: BLE001
-            return None, f"chain id failed on {p.name}: {e}"
-
-    d2d = []
-    for i in range(len(decoys)):
-        for j in range(i + 1, len(decoys)):
-            r, _ = peptide_rmsd_between(decoys[i][0], decoys[i][1],
-                                        decoys[j][0], decoys[j][1])
-            if r is not None:
-                d2d.append(r)
-    if not d2d:
-        return None, "no decoy-decoy RMSDs"
-    d2d = np.array(d2d)
-
-    rec = {"target": tid, "peptide": pep_seq, "n_d2d": len(d2d),
-           "d2d_median": float(np.median(d2d)), "d2d_mean": float(d2d.mean()),
-           "d2d_max": float(d2d.max())}
-    d2c = d2c_by_target.get(tid)
-    if d2c is not None and len(d2c):
-        d2c = np.array(d2c)
-        rec.update({
-            "n_d2c": len(d2c), "d2c_median": float(np.median(d2c)),
-            "d2c_mean": float(d2c.mean()), "d2c_min": float(d2c.min()),
-            "ratio_med_d2c_over_d2d": float(np.median(d2c) / np.median(d2d)),
-            "crystal_within_d2d_range": bool(np.median(d2c) <= d2d.max()),
-        })
-    return rec, None
-
-
-def run_benchmark_arm(out_dir, limit=None):
-    manifest = pd.read_csv(BENCH_MANIFEST)
-    pep_by_tid = dict(zip(manifest["pdb_id"].astype(str), manifest["peptide_seq"].astype(str)))
-
-    # decoy-to-crystal per decoy, grouped by target, from arm_decoys.csv
-    d2c_by_target = {}
-    if BENCH_ARM_DECOYS_CSV.exists():
-        ad = pd.read_csv(BENCH_ARM_DECOYS_CSV)
-        tcol = "target" if "target" in ad.columns else ad.columns[0]
-        rcol = "peptide_backbone_rmsd"
-        for tid, g in ad.groupby(tcol):
-            d2c_by_target[str(tid)] = g[rcol].dropna().tolist()
-    else:
-        print(f"WARNING: {BENCH_ARM_DECOYS_CSV} not found; decoy-to-crystal side will be empty",
-              file=sys.stderr)
-
-    targets = sorted(p.name for p in BENCH_ARM_ROOT.iterdir() if p.is_dir())
-    if limit:
-        targets = targets[:limit]
-    print(f"Benchmark arm: {len(targets)} target dirs under {BENCH_ARM_ROOT}", file=sys.stderr)
-
-    rows = []
-    for tid in targets:
-        pep = pep_by_tid.get(tid)
-        if not pep:
-            print(f"  SKIP {tid}: no peptide in manifest", file=sys.stderr)
-            continue
-        rec, reason = analyze_arm_target(tid, pep, d2c_by_target)
-        if rec is None:
-            print(f"  SKIP {tid}: {reason}", file=sys.stderr)
-            continue
-        rows.append(rec)
-        print(f"  {tid}/{pep}: d2d_med={rec['d2d_median']:.2f} "
-              f"d2c_med={rec.get('d2c_median', float('nan')):.2f} "
-              f"ratio={rec.get('ratio_med_d2c_over_d2d', float('nan')):.2f}", flush=True)
-
-    df = pd.DataFrame(rows)
-    df.to_csv(out_dir / "ensemble_diversity_benchmark167_per_target.csv", index=False)
-    wc = df.dropna(subset=["ratio_med_d2c_over_d2d"]) if "ratio_med_d2c_over_d2d" in df else df.iloc[:0]
-    print("\n=== BENCHMARK-167 SUMMARY ===")
-    print(f"targets analyzed: {len(df)}  (with crystal RMSD: {len(wc)})")
-    print(f"decoy-to-decoy median RMSD across targets: {df['d2d_median'].median():.3f} Å "
-          f"(IQR {df['d2d_median'].quantile(.25):.3f}-{df['d2d_median'].quantile(.75):.3f})")
-    if len(wc):
-        print(f"decoy-to-crystal median RMSD across targets: {wc['d2c_median'].median():.3f} Å")
-        print(f"median(ratio d2c/d2d): {wc['ratio_med_d2c_over_d2d'].median():.2f}")
-        print(f"crystal within decoy-decoy range: {int(wc['crystal_within_d2d_range'].sum())}/{len(wc)} targets")
 
 
 def self_test():
@@ -277,10 +180,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", type=str, default=None)
     ap.add_argument("--self-test", action="store_true")
-    ap.add_argument("--mode", choices=["validation", "arm"], default="validation",
-                    help="'validation' = 52 PepBind3D validation pairs; "
-                         "'benchmark-arm' = 167 leakage-controlled benchmark targets")
-    ap.add_argument("--limit", type=int, default=None, help="debug: only first N pairs/targets")
+    ap.add_argument("--limit", type=int, default=None, help="debug: only first N pairs")
     args = ap.parse_args()
 
     if args.self_test:
@@ -291,9 +191,6 @@ def main():
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    if args.mode == "arm":
-        run_benchmark_arm(out_dir, limit=args.limit)
-        return
 
     pairs = pd.read_csv(RMSD_PER_PAIR)
     if args.limit:

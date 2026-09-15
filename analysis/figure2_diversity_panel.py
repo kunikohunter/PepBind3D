@@ -7,7 +7,8 @@ decoy-to-crystal RMSD, y), with the y=x diagonal. A point on/below the
 diagonal means the crystal sits within the ensemble's own scatter; above it
 means the ensemble is internally tighter than its displacement from truth.
 Two panels: the 52 PepBind3D validation pairs and the 167 leakage-controlled
-benchmark targets. Reads the already-computed CSVs (no recompute).
+the crystal-matched validation pairs. Reads the already-computed CSV
+(no recompute).
 
 Usage: python3 figure2_diversity_panel.py --out-dir <dir>
 """
@@ -26,7 +27,6 @@ from paths import DATA_ROOT  # noqa: E402
 OUT_BASE = DATA_ROOT / "IEDB_validation/ensemble_diversity_out"
 SETS = [
     ("52 PepBind3D validation pairs", OUT_BASE / "ensemble_diversity_per_pair.csv", "#4477AA"),
-    ("167 leakage-controlled targets", OUT_BASE / "ensemble_diversity_benchmark167_per_target.csv", "#228833"),
 ]
 
 

@@ -20,8 +20,7 @@ numbered above the count survive as their own chain (A and B above) -- the
 remnant is untrimmed RECEPTOR, confirmed from its sequence. And Rosetta drops
 occupancy=0 atoms by default, so templates with an unresolved peptide middle
 thread short (C above). See release/decoy_content.py for the full diagnosis and
-the threading step
-that run.
+the threading step, which is where both defects originate.
 
 The reliable test is chain composition plus sequence identity against the
 curated peptide -- exactly what ACCRE's stage_redock.py / stage_regen.py assert
