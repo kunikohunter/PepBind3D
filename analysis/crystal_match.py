@@ -34,7 +34,7 @@ import pandas as pd
 BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
 # the restored-column merged metadata; add_release_columns.py output, which has
 # `flagged` back, so the notebook's unflagged filter can be applied
-METADATA = BASE / "release_v2_final" / "metadata_full.csv"
+METADATA = BASE / "release_v2_final" / "metadata.csv"
 V1_METADATA = BASE / "huggingface" / "metadata.csv"
 MHC_DB = Path("<HOME>/Data/MHC_database/database.info")
 

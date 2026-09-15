@@ -22,12 +22,12 @@ from censored_vs_quantitative_auroc import (
     METRICS, PRIMARY_METRIC,
 )
 
-# metadata_full.csv is the release file: it already carries the score columns,
+# metadata.csv is the release file: it already carries the score columns,
 # joined by release/add_release_columns.py with the re-docked 1,162 overriding
 # their defective originals. Reading it avoids repeating that join here, where
 # the override ordering could silently drift out of step and reintroduce the
 # wrong-chain I_sc values.
-METADATA = Path("<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata_full.csv")
+METADATA = Path("<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata.csv")
 V1_SCORES = Path("<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/scores_out/score_summary.csv")
 V2_SCORES = Path("<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/scores_out_v2/score_summary.csv")
 

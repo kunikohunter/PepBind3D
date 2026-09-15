@@ -1,30 +1,16 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-CLAUDE.md
-.claude/
+.DS_Store
 
-# --- Revision material: reviews, plan, manuscript drafts, response letter ---
-# Private to the revision; never goes in the public code repo.
-revisions/
-# ...except the revision tooling itself, which is code and must not be lost.
-# Manuscripts, reviews, the plan and the response letter stay ignored.
-!revisions/
-revisions/*
-!revisions/*.py
-# kept as a safety net in case these are re-dropped at the repo root
-REVISION_PLAN.md
-PepBind3D_072026_Submitted.docx
-Reviews.docx
-*.docx
-# --- Structure data: belongs in the HuggingFace dataset, never in git ---
+# Structure data belongs in the deposited dataset, not in git
 *.pdb
 *.cif
 *.silent
 *.silent.bak
 *.sc
 
-# --- Rosetta run trees (tens of GB, regenerable) ---
+# Rosetta run trees: tens of GB, regenerable from the scripts
 benchmark/rosetta_arm/arm/
 benchmark/rosetta_arm/pilot/
 benchmark/refs/cif/
@@ -32,8 +18,9 @@ benchmark/af2_msa/msa_cache/
 benchmark/wrappers/test_*/
 hlac_production/
 hlac/
+run/
 
-# --- AlphaFold2 / model intermediates ---
+# AlphaFold2 and model intermediates
 *.pkl
 *.npz
 msas/
@@ -41,38 +28,36 @@ features.pkl
 result_*.pkl
 ranked_*.pdb
 
-# --- Cluster logs and job artifacts ---
+# Cluster logs and job artifacts
 logs/
 *.out
 *.err
 *.log
 slurm-*.out
 ROSETTA_CRASH.log
+# except the regeneration run records, kept as provenance
+!regeneration/*.out
 
-# --- Generated job/target lists (rebuilt by build_arm.py) ---
+# Job lists rebuilt by build_arm.py
 arm_joblist.txt
 arm_skipped.csv
 dock_tasklist.txt
 
-# --- Revision/manuscript material (public repo) ---
-paper_corrections.md
-
-# --- Local agent/session state ---
-.loops-mem/
-scratchpad/
-.DS_Store
-
-# --- Working notes, task prompts, discovery/inventory dumps (never public) ---
-notes/
-
-# Regeneration run records are deliberately tracked as provenance
-!regeneration/*.out
-
-# Companion run trees, symlinked here for grouping only. These point at
-# hundreds of GB and over a million files; git must never walk them.
-run/
-
 # Per-prediction fold output from analysis/affinity_baseline.py: 88k rows,
-# ~15 MB, fully regenerable from the script. The reported numbers live in
+# ~15 MB, regenerable. The reported numbers are in
 # affinity_baseline_metrics.json and affinity_baseline_per_allele.csv.
 analysis/results/affinity_baseline_fold_predictions.csv
+
+# Manuscript and editorial material
+*.docx
+revisions/
+!revisions/
+revisions/*
+!revisions/*.py
+
+# Local working files
+notes/
+scratchpad/
+.loops-mem/
+.claude/
+CLAUDE.md

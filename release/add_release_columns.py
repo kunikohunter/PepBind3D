@@ -1,8 +1,8 @@
 """
 Restore the release columns that the v1+v2 metadata reconciliation dropped.
 
-release_v2_final/metadata.csv came out of the merge with only the curation
-columns (16 of them). The released v1 metadata.csv carries ten more that Data
+release_v2_final/metadata_curated.csv came out of the merge with only the
+curation columns (16 of them). The released v1 metadata.csv carries ten more that Data
 Records documents and that users' code reads:
 
     flagged  has_structures  num_pdbs  pdb_dir
@@ -47,7 +47,9 @@ from pathlib import Path
 import pandas as pd
 
 BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
-MERGED = BASE / "release_v2_final" / "metadata.csv"
+# The curation output, before score and provenance columns are attached. Named
+# for what it is: the release file is metadata.csv, written by this script.
+MERGED = BASE / "release_v2_final" / "metadata_curated.csv"
 V1_RELEASED = BASE / "huggingface" / "metadata.csv"
 # ORDER MATTERS. load_scores() dedups on (allele_dir, peptide) with keep="last",
 # so a later file overrides an earlier one for the same pair. The 1,162
@@ -70,7 +72,7 @@ V1_COLUMN_ORDER = [
     "allele_iedb", "allele", "allele_compact", "peptide", "peptide_length",
     "measurement_type", "measurement_value", "measurement_units",
     "assay_method", "assay_response", "pubmed_id", "parent_protein",
-    "protein_accession", "source_organism", "assay_pdb_id", "source_version",
+    "protein_accession", "source_organism", "source_version",
     "flagged", "self_templated", "has_structures", "num_pdbs",
     "I_sc_best", "I_sc_mean", "reweighted_sc_best", "reweighted_sc_mean",
     "total_score_best", "total_score_mean",
@@ -121,6 +123,19 @@ def mark_self_templated(md, db_peptides):
 
 def add_columns(md, scores, flags, metrics, db_peptides=None):
     """Attach the release columns. Returns (dataframe, stats dict)."""
+    # assay_pdb_id is dropped, not carried: it is empty for every row in both
+    # the earlier upload (0 of 49,488) and here (0 of 118,985). Data Records
+    # described it as "the experimental PDB ID if reported by IEDB", so shipping
+    # it would document a column that contains nothing. The crystal structures
+    # used for validation are matched through the local template database
+    # instead, and are listed in the validation table.
+    md = md.drop(columns=["assay_pdb_id"], errors="ignore")
+
+    # pubmed_id arrives as a float because the column holds NaNs, so it
+    # serialises as "22508927.0". Cast to a nullable integer so the release
+    # carries "22508927" and a reader can use it as an identifier directly.
+    if "pubmed_id" in md.columns:
+        md["pubmed_id"] = pd.to_numeric(md["pubmed_id"], errors="coerce").astype("Int64")
     md = md.merge(scores, how="left",
                   left_on=["allele_compact", "peptide"],
                   right_on=["allele_dir", "peptide"]).drop(columns=["allele_dir"])
