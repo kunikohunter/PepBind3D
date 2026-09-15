@@ -40,15 +40,27 @@ features a co-folding model does not produce an equivalent of.
 ## Layout
 
 ```
-metadata.csv                        one row per measurement
-structures/{allele}/{peptide}.silent  25 decoys, Rosetta binary silent format
+metadata.csv                                     one row per measurement
+structures/{allele}/{P}/{peptide}.silent         25 decoys, Rosetta binary silent
 ```
 
+`{P}` is the peptide's first residue, so `A*02:01` / `GILGFVFTL` is at
+`structures/A0201/G/GILGFVFTL.silent`. The extra level exists because the Hub
+caps a directory at 10,000 entries and the largest allele holds more than that;
+sharding every allele by the same rule keeps the path predictable rather than
+making one allele an exception.
+
 Alleles use the filesystem-safe form in paths (`A0201`) and the standard form in
-metadata (`A*02:01`). Extract individual PDBs with Rosetta's `extract_pdbs`:
+metadata (`A*02:01`), so the path for any row is:
+
+```python
+f"structures/{row.allele_compact}/{row.peptide[0]}/{row.peptide}.silent"
+```
+
+Extract individual PDBs with Rosetta's `extract_pdbs`:
 
 ```bash
-extract_pdbs.linuxgccrelease -in:file:silent A0201/GILGFVFTL.silent
+extract_pdbs.linuxgccrelease -in:file:silent A0201/G/GILGFVFTL.silent
 ```
 
 ## metadata.csv columns

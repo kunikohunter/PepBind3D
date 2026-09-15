@@ -6,8 +6,8 @@ hardcoding them. The defaults are relative to your home directory and our cluste
 on another machine they will not exist and the first script to open a file
 under one raises FileNotFoundError. Set these before running anything:
 
-    export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean
-    export PEPBIND3D_MHC_DB=/your/path/to/MHC_database
+    export PEPBIND3D_DATA=/your/path/to/pepbind3d_data
+    export PEPBIND3D_MHC_DB=/your/path/to/mhc_database
 
 `python3 paths.py` prints the resolved roots and whether each one exists, which
 is the quickest way to check before a long run.

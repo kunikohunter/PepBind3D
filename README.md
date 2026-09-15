@@ -140,8 +140,8 @@ Rosetta Energy Units.
 All filesystem roots live in `paths.py`. Set them for your machine:
 
 ```bash
-export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean    # measurements, structures, analysis outputs
-export PEPBIND3D_MHC_DB=/your/path/to/MHC_database     # templates, database.info, raw IEDB export
+export PEPBIND3D_DATA=/your/path/to/pepbind3d_data     # measurements, structures, analysis outputs
+export PEPBIND3D_MHC_DB=/your/path/to/mhc_database     # templates, database.info, raw IEDB export
 export PEPBIND3D_ROSETTA=/your/rosetta/main            # only for structure generation
 python3 paths.py                                       # prints the resolved roots and whether they exist
 ```
@@ -169,8 +169,8 @@ The per-decoy `pdb/` tree is not part of the public release. To reproduce the
 structural analyses from it, extract from the released silent files:
 
 ```bash
-# from inside structures/{allele}/
-extract_pdbs.linuxgccrelease -in:file:silent {peptide}.silent
+# released silents are at structures/{allele}/{first residue}/{peptide}.silent
+extract_pdbs.linuxgccrelease -in:file:silent A0201/G/GILGFVFTL.silent
 ```
 
 See `requirements.txt`. Rosetta is needed only for structure generation and

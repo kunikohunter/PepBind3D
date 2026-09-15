@@ -20,7 +20,7 @@ values forward:
     bugs were fixed.
   * num_pdbs / has_structures come from the same summaries' n_decoys, i.e. the
     decoys really present, not an assumed 25. (Nine v1 pairs have 22-24.)
-  * pdb_dir is constructed, matching v1's "structures/{allele}/{peptide}" form.
+  * pdb_dir is constructed as "structures/{allele}/{P}/{peptide}.silent".
   * rosetta_best_score / rosetta_mean_score are legacy duplicates of
     total_score_best / total_score_mean -- verified against released v1, where
     rosetta_best_score == total_score_best for every row. Carried for backward
@@ -147,7 +147,14 @@ def add_columns(md, scores, flags, metrics, db_peptides=None):
     md["has_structures"] = md["n_decoys"].notna()
     md["num_pdbs"] = md["n_decoys"].astype("Int64")
     md = md.drop(columns=["n_decoys"])
-    md["pdb_dir"] = "structures/" + md["allele_compact"].astype(str) + "/" + md["peptide"].astype(str)
+    # Path to the pair's silent file, shard level included. The released tree
+    # is structures/{allele}/{first residue}/{peptide}.silent: the Hub caps a
+    # directory at 10,000 entries and the largest allele exceeds it, so every
+    # allele is sharded by the same rule. Pointing at the file rather than a
+    # directory means a user can join metadata straight to the download.
+    md["pdb_dir"] = ("structures/" + md["allele_compact"].astype(str) + "/"
+                     + md["peptide"].astype(str).str[0] + "/"
+                     + md["peptide"].astype(str) + ".silent")
 
     # legacy aliases; asserted equal to total_score in released v1
     md["rosetta_best_score"] = md["total_score_best"]
@@ -218,9 +225,9 @@ def self_test():
     # values and the missing mask separately.
     assert list(out["num_pdbs"][:2]) == [24, 24], list(out["num_pdbs"])
     assert list(out["num_pdbs"].isna()) == [False, False, True], list(out["num_pdbs"])
-    assert list(out["pdb_dir"]) == ["structures/A0201/AAAAAAAAA",
-                                    "structures/A0201/AAAAAAAAA",
-                                    "structures/B0702/CCCCCCCCC"]
+    assert list(out["pdb_dir"]) == ["structures/A0201/A/AAAAAAAAA.silent",
+                                    "structures/A0201/A/AAAAAAAAA.silent",
+                                    "structures/B0702/C/CCCCCCCCC.silent"]
     # the flag must land on exactly the one measurement it belongs to, not on
     # the other measurement of the same pair
     assert list(out["flagged"]) == [False, True, False], list(out["flagged"])

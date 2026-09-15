@@ -36,14 +36,23 @@ claim. It is not a version anyone should be pointed at.
 
 ## Promoting
 
-- [ ] Copy `release_v2_final/structures/` and `release_v2_final/metadata.csv`
-      into the HuggingFace working tree. **Do not `cp` over existing files**:
-      the staging tree is hardlink-assembled and copying over a path writes
-      through the shared inode into the source tree. Unlink first, or copy into
-      a clean directory.
+- [ ] Copy `release_v2_final/metadata.csv` into the HuggingFace working tree,
+      and place structures at `structures/{allele}/{first residue}/{peptide}.silent`.
+      **The two trees differ on purpose:** `release_v2_final/` is flat, because
+      that is what the analysis scripts read; the staging tree is sharded,
+      because the Hub caps a directory at 10,000 entries and the largest allele
+      holds 10,376. `pdb_dir` in `metadata.csv` records the sharded path.
+      **Do not `cp` over existing files**: the staging tree is
+      hardlink-assembled and copying over a path writes through the shared
+      inode into the source tree. Unlink first, or hardlink into a clean
+      directory.
 - [ ] Replace `README.md` with `release/DATASET_CARD.md`.
-- [ ] Commit and push in the HuggingFace tree. **This is the one tree where
-      automated tooling must not run `git`**, KH does this step.
+- [ ] Upload with the Hub API, not `git push`. Three limits apply and each one
+      only appears after the previous is solved: 1000 API requests / 5 min
+      (killed a `git push` at 30% after 3.5 h), 128 commits / hour (so commit
+      per allele, not per 125 files), and the 10,000-entry directory cap.
+      `hf upload-large-folder` shrinks its batch when rate-limited, which makes
+      the commit ceiling worse rather than better.
 - [ ] Confirm the new version resolves over HTTPS and downloads without
       authentication.
 
