@@ -7,81 +7,57 @@ reported number.
 
 Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
-**Current scope:** 95 HLA-A/B/C alleles, 112,378 peptide-allele pairs, 25 decoys
-each (2,809,450 structures, ~124 GB), 118,751 measurement rows. Structures came
-from two Rosetta builds, 3.14 for the initial batch, 2024.09+release.06b3cf8
-for the alleles added later; `metadata.csv`'s `source_version` column says which.
+**Scope:** 95 HLA-A/B/C alleles, 112,561 peptide-allele pairs, 25 decoys each
+(2,814,025 structures, ~124 GB), 118,985 measurement rows.
 
-## Structure generation: where to start reading
-
-`IEDBTestPipeline_ACCRE.py` (~1,700 lines, 16 top-level functions, no classes) is
-the production script. It is long, and most of it is not on the path that
-produced this dataset, so start here rather than at the top of the file.
-
-**Two independent jobs live in one file.** Curation and structure generation
-share it but do not call each other:
-
-| | entry point | what it does |
-|---|---|---|
-| curation | `get_peplist` → `clean_peplist` (+ `standardize_columns`, `rename_columns`, `flatten_columns`) | reads the IEDB bulk export, filters to quantitative IC50/KD on HLA-A/B/C, deduplicates per allele, writes the peptide lists |
-| structure generation | `thread_all` → `thread_template` | builds one prepacked starting model per peptide, and optionally the SLURM + options files for the FlexPepDock production run |
-
-**The generation path, in order** (all inside `thread_template`):
-
-1. `HLA_db.MHCdatabase.get_peptide_template` picks the threading template:
-   every same-length peptide from every allele of the same **gene**, ranked by
-   BLOSUM62 similarity to the target. See the caveat below.
-2. `SimpleThreadingMover` mounts the query peptide on the template peptide's
-   backbone.
-3. `DeleteRegionMover` trims the receptor to the α₁/α₂ cleft and removes
-   template overhang.
-4. `add_NCAA` substitutes non-canonical residues where a `.params` file is
-   supplied.
-5. the receptor is added and the complex relaxed, `FastRelax`, 5 repeats,
-   ref2015.
-6. FlexPepDock **prepack** produces the starting model that docking consumes.
-
-Refinement itself is a separate SLURM array, not this script:
-`-pep_refine -nstruct 25 -ex1 -ex2aro`.
-
-**Reading the rest.** `postprocessing_affinity`, `build_scorefile` and
-`stats_from_scorefile` are post-run bookkeeping over completed docking output.
-`make_batch` / `create_batch_list` / `safe_thread_all` and the `--threads`,
-`--slurm_setup`, `--batch_index` flags are the SLURM batch-array layer added for
-this dataset; the generation logic underneath is unchanged from the published
-version.
-
-**Flags that change the output.** `--ignore_epitope_match` enables
-self-template exclusion (`omit=["self"]`). It is **off** by default, which is how
-the released structures were generated; `regeneration/` re-runs the
-crystal-matched validation subset with it **on**. `--find_worst_template`
-inverts the template ranking and exists for diagnostics only.
-
-`HLA_db.py` holds the template database. `MHCdatabase` builds and queries it;
-`residueSelect` and `chainSelect` are BioPython `PDBIO.Select` subclasses, so
-their `accept_*` methods are called by BioPython rather than from this codebase.
-
-## Provenance: the published prior version
+## Structure generation
 
 The pipeline began as the code published with Bloodworth N, Chen W, Hunter K,
 Patrick D, et al. *Posttranslationally modified self-peptides promote
 hypertension in mouse models.* J Clin Invest. 2024;134(16):e174374.
-doi:10.1172/JCI174374, https://github.com/meilerlab/discovery-self-peptides-hypertension
-(`code/`).
+doi:10.1172/JCI174374,
+https://github.com/meilerlab/discovery-self-peptides-hypertension (`code/`).
 
-This dataset used an adapted copy, included here because it, not the published
-version, is what produced these structures. The adaptation adds SLURM
-batch-array execution (`--batch_index`, `--slurm_setup`, `--threads`,
-`create_batch_list`, `safe_thread_all`) and column-standardization helpers, and
-points at a newer Rosetta tree. The generation logic, threading order,
-template selection, docking protocol, is unchanged from the published version.
+`pipeline/IEDBTestPipeline_ACCRE.py` is our adapted copy, and it is the script
+that actually produced these structures, which is why it is here rather than a
+pointer to the original. We added batch-array execution for the cluster
+(`--batch_index`, `--slurm_setup`, `--threads`) and helpers for the current IEDB
+schema; the threading order, template selection and docking protocol are
+unchanged. Because it came from a general-purpose pipeline, a good deal of it is
+unrelated to this dataset, so the map below is worth reading before the file.
 
-Structures came from two Rosetta builds: **3.14** for the initial batch of
-alleles and **2024.09+release.06b3cf8** for those added subsequently. Both share
-the FlexPepDock protocol and the ref2015 weights, and `metadata.csv`'s
-`source_version` column records which produced each pair.
+Two jobs share the file and never call each other:
 
-### Template selection, and the self-templating caveat
+| | entry point | what it does |
+|---|---|---|
+| curation | `get_peplist` then `clean_peplist` | reads the IEDB bulk export, keeps quantitative IC50/KD on HLA-A, -B and -C, deduplicates per allele, writes the peptide lists |
+| structure generation | `thread_all` then `thread_template` | builds one prepacked starting model per peptide, plus the SLURM and options files for the docking run |
+
+Inside `thread_template`, in order:
+
+1. pick a threading template (`HLA_db.get_peptide_template`)
+2. mount the query peptide on its backbone (`SimpleThreadingMover`)
+3. trim the receptor to the α₁/α₂ cleft (`DeleteRegionMover`)
+4. substitute non-canonical residues if a `.params` file is given (`add_NCAA`)
+5. add the receptor and relax (`FastRelax`, 5 repeats, ref2015)
+6. prepack, producing the starting model docking consumes
+
+Refinement is a separate SLURM array, not this script:
+`-pep_refine -nstruct 25 -ex1 -ex2aro`.
+
+Everything else in the file is off that path: `postprocessing_affinity`,
+`build_scorefile` and `stats_from_scorefile` summarise completed runs, and
+`make_batch`, `create_batch_list` and `safe_thread_all` are the batch layer.
+
+Two flags change the output. `--ignore_epitope_match` excludes a template whose
+peptide is identical to the target; it is **off** by default, which is how the
+released structures were built, and `regeneration/` re-runs the
+crystal-matched subset with it **on**. `--find_worst_template` inverts the
+ranking and is for diagnostics only.
+
+`HLA_db.py` builds and queries the template database.
+
+## Template selection, and the self-templating caveat
 
 `HLA_db.MHCdatabase.get_peptide_template` pools every same-length peptide from
 every allele of the **same gene** (not the same allele) and ranks them by
@@ -113,14 +89,18 @@ Run in order; each reads `metadata.csv` and, where noted, per-pair score files.
 | `05_figure2_panels.ipynb`, `06_figure3_panels.ipynb` | figure assembly |
 | `07_supplemental_tables.ipynb` | Supplementary Tables S1–S6 to one .xlsx |
 
-Note: notebooks 01 and 03 reconstruct the template choice with a helper that
-filters to the same *allele*, which the real selector does not, their
-`template_identity` values may not name the template actually used.
+Note: notebooks 01 and 03 work out which template a pair used by re-deriving
+it, and their version of that logic searches only the target's own allele. The
+real selector searches the whole locus, so for some pairs the notebook names a
+template the run never used. The threading logs are authoritative, and
+`analysis/figure2g_template_identity.py` reads them instead.
 
 ## Analysis scripts
 
-Every number in the manuscript and response letter comes from one of these, and
-each has a `--self-test` with an analytically known answer.
+Every number in the manuscript and response letter comes from one of these.
+Each takes `--self-test`, which runs it on small hand-made inputs whose correct
+answer is known in advance, so a broken calculation fails immediately instead of
+producing a plausible wrong number.
 
 | | |
 |---|---|
@@ -184,11 +164,9 @@ export PEPBIND3D_ROSETTA=/your/rosetta/main            # only for structure gene
 python3 paths.py                                       # prints the resolved roots and whether they exist
 ```
 
-Defaults are the authors' layout, so the code reproduces the published analyses
-unchanged when run in place. The **notebooks** still carry absolute paths in
-their path constants and in their stored output: they are the record of how the
-figures were produced rather than reusable tooling, so edit the constants at the
-top of each if you re-run them.
+The defaults point at our own layout, so running the code in place reproduces
+the published analyses unchanged. The notebooks set their paths in the first
+cell; edit those if you re-run them.
 
 Per-pair Rosetta outputs live at `$PEPBIND3D_DATA/pdb/{allele}/{peptide}/`
 (`{peptide}_input_{0001..0025}.pdb` plus `score.sc`, whose `description` column
