@@ -121,7 +121,7 @@ v2, not a difference in Rosetta build.
   1.21 Å (IQR 0.93–1.68, 87% within 2 Å); the best decoy of each ensemble
   reaches 0.99 Å.
 - **Score-affinity relationship.** Spearman ρ between best-decoy `I_sc` and
-  log affinity is 0.315 (IC50, n = 18,120) and 0.179 (Kd, n = 48,403),
+  log affinity is 0.315 (IC50, n = 18,113) and 0.179 (Kd, n = 48,395),
   censored values excluded.
 - **Binder discrimination.** `I_sc` separates censored from quantitative
   measurements with AUROC 0.678 (IC50) and 0.639 (Kd).
