@@ -1,6 +1,6 @@
 """
 Recompute the censored-vs-quantitative separation and the score-affinity
-Spearman correlations on the FULL merged v2 dataset (112,378 pairs), instead of
+Spearman correlations on the FULL merged v2 dataset (112,561 pairs), instead of
 v1's 49,268. Merges v1 + v2 per-pair score summaries, joins to the reconciled
 merged metadata, and reuses the validated analysis functions from
 censored_vs_quantitative_auroc.py (same censoring definition, same metric).

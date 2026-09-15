@@ -1,7 +1,7 @@
 """
 Phase 1 item 1.1 (REVISION_PLAN.md): censored vs quantitative separation.
 
-~20K pairs at assay detection limits were dropped from the Validation 2
+52,462 measurements at assay detection limits were dropped from the Validation 2
 correlation analysis (02_score_affinity_validation.ipynb). This script asks
 the complementary question: can the bundled Rosetta scores (I_sc,
 reweighted_sc, total_score) tell a censored (non-binder / weak-binder-at-best)

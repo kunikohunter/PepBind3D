@@ -147,13 +147,21 @@ def get_ca_atoms(chain: Chain, max_residues: Optional[int] = None) -> List:
 def superpose_on_mhc(
     modeled_mhc: Chain,
     experimental_mhc: Chain,
-    n_residues: int = 180,  # kept for backward compatibility; ignored
+    n_residues: int = 180,  # accepted but NOT used; see the note below
 ) -> Tuple[Superimposer, float]:
     """Superpose modeled MHC onto experimental MHC using sequence-based pairing.
 
     Pairs Cα atoms by identical residue match in a global pairwise sequence
     alignment, then performs least-squares superposition. Robust to different
     residue numbering, missing residues, and chain-length differences.
+
+    `n_residues` is accepted so existing callers keep working, but it is
+    IGNORED: superposition runs over the whole aligned MHC overlap, not over a
+    fixed first-N window. In practice the two coincide, because the modeled
+    receptor is already trimmed to the alpha-1/alpha-2 cleft -- a representative
+    pair aligns 181 modeled against 274 crystal residues and uses 181 of them.
+    They would stop coinciding on an untrimmed receptor, which is exactly the
+    `extra_chain` defect, so do not assume the window without checking.
 
     Returns the Superimposer (ready to .apply() to atoms) and the alignment RMSD.
     """

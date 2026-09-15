@@ -34,8 +34,9 @@ release -- but those are exactly the pairs Validation 1 uses.
 That is why 01_structural_validation.ipynb reads decoys from
 IEDB_data_clean/IEDB_validation/regeneration/pdb/ instead: a deliberate
 re-docking of the 52 pairs with --ignore_epitope_match, so the measurement is
-leakage-free. The manuscript's 1.14 A is the honest number; the ~0.88 A this
-script gets on the same pairs is the leakage.
+leakage-free. The manuscript's 1.21 A over all 76 pairs (1.14 A over the
+original 52) is the honest number; the ~0.88 A this script gets on the same
+pairs is the leakage.
 
 The two trees are genuinely different runs -- verified on A0201/GLCTLVAML, where
 the released silent's per-decoy I_sc values (0005 = -77.656, 0003 = -75.483,
@@ -48,9 +49,10 @@ So what is this script still good for?
   * verifying extraction fidelity (verify_extraction asserts the silent's
     per-decoy I_sc equals the production score.sc value, 25/25 per pair);
   * providing the released-structure numbers for the 24 newly matched v2 pairs,
-    which are an UPPER BOUND on their accuracy, not an estimate of it. Getting a
-    usable Validation 1 for those 24 requires re-docking them with
-    --ignore_epitope_match the way the original 52 were.
+    which are an UPPER BOUND on their accuracy, not an estimate of it. Those 24
+    have since been re-docked with --ignore_epitope_match into
+    IEDB_validation/regeneration_v2/pdb/, so Validation 1 now covers all 76 and
+    takes its numbers from there, not from here.
 
 RMSD itself is not reimplemented: utils.structure.compute_peptide_rmsd is the
 same function the notebook uses (peptide backbone

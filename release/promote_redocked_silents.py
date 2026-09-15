@@ -57,7 +57,17 @@ def main():
     args = ap.parse_args()
 
     new_root = Path(args.new)
-    assert "huggingface/structures" not in str(STAGING), "refusing to touch the live release"
+    # STAGING is a module constant, so asserting on it only ever restated the
+    # source. The paths that can actually point somewhere dangerous are the
+    # user-supplied ones, so check those against READ_ONLY instead.
+    for label, candidate in (("--new", new_root), ("--pairs", Path(args.pairs))):
+        resolved = candidate.resolve()
+        for protected in READ_ONLY:
+            pr = protected.resolve()
+            if resolved == pr or pr in resolved.parents:
+                raise SystemExit(
+                    f"refusing to run: {label} points inside a read-only tree "
+                    f"({protected}). Promotion writes into {STAGING}.")
     pairs = pd.read_csv(args.pairs)
 
     plan, missing_new, missing_old = [], [], []

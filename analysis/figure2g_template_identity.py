@@ -24,7 +24,7 @@ template each identity describes.
 
 RMSDs come from the regeneration analysis (01_structural_regen/rmsd_per_pair.csv),
 which is the leakage-free measurement: the regeneration run passed
---ignore_epitope_match, and these logs confirm 0 of 52 pairs used a self
+--ignore_epitope_match, and these logs confirm 0 of 76 pairs used a self
 template.
 
 Usage:

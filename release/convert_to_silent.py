@@ -15,8 +15,15 @@ import sys as _sys; from pathlib import Path as _P
 _sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
 from paths import DATA_ROOT  # noqa: E402
 
+# DATA_ROOT/"pdb" holds the v1 batch only: 37 alleles, 49,268 pairs. Running
+# with this default against the merged release regenerates 44% of it and
+# silently omits all 58 alleles added later, HLA-C among them, while reporting
+# success. Pass --pdb-root explicitly for anything else.
 PDB_DIR = DATA_ROOT / "pdb"
-HF_STRUCT_DIR = DATA_ROOT / "huggingface/structures"
+# The staging tree, not the HuggingFace one. Every silent under huggingface/
+# is hardlinked to staging (nlink > 1), so writing here writes through to the
+# tree promote_redocked_silents.py lists as read-only.
+HF_STRUCT_DIR = DATA_ROOT / "release_v2_final/structures"
 
 # Columns in score.sc's "description" field are the decoy tag, not a score --
 # everything else gets carried into the silent file as-is via
@@ -183,11 +190,16 @@ if __name__ == "__main__":
         with tqdm(total=len(tasks)) as pbar:
             for future in as_completed(futures):
                 allele, peptide, status = future.result()
-                if "ERROR" in str(status):
+                # Anything that is not "ok" or "skipped" is a pair that did not
+                # get a silent file. Testing for the substring "ERROR" counted
+                # only two of the seven failure returns, so no_pdbs,
+                # empty_score_sc, no_score_sc and no_decoys_written were
+                # reported as success.
+                if str(status) not in ("ok", "skipped"):
                     errors.append((allele, peptide, status))
                 pbar.update(1)
 
-    print(f"\nDone. {len(errors)} errors.")
+    print(f"\nDone. {len(errors)} pairs without a silent file.")
     if errors:
         for e in errors:
             print(e)

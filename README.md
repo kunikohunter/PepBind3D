@@ -106,7 +106,6 @@ Each takes a `--self-test` flag.
 | `release/convert_to_silent.py` | per-pair PDBs → one silent file, scores attached; hard-fails if the decoy count disagrees |
 | `release/add_release_columns.py` | adds `flagged`, `self_templated`, `has_structures`, `num_pdbs`, `pdb_dir` and the score columns to the merged metadata |
 | `release/decoy_content.py` | the decoy content test, shared by the converter's gate and the audit script so the two cannot drift |
-| `release/rebuild_metadata.py` | merges score summaries into `metadata.csv` |
 
 ## Score metrics
 
@@ -121,8 +120,11 @@ Rosetta Energy Units.
 ## Conventions
 
 - **Alleles:** `A*02:01` in prose and metadata; `A0201` in filesystem paths.
-- **RMSD:** peptide backbone (N, Cα, C, O) after superposition on the first 180
-  MHC Cα atoms (α₁/α₂ domains). Always state this when reporting an RMSD.
+- **RMSD:** peptide backbone (N, Cα, C, O) after superposition on the MHC Cα
+  atoms, paired by global sequence alignment over the whole shared MHC
+  region. The modeled receptor is trimmed to the α₁/α₂ cleft, so this is
+  ~180 residues in practice, but the code does not impose a fixed window.
+  Always state this when reporting an RMSD.
 - **Chains:** modeled structures are chain A = MHC cleft, chain B = peptide.
   Crystal chain IDs vary, the peptide chain is found by sequence match, the
   heavy chain as the remaining chain of 170–290 residues.

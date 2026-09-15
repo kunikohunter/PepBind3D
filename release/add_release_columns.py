@@ -230,8 +230,12 @@ def self_test():
     assert stats["no_structures"] == 1 and stats["flagged_true"] == 1
     assert stats["num_pdbs_lt_25"] == 2, stats
 
-    # column order must start with the v1 order
-    assert list(out.columns)[:5] == V1_COLUMN_ORDER[:5][:len(out.columns)] or True
+    # Column order must start with the v1 order. The `or True` that used to
+    # terminate this line made the whole assert vacuous, so it never guarded
+    # anything: reordering the released columns would have gone unnoticed.
+    expected = [c for c in V1_COLUMN_ORDER if c in out.columns][:5]
+    assert list(out.columns)[:5] == expected, (
+        f"released column order changed: {list(out.columns)[:5]} != {expected}")
     print("Self-test PASSED: derived columns match known values, the flag lands on "
           "the correct measurement of a two-measurement pair, and a pair without "
           "scores stays NaN rather than zero.")
