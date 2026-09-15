@@ -109,9 +109,9 @@ onto a length-matched template peptide from a local MHC template database
 (`-pep_refine -nstruct 25 -ex1 -ex2aro`). No score cutoff was applied: all 25
 decoys are retained.
 
-Two Rosetta builds were used, 3.14 for the initial batch of alleles and
-2024.09+release.06b3cf8 for those added subsequently. Both share the protocol
-and the ref2015 weights, and `source_version` records which produced each pair.
+All structures were generated with Rosetta 2024.09+release.06b3cf8. The
+`source_version` column records which curation batch each pair came from, v1 or
+v2, not a difference in Rosetta build.
 
 ## Validation
 
