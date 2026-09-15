@@ -11,7 +11,7 @@ crystal, because the self-exclusion path in `HLA_db.get_peptide_template` did
 not run. The patched `HLA_db.py` fixes it, and this directory re-runs the
 validation subset so the analysis measures modelling accuracy rather than
 refinement of a self-template. Only pairs whose native PDB is in the local
-template database are affected — roughly 0.1% of the 49,268 released
+template database are affected, roughly 0.1% of the 49,268 released
 structures.
 
 ## Workflow
@@ -21,7 +21,7 @@ build_validation_fastas.py        # generates per-allele FASTAs from rmsd_per_pa
 run_regeneration.sh               # iterates over alleles, calls IEDBTestPipeline.py
 ```
 
-### Step 1 — Generate FASTAs
+### Step 1: Generate FASTAs
 
 ```
 cd $REPO/regeneration
@@ -32,7 +32,7 @@ Outputs per-allele FASTA files into
 `$PEPBIND3D_DATA/IEDB_validation/regeneration/fastas/`,
 plus an `allele_manifest.csv` summarizing the work.
 
-### Step 2 — Run the regeneration
+### Step 2: Run the regeneration
 
 ```
 bash run_regeneration.sh
@@ -51,7 +51,7 @@ To run in the background and stay logged out of your shell:
 nohup bash run_regeneration.sh > regeneration.out 2>&1 &
 ```
 
-### Step 3 — Rerun the validation notebook
+### Step 3: Rerun the validation notebook
 
 After regeneration completes, point `01_structural_validation.ipynb`'s
 `PDB_ROOT` variable at

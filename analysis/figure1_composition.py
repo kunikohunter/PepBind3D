@@ -52,7 +52,7 @@ def main():
     gs = fig.add_gridspec(2, 2, height_ratios=[1.1, 1], hspace=0.45, wspace=0.25)
 
     # Panel B: pairs per allele (all 95), log y, colored by locus
-    axB = fig.add_subplot(gs[0, :])
+    axB = fig.add_subplot(gs[0:])
     x = np.arange(len(per_allele))
     colors = [LOCUS_COLOR[per_allele_locus[a]] for a in per_allele.index]
     axB.bar(x, per_allele.values, color=colors, edgecolor="white", linewidth=0.3)
@@ -60,7 +60,7 @@ def main():
     axB.set_xticks(x)
     axB.set_xticklabels(per_allele.index, rotation=90, fontsize=5)
     axB.set_ylabel("peptide–allele pairs (log)")
-    axB.set_title(f"B  Pairs per allele — {len(per_allele)} alleles, "
+    axB.set_title(f"B  Pairs per allele, {len(per_allele)} alleles, "
                   f"{pairs.shape[0]:,} pairs", fontsize=9, loc="left")
     handles = [plt.Rectangle((0, 0), 1, 1, color=c) for c in LOCUS_COLOR.values()]
     axB.legend(handles, [f"HLA-{k}" for k in LOCUS_COLOR], fontsize=7, frameon=False)
@@ -95,7 +95,7 @@ def main():
                      fontsize=8, loc="left")
         ax.set_xlabel("log10(nM)"); ax.set_ylabel("count")
 
-    fig.suptitle(f"Figure 1 (regenerated) — merged v2 dataset: "
+    fig.suptitle(f"Figure 1 (regenerated), merged v2 dataset: "
                  f"{pairs['allele_compact'].nunique()} alleles, {pairs.shape[0]:,} pairs, "
                  f"{len(md):,} measurements", fontsize=10)
     for ext in ("pdf", "png"):

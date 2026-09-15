@@ -1,4 +1,4 @@
-# PepBind3D — curation and validation code
+# PepBind3D: curation and validation code
 
 Code for the Scientific Data descriptor pairing curated IEDB peptide-HLA class I
 binding affinities with Rosetta FlexPepDock structural ensembles: notebooks that
@@ -9,7 +9,7 @@ Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
 **Current scope:** 95 HLA-A/B/C alleles, 112,378 peptide-allele pairs, 25 decoys
 each (2,809,450 structures, ~124 GB), 118,751 measurement rows. Structures came
-from two Rosetta builds — 3.14 for the initial batch, 2024.09+release.06b3cf8
+from two Rosetta builds, 3.14 for the initial batch, 2024.09+release.06b3cf8
 for the alleles added later; `metadata.csv`'s `source_version` column says which.
 
 ## Structure generation: where to start reading
@@ -28,7 +28,7 @@ share it but do not call each other:
 
 **The generation path, in order** (all inside `thread_template`):
 
-1. `HLA_db.MHCdatabase.get_peptide_template` picks the threading template —
+1. `HLA_db.MHCdatabase.get_peptide_template` picks the threading template:
    every same-length peptide from every allele of the same **gene**, ranked by
    BLOSUM62 similarity to the target. See the caveat below.
 2. `SimpleThreadingMover` mounts the query peptide on the template peptide's
@@ -37,7 +37,7 @@ share it but do not call each other:
    template overhang.
 4. `add_NCAA` substitutes non-canonical residues where a `.params` file is
    supplied.
-5. the receptor is added and the complex relaxed — `FastRelax`, 5 repeats,
+5. the receptor is added and the complex relaxed, `FastRelax`, 5 repeats,
    ref2015.
 6. FlexPepDock **prepack** produces the starting model that docking consumes.
 
@@ -66,15 +66,15 @@ their `accept_*` methods are called by BioPython rather than from this codebase.
 The pipeline began as the code published with Bloodworth N, Chen W, Hunter K,
 Patrick D, et al. *Posttranslationally modified self-peptides promote
 hypertension in mouse models.* J Clin Invest. 2024;134(16):e174374.
-doi:10.1172/JCI174374 — https://github.com/meilerlab/discovery-self-peptides-hypertension
+doi:10.1172/JCI174374, https://github.com/meilerlab/discovery-self-peptides-hypertension
 (`code/`).
 
 This dataset used an adapted copy, included here because it, not the published
 version, is what produced these structures. The adaptation adds SLURM
 batch-array execution (`--batch_index`, `--slurm_setup`, `--threads`,
 `create_batch_list`, `safe_thread_all`) and column-standardization helpers, and
-points at a newer Rosetta tree. The generation logic — threading order,
-template selection, docking protocol — is unchanged from the published version.
+points at a newer Rosetta tree. The generation logic, threading order,
+template selection, docking protocol, is unchanged from the published version.
 
 Structures came from two Rosetta builds: **3.14** for the initial batch of
 alleles and **2024.09+release.06b3cf8** for those added subsequently. Both share
@@ -92,7 +92,7 @@ Because an *identical* peptide scores highest, a pair whose own crystal is in
 the template database gets threaded onto itself. Self-exclusion exists
 (`omit=["self"]`, matched on identical peptide sequence) but runs only under
 `--ignore_epitope_match`, which the production runs did not pass. This affects
-~0.1% of the release — but that 0.1% is exactly the set with crystal structures
+~0.1% of the release, but that 0.1% is exactly the set with crystal structures
 to validate against, so:
 
 - `regeneration/` re-runs the crystal-matched validation pairs with
@@ -114,7 +114,7 @@ Run in order; each reads `metadata.csv` and, where noted, per-pair score files.
 | `07_supplemental_tables.ipynb` | Supplementary Tables S1–S6 to one .xlsx |
 
 Note: notebooks 01 and 03 reconstruct the template choice with a helper that
-filters to the same *allele*, which the real selector does not — their
+filters to the same *allele*, which the real selector does not, their
 `template_identity` values may not name the template actually used.
 
 ## Analysis scripts
@@ -125,7 +125,7 @@ each has a `--self-test` with an analytically known answer.
 | | |
 |---|---|
 | `crystal_match.py` | matches release pairs to crystal structures in the template DB (76 pairs on the merged release; reproduces 52 on the earlier batch) |
-| `crystal_rmsd.py` | RMSD for those pairs from the release silents — **upper bounds only**, see the self-templating caveat |
+| `crystal_rmsd.py` | RMSD for those pairs from the release silents, **upper bounds only**, see the self-templating caveat |
 | `screen_decoy_content.py` | audits a decoy tree for content defects (spurious extra chain, truncated peptide) that no score-based check can see |
 | `figure2g_template_identity.py` | rebuilds Figure 2G from the templates actually recorded in the threading logs |
 | `ensemble_diversity.py` | decoy-to-decoy vs decoy-to-crystal spread, for the validation pairs |
@@ -151,10 +151,10 @@ each has a `--self-test` with an analytically known answer.
 Per decoy, summarized as best (lowest) and mean over the 25-decoy ensemble, in
 Rosetta Energy Units; lower is more favorable.
 
-- `I_sc` — interface score. **Primary metric**, strongest association with affinity.
-- `reweighted_sc` — score used in prior applications of this pipeline.
-- `total_score` — full-pose energy, dominated by MHC internal energy.
-- `pep_sc` — peptide-only score.
+- `I_sc`, interface score. **Primary metric**, strongest association with affinity.
+- `reweighted_sc`, score used in prior applications of this pipeline.
+- `total_score`, full-pose energy, dominated by MHC internal energy.
+- `pep_sc`, peptide-only score.
 
 ## Conventions
 
@@ -162,7 +162,7 @@ Rosetta Energy Units; lower is more favorable.
 - **RMSD:** peptide backbone (N, Cα, C, O) after superposition on the first 180
   MHC Cα atoms (α₁/α₂ domains). Always state this when reporting an RMSD.
 - **Chains:** modeled structures are chain A = MHC cleft, chain B = peptide.
-  Crystal chain IDs vary — the peptide chain is found by sequence match, the
+  Crystal chain IDs vary, the peptide chain is found by sequence match, the
   heavy chain as the remaining chain of 170–290 residues.
 - **Affinity correlations:** Spearman on log₁₀ values with censored measurements
   excluded (IC50 20,000/50,000/70,000 nM; KD 5,000/10,000/20,000 nM).
@@ -204,5 +204,5 @@ extract_pdbs.linuxgccrelease -in:file:silent {peptide}.silent
 
 `pandas`, `numpy`, `scipy`, `matplotlib`, `biopython`, `tqdm`, `openpyxl`; see
 `requirements.txt`. Rosetta is needed only for structure generation and
-`extract_pdbs`, PyRosetta only for silent-file conversion — not for the analysis
+`extract_pdbs`, PyRosetta only for silent-file conversion, not for the analysis
 notebooks. `utils/` holds shared I/O, plotting and structure helpers.

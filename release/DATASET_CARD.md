@@ -34,7 +34,7 @@ ensemble and per-decoy interface energy terms.
 
 Training and benchmarking structure-aware peptide-HLA binding predictors. Each
 pair provides a *distribution* over peptide conformations rather than a single
-pose, with physically-motivated interface energies attached to every decoy —
+pose, with physically-motivated interface energies attached to every decoy:
 features a co-folding model does not produce an equivalent of.
 
 ## Layout
@@ -86,7 +86,7 @@ stronger. Stratify on `assay_method` or model the censoring explicitly.
 
 **`self_templated` marks 370 pairs (0.33%) whose own crystal structure was in
 the threading template library**, so their structures were built from real
-coordinates of that exact peptide. They are the most accurate structures here —
+coordinates of that exact peptide. They are the most accurate structures here,
 and they must be excluded when measuring structure-prediction accuracy, or the
 result is inflated.
 
@@ -109,7 +109,7 @@ onto a length-matched template peptide from a local MHC template database
 (`-pep_refine -nstruct 25 -ex1 -ex2aro`). No score cutoff was applied: all 25
 decoys are retained.
 
-Two Rosetta builds were used — 3.14 for the initial batch of alleles and
+Two Rosetta builds were used, 3.14 for the initial batch of alleles and
 2024.09+release.06b3cf8 for those added subsequently. Both share the protocol
 and the ref2015 weights, and `source_version` records which produced each pair.
 
@@ -128,7 +128,7 @@ and the ref2015 weights, and `source_version` records which produced each pair.
 
 ## Sources and licence
 
-Binding measurements: **IEDB**, https://www.iedb.org — CC BY 4.0
+Binding measurements: **IEDB**, https://www.iedb.org, CC BY 4.0
 (https://www.iedb.org/citation_v3.php). Every measurement retains its PubMed
 identifier where IEDB provides one, so values remain attributed to the
 publishing authors.

@@ -1,4 +1,4 @@
-# Promotion checklist — staging to HuggingFace
+# Promotion checklist: staging to HuggingFace
 
 **Decision point, not a script.** Promoting replaces a DOI'd public record, and
 this step is reserved for KH. Nothing here runs automatically.
@@ -25,10 +25,10 @@ claim. It is not a version anyone should be pointed at.
       dataset has not been referenced elsewhere, so this is a version bump, not
       a correction. Confirm no preprint or talk has pointed at `10.57967/hf/9669`.
 - [ ] **Re-run the audits** (all currently pass):
-      - `python3 analysis/screen_decoy_content.py --out-dir <dir>` — expect 0 defects
+      - `python3 analysis/screen_decoy_content.py --out-dir <dir>`, expect 0 defects
       - referential integrity: every `pdb_dir` resolves, no orphan silents
       - `release/add_release_columns.py --self-test`
-- [ ] **Confirm the file to ship is `release_v2_final/metadata.csv`** — 30
+- [ ] **Confirm the file to ship is `release_v2_final/metadata.csv`**, 30
       columns, `assay_pdb_id` dropped, `pubmed_id` as integers.
       `metadata_curated.csv` is the 16-column curation input and must NOT ship.
 - [ ] **Decide on `pep_sc`.** Currently shipped (4 score metrics, not 3). The
@@ -37,13 +37,13 @@ claim. It is not a version anyone should be pointed at.
 ## Promoting
 
 - [ ] Copy `release_v2_final/structures/` and `release_v2_final/metadata.csv`
-      into the HuggingFace working tree. **Do not `cp` over existing files** —
+      into the HuggingFace working tree. **Do not `cp` over existing files**:
       the staging tree is hardlink-assembled and copying over a path writes
       through the shared inode into the source tree. Unlink first, or copy into
       a clean directory.
 - [ ] Replace `README.md` with `release/DATASET_CARD.md`.
 - [ ] Commit and push in the HuggingFace tree. **This is the one tree where
-      automated tooling must not run `git`** — KH does this step.
+      automated tooling must not run `git`**, KH does this step.
 - [ ] Confirm the new version resolves over HTTPS and downloads without
       authentication.
 
@@ -52,7 +52,7 @@ claim. It is not a version anyone should be pointed at.
 - [ ] **Record the new DOI.** It replaces `10.57967/hf/9669` in three places:
       Data Records, the data citation in the reference list, and the response
       file (`[CONFIRM]` markers).
-- [ ] Re-run `revisions/apply_docx_edits.py` — counts and statistics refresh
+- [ ] Re-run `revisions/apply_docx_edits.py`, counts and statistics refresh
       from the analysis outputs automatically; only the DOI is manual.
 - [ ] **Mint the code DOI.** Zenodo → GitHub integration, enable
       `kunikohunter/PepBind3D`, cut a release, cite the *version* DOI in Code
