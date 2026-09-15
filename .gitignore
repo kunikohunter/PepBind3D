@@ -48,10 +48,9 @@ dock_tasklist.txt
 # affinity_baseline_metrics.json and affinity_baseline_per_allele.csv.
 analysis/results/affinity_baseline_fold_predictions.csv
 
-# Manuscript and editorial material
+# Manuscript and editorial material. The scripts that build the manuscript
+# edits are code and stay; the drafts, letters and plan are not published here.
 *.docx
-revisions/
-!revisions/
 revisions/*
 !revisions/*.py
 
