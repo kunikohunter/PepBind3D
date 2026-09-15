@@ -11,7 +11,7 @@ own crystal, because `HLA_db.get_peptide_template` ranks same-length peptides
 from the whole gene by BLOSUM62 similarity (so an identical peptide wins) and
 self-exclusion runs only under `--ignore_epitope_match`, which production did
 not pass. Their RMSD to that crystal therefore measures refinement of a
-self-template, not modelling accuracy.
+self-template, not modeling accuracy.
 
 The original 52 already have leakage-free ensembles in
 `IEDB_validation/regeneration/` (re-docked with the flag). **These 24 do not.**

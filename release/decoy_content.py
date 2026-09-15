@@ -64,7 +64,7 @@ import collections
 
 RECEPTOR_CHAIN = "A"
 PEPTIDE_CHAIN = "B"
-# the modelled receptor is the alpha1/alpha2 cleft; 181 residues in practice
+# the modeled receptor is the alpha1/alpha2 cleft; 181 residues in practice
 RECEPTOR_RANGE = (170, 200)
 
 THREE_TO_ONE = {

@@ -97,7 +97,7 @@ def run_affinity(df, out_dir):
 
 
 MIN_N_PER_ALLELE = 10          # Table S3 / Figure 3C convention
-WELL_SAMPLED_N = 50            # the n>=50 labelling convention in Figure 3C
+WELL_SAMPLED_N = 50            # the n>=50 labeling convention in Figure 3C
 
 
 def run_per_allele(df, out_dir):

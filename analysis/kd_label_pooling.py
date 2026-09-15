@@ -293,7 +293,7 @@ def main():
                           "kd_label_tests.json). Required unless --self-test.")
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--metadata", type=str, default=METADATA_FN,
-                    help=f"metadata.csv to analyse. Default: the merged v2 release "
+                    help=f"metadata.csv to analyze. Default: the merged v2 release "
                          f"({METADATA_FN}). Pass {METADATA_V1_FN} to reproduce the v1-scope run.")
     args = ap.parse_args()
 

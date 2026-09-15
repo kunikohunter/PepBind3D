@@ -14,12 +14,12 @@ Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
 `pipeline/IEDBTestPipeline_ACCRE.py` produced these structures. It is our
 adapted copy of the pipeline published with Bloodworth N, Chen W, Hunter K,
-Patrick D, et al. *Posttranslationally modified self-peptides promote
-hypertension in mouse models.* J Clin Invest. 2024;134(16):e174374,
-doi:10.1172/JCI174374. We added batch-array execution and helpers for the
-current IEDB schema; threading order, template selection and docking protocol
-are unchanged. It came from a general-purpose pipeline, so much of it is
-unrelated to this dataset.
+Patrick D, Palubinsky A, Phillips E, Roeth D, Kalkum M, Mallal S, Davies S,
+Ao M, Moretti R, Meiler J, Harrison DG. *Posttranslationally modified
+self-peptides promote hypertension in mouse models.* J Clin Invest.
+2024;134(16):e174374, doi:10.1172/JCI174374. We added batch-array execution and helpers for the
+current IEDB schema. Threading order, template selection and the docking
+protocol are unchanged.
 
 Two jobs share the file and never call each other:
 
@@ -105,7 +105,7 @@ Each takes a `--self-test` flag.
 ## Score metrics
 
 Per decoy, summarized as best (lowest) and mean over the 25-decoy ensemble, in
-Rosetta Energy Units; lower is more favorable.
+Rosetta Energy Units.
 
 - `I_sc`, interface score. **Primary metric**, strongest association with affinity.
 - `reweighted_sc`, score used in prior applications of this pipeline.
@@ -123,15 +123,14 @@ Rosetta Energy Units; lower is more favorable.
 - **Affinity correlations:** Spearman on log₁₀ values with censored measurements
   excluded (IC50 20,000/50,000/70,000 nM; KD 5,000/10,000/20,000 nM).
 - **KD measurements pool three IEDB assay labels** corresponding to different
-  assays, distinguishable via `assay_method`. The competitive radioligand subset
-  is ~1% censored; the two fluorescence subsets are 71–74% censored and centred
-  about one log unit stronger. Stratify or model the censoring.
+  assays, distinguishable via `assay_method`. They differ in location and in how
+  much of each is censored, so stratify on `assay_method` rather than pooling
+  blind. `analysis/kd_label_pooling.py` has the per-label numbers.
 
 ## Paths and dependencies
 
-All filesystem roots live in `paths.py` and are overridable by environment
-variable, so running this elsewhere means setting two variables rather than
-editing every script:
+All filesystem roots live in `paths.py`. Nothing else names one. The defaults
+are our layout, so on another machine set these first:
 
 ```bash
 export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean    # measurements, structures, analysis outputs
@@ -140,9 +139,8 @@ export PEPBIND3D_ROSETTA=/your/rosetta/main            # only for structure gene
 python3 paths.py                                       # prints the resolved roots and whether they exist
 ```
 
-The defaults point at our own layout, so running the code in place reproduces
-the published analyses unchanged. The notebooks set their paths in the first
-cell; edit those if you re-run them.
+The notebooks import the same roots in their first cell, so setting the
+variables covers them too.
 
 Per-pair Rosetta outputs live at `$PEPBIND3D_DATA/pdb/{allele}/{peptide}/`
 (`{peptide}_input_{0001..0025}.pdb` plus `score.sc`, whose `description` column

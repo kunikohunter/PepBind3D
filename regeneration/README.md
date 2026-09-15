@@ -9,7 +9,7 @@ using the patched `HLA_db.py` with self-template exclusion enabled
 The released structures for these 52 pairs were threaded onto their own
 crystal, because the self-exclusion path in `HLA_db.get_peptide_template` did
 not run. The patched `HLA_db.py` fixes it, and this directory re-runs the
-validation subset so the analysis measures modelling accuracy rather than
+validation subset so the analysis measures modeling accuracy rather than
 refinement of a self-template. Only pairs whose native PDB is in the local
 template database are affected, roughly 0.1% of the 49,268 released
 structures.

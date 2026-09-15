@@ -6,7 +6,7 @@ pre-registered specification at
 $PEPBIND3D_CLUSTER/revision/BASELINE_MODEL_SPEC.md (written before
 any number was computed; section 8 fixes the reporting language in advance).
 
-This is a Technical Validation check, not a modelling contribution: a
+This is a Technical Validation check, not a modeling contribution: a
 deliberately minimal, fixed-hyperparameter gradient-boosted-trees baseline on
 the tabular Rosetta score columns already shipped in metadata.csv, evaluated
 under leakage-controlled, grouped cross-validation, against a sequence-only
@@ -19,7 +19,7 @@ in preparation by the same author, and this descriptor must not preempt it.
 Censoring constants and the censoring rule are imported (not redefined) from
 censored_vs_quantitative_auroc.py so "censored" means one thing across the
 paper (spec section 1.1, pre-flight checklist item 1). IC50 and Kd are always
-modelled as two separate models (spec 1.1); Kd reporting is additionally
+modeled as two separate models (spec 1.1); Kd reporting is additionally
 stratified by the recovered raw IEDB sub-label per spec 1.4, using the join
 already computed by kd_label_pooling.py (kd_label_recovery.csv) -- no
 retraining.

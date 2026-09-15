@@ -13,7 +13,7 @@ computed with the SAME metric (superpose on MHC, RMSD on peptide N/Cα/C/O):
 "Crystal inside the scatter" means the ensemble's displacement from the crystal
 is comparable to (or smaller than) its internal spread. We report, per pair,
 median/mean/max of each distribution and the ratio median_d2c / median_d2d,
-then summarise across pairs.
+then summarize across pairs.
 
 RMSD is computed by reusing utils.structure.superpose_on_mhc and
 _peptide_atom_pairs verbatim (the same functions notebook 01 /
@@ -230,7 +230,7 @@ def run_benchmark_arm(out_dir, limit=None):
     df.to_csv(out_dir / "ensemble_diversity_benchmark167_per_target.csv", index=False)
     wc = df.dropna(subset=["ratio_med_d2c_over_d2d"]) if "ratio_med_d2c_over_d2d" in df else df.iloc[:0]
     print("\n=== BENCHMARK-167 SUMMARY ===")
-    print(f"targets analysed: {len(df)}  (with crystal RMSD: {len(wc)})")
+    print(f"targets analyzed: {len(df)}  (with crystal RMSD: {len(wc)})")
     print(f"decoy-to-decoy median RMSD across targets: {df['d2d_median'].median():.3f} Å "
           f"(IQR {df['d2d_median'].quantile(.25):.3f}-{df['d2d_median'].quantile(.75):.3f})")
     if len(wc):
@@ -337,7 +337,7 @@ def main():
 
     with_crystal = df.dropna(subset=["ratio_med_d2c_over_d2d"]) if "ratio_med_d2c_over_d2d" in df else df.iloc[:0]
     print("\n=== SUMMARY ===")
-    print(f"pairs analysed: {len(df)}  (with crystal RMSD: {len(with_crystal)})")
+    print(f"pairs analyzed: {len(df)}  (with crystal RMSD: {len(with_crystal)})")
     print(f"decoy-to-decoy median RMSD across pairs: "
           f"{df['d2d_median'].median():.3f} Å (IQR {df['d2d_median'].quantile(.25):.3f}-{df['d2d_median'].quantile(.75):.3f})")
     if len(with_crystal):

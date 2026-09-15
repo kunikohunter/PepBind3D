@@ -136,7 +136,7 @@ def add_columns(md, scores, flags, metrics, db_peptides=None):
     md = md.drop(columns=["assay_pdb_id"], errors="ignore")
 
     # pubmed_id arrives as a float because the column holds NaNs, so it
-    # serialises as "22508927.0". Cast to a nullable integer so the release
+    # serializes as "22508927.0". Cast to a nullable integer so the release
     # carries "22508927" and a reader can use it as an identifier directly.
     if "pubmed_id" in md.columns:
         md["pubmed_id"] = pd.to_numeric(md["pubmed_id"], errors="coerce").astype("Int64")

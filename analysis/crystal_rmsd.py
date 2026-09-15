@@ -17,7 +17,7 @@ already have numbers from 01_structural_validation.ipynb.
 The RMSDs here are measured on the RELEASED structures, and for crystal-matched
 pairs those are LEAKED: they were threaded onto their own crystal, so their
 agreement with that crystal measures refinement of a self-template, not
-modelling accuracy. They must not be used as Validation 1.
+modeling accuracy. They must not be used as Validation 1.
 
 Why. Template selection (HLA_db.MHCdatabase.get_peptide_template, called from
 IEDBTestPipeline.thread_template) pools every same-length peptide from every
@@ -353,7 +353,7 @@ def main():
     if failures:
         pd.DataFrame(failures).to_csv(out / "crystal_rmsd_failures.csv", index=False)
 
-    def summarise(d, label):
+    def summarize(d, label):
         if d.empty:
             print(f"\n{label}: no pairs"); return
         print(f"\n{label} (n={len(d)}):")
@@ -366,10 +366,10 @@ def main():
     if not args.pdb_tree:
         print("\n*** these are SELF-TEMPLATED pairs; the numbers below are upper "
               "bounds, not validation figures. See the module docstring. ***")
-    summarise(df, "ALL matched pairs")
+    summarize(df, "ALL matched pairs")
     if "source_version" in df:
-        summarise(df[df.source_version == "v1"], "v1 batch")
-        summarise(df[df.source_version == "v2"], "newly matched v2 pairs")
+        summarize(df[df.source_version == "v1"], "v1 batch")
+        summarize(df[df.source_version == "v2"], "newly matched v2 pairs")
 
     # known-answer check against the notebook's stored 52
     if NOTEBOOK_RMSD.exists() and not df.empty:

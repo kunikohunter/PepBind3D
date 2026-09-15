@@ -28,7 +28,7 @@ ensemble and per-decoy interface energy terms.
 | unique peptides | 25,622 |
 | decoy structures | 2,814,025 |
 | size | ~124 GB |
-| licence | CC BY 4.0 |
+| license | CC BY 4.0 |
 
 ## What this is for
 
@@ -70,7 +70,7 @@ extract_pdbs.linuxgccrelease -in:file:silent A0201/GILGFVFTL.silent
 
 ## Using it correctly
 
-**REU is not a binding free energy.** The scores rank poses within a modelling
+**REU is not a binding free energy.** The scores rank poses within a modeling
 framework; they are not thermodynamic quantities and should not be read as
 predicted affinities.
 
@@ -81,7 +81,7 @@ Treat them as "≥ this value" or exclude them. They are roughly 40% of rows.
 **Kd pools three different assays.** The three IEDB dissociation-constant
 labels correspond to different experimental readouts and are distinguishable
 through `assay_method`. The competitive radioligand subset is ~1% censored; the
-two fluorescence subsets are 71–74% censored and centred about one log unit
+two fluorescence subsets are 71–74% censored and centered about one log unit
 stronger. Stratify on `assay_method` or model the censoring explicitly.
 
 **`self_templated` marks 370 pairs (0.33%) whose own crystal structure was in
@@ -126,7 +126,7 @@ v2, not a difference in Rosetta build.
 - **Binder discrimination.** `I_sc` separates censored from quantitative
   measurements with AUROC 0.678 (IC50) and 0.639 (Kd).
 
-## Sources and licence
+## Sources and license
 
 Binding measurements: **IEDB**, https://www.iedb.org, CC BY 4.0
 (https://www.iedb.org/citation_v3.php). Every measurement retains its PubMed

@@ -2,15 +2,16 @@
 Filesystem roots, in one place and overridable by environment variable.
 
 Every script in this repository derives its paths from here rather than
-hardcoding them, so running the code somewhere else means setting two
-environment variables instead of editing 26 files:
+hardcoding them. The defaults below are our cluster layout; on another machine
+they will not exist and the first script to open a file under one will raise
+FileNotFoundError. Set these before running anything:
 
     export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean
     export PEPBIND3D_MHC_DB=/your/path/to/MHC_database
     export PEPBIND3D_CLUSTER=/your/cluster/scratch
 
-The defaults are the authors' cluster layout, so the code reproduces the
-published analyses unchanged when run in place.
+`python3 paths.py` prints the resolved roots and whether each one exists, which
+is the quickest way to check before a long run.
 
 Deliberately pure stdlib and importable without side effects: the silent-file
 converter runs under PyRosetta fanned out over 112k pairs, and `utils/__init__`
