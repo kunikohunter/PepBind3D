@@ -5,7 +5,7 @@ IEDB bulk download, logging record counts after each stage. Produces the
 Supplementary Table S1 funnel (Rocco comment 5).
 
 This mirrors the pipeline logic; it does not re-run modeling. The final row
-should match the released dataset (49,488 measurements / 49,268 pairs). Any
+should match the released dataset (118,985 measurements / 112,561 pairs). Any
 gap indicates a filter applied outside this script.
 
 Usage:
@@ -74,16 +74,25 @@ def main() -> None:
     # --- Stage counts (each stage applied sequentially) ---
     n_raw = len(df)
 
-    ab = df[df[allele_col].astype(str).str.startswith(("HLA-A", "HLA-B"))]
+    # All three classical class I loci. This filter was HLA-A/B only, which was
+    # right for the 37-allele submission but wrong once HLA-C was added: the
+    # last row of the table reads its totals from the three-locus release, so
+    # the stage differences were being taken across incompatible pools.
+    ab = df[df[allele_col].astype(str).str.startswith(("HLA-A", "HLA-B", "HLA-C"))]
     n_ab = len(ab)
 
     vu = ab.dropna(subset=[qty_col, units_col])
     n_vu = len(vu)
 
+    # "dissociation constant (~IC50)" is the typo carried from the pipeline
+    # (IEDBTestPipeline.py:136, missing "KD"). That string never occurs in the
+    # raw export, so the third variant was never normalized and its ~42,660
+    # records fell out here while the release kept them -- which made stage 3
+    # smaller than the final row and the funnel report a negative removal.
     resp_std = vu[resp_col].replace({
         "dissociation constant KD (~EC50)": KD_STD,
         "dissociation constant KD":         KD_STD,
-        "dissociation constant (~IC50)":    KD_STD,
+        "dissociation constant KD (~IC50)": KD_STD,
     })
     vr = vu[resp_std.isin([KD_STD, IC50_STD])]
     n_vr = len(vr)
@@ -97,8 +106,8 @@ def main() -> None:
     rows = [
         ("0. Raw IEDB MHC ligand records",
          "IEDB MHC ligand bulk download",                       n_raw,   None),
-        ("1. HLA-A / HLA-B allele restriction",
-         "MHC allele name begins with HLA-A or HLA-B",          n_ab,    n_raw - n_ab),
+        ("1. HLA-A / HLA-B / HLA-C allele restriction",
+         "MHC allele name begins with HLA-A, HLA-B or HLA-C",          n_ab,    n_raw - n_ab),
         ("2. Quantitative value + assay units present",
          "Both a quantitative measurement value and assay units", n_vu,  n_ab - n_vu),
         ("3. Retained assay response (KD or IC50)",
@@ -121,10 +130,18 @@ def main() -> None:
     print(f"Final released unique pairs:        {n_final_pairs:,}")
     print(f"Wrote {out_fn}")
 
-    if n_final_rows != 49488:
-        print(f"\nWARNING: final rows {n_final_rows:,} != 49,488 expected.")
+    # Check the funnel is monotonic instead of against a typed-in total: a
+    # hardcoded expectation just goes stale, whereas a stage that removes a
+    # negative number of records means a filter here does not match the
+    # pipeline and the table would be nonsense.
+    removed = out["Records removed"].dropna()
+    if (removed < 0).any():
+        bad = out.loc[out["Records removed"] < 0, "Stage"].tolist()
+        print(f"\nWARNING: these stages removed a negative number of records, so "
+              f"a filter here does not match the pipeline: {bad}")
     else:
-        print("\nFinal row count matches 49,488.")
+        print(f"\nFunnel is monotonic; final row {n_final_rows:,} measurements / "
+              f"{n_final_pairs:,} pairs.")
 
 
 if __name__ == "__main__":
