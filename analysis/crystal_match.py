@@ -7,7 +7,7 @@ cell 6). The merged release has 95 alleles and 112,378 pairs, including HLA-C,
 so the match has to be redone -- the count is not carried forward.
 
 This reproduces the notebook's matching logic exactly, as a script so the number
-is re-runnable (CLAUDE.md: never invent a number):
+is re-runnable (project rule: never state a number that cannot be re-derived):
 
   * inner merge of unflagged metadata rows against database.info on
     (allele, peptide), where database.info's MHC_Allele -> allele and

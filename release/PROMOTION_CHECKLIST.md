@@ -1,7 +1,7 @@
 # Promotion checklist — staging to HuggingFace
 
 **Decision point, not a script.** Promoting replaces a DOI'd public record, and
-CLAUDE.md reserves that for KH. Nothing here runs automatically.
+this step is reserved for KH. Nothing here runs automatically.
 
 ## What changes
 
@@ -43,7 +43,7 @@ claim. It is not a version anyone should be pointed at.
       a clean directory.
 - [ ] Replace `README.md` with `release/DATASET_CARD.md`.
 - [ ] Commit and push in the HuggingFace tree. **This is the one tree where
-      Claude must not run `git`** — KH does this step.
+      automated tooling must not run `git`** — KH does this step.
 - [ ] Confirm the new version resolves over HTTPS and downloads without
       authentication.
 

@@ -67,6 +67,7 @@ Usage:
 """
 import argparse
 import shutil
+import tempfile
 import sys
 from pathlib import Path
 
@@ -265,7 +266,9 @@ def self_test():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir")
-    ap.add_argument("--scratch", default="<HOME>/.claude/jobs/3d3aeb22/tmp/rmsd_scratch")
+    ap.add_argument("--scratch", default=str(Path(tempfile.gettempdir()) / "pepbind3d_rmsd_scratch"),
+                    help="working directory for extracted decoys; one pair at a "
+                         "time, removed immediately after that pair is scored")
     ap.add_argument("--limit", type=int, default=None, help="first N pairs only (smoke test)")
     ap.add_argument("--pdb-tree", default=None,
                     help="score decoys from this PDB tree ({allele}/{peptide}/) "

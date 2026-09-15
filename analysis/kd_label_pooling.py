@@ -196,7 +196,7 @@ def summarize(merged):
 
 
 # KD assay detection ceilings (same values as the correlation analyses; see
-# CLAUDE.md "Conventions"). Needed here because the two true-KD labels are
+# the project conventions). Needed here because the two true-KD labels are
 # 71-74% censored while the (~IC50) label is 1% censored, so a pooling test on
 # raw values measures the difference in censoring rate, not a difference in
 # reported affinity. Both versions of the test are reported.
