@@ -173,11 +173,26 @@ Rosetta Energy Units; lower is more favorable.
 
 ## Paths and dependencies
 
-Paths are hardcoded at the top of each notebook/script for the authors' cluster
-layout; edit for your environment. Per-pair Rosetta outputs live at
-`.../IEDB_data_clean/pdb/{allele}/{peptide}/` (`{peptide}_input_{0001..0025}.pdb`
-plus `score.sc`, whose `description` column matches each PDB stem); the template
-database at `.../MHC_database/`.
+All filesystem roots live in `paths.py` and are overridable by environment
+variable, so running this elsewhere means setting two variables rather than
+editing every script:
+
+```bash
+export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean    # measurements, structures, analysis outputs
+export PEPBIND3D_MHC_DB=/your/path/to/MHC_database     # templates, database.info, raw IEDB export
+export PEPBIND3D_ROSETTA=/your/rosetta/main            # only for structure generation
+python3 paths.py                                       # prints the resolved roots and whether they exist
+```
+
+Defaults are the authors' layout, so the code reproduces the published analyses
+unchanged when run in place. The **notebooks** still carry absolute paths in
+their path constants and in their stored output: they are the record of how the
+figures were produced rather than reusable tooling, so edit the constants at the
+top of each if you re-run them.
+
+Per-pair Rosetta outputs live at `$PEPBIND3D_DATA/pdb/{allele}/{peptide}/`
+(`{peptide}_input_{0001..0025}.pdb` plus `score.sc`, whose `description` column
+matches each PDB stem).
 
 The per-decoy `pdb/` tree is not part of the public release. To reproduce the
 structural analyses from it, extract from the released silent files:

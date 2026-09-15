@@ -46,7 +46,11 @@ from pathlib import Path
 
 import pandas as pd
 
-BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
+
+BASE = DATA_ROOT
 # The curation output, before score and provenance columns are attached. Named
 # for what it is: the release file is metadata.csv, written by this script.
 MERGED = BASE / "release_v2_final" / "metadata_curated.csv"
@@ -63,7 +67,7 @@ SCORE_SUMMARIES = [
     BASE / "IEDB_validation" / "scores_out_183" / "score_summary.csv",
 ]
 
-MHC_DB = Path("<HOME>/Data/MHC_database/database.info")
+MHC_DB = MHC_DB_ROOT / "database.info"
 
 SCORE_METRICS = ("I_sc", "reweighted_sc", "total_score")
 PEP_SC = "pep_sc"

@@ -27,7 +27,11 @@ from pathlib import Path
 
 import pandas as pd
 
-BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
+BASE = DATA_ROOT
 STAGING = BASE / "release_v2_final" / "structures"
 # trees that must never be modified by this script
 READ_ONLY = [BASE / "v1_corrected_silents", BASE / "huggingface" / "structures",

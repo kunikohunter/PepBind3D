@@ -11,8 +11,12 @@ from tqdm import tqdm
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from decoy_content import check_decoy, OK as CONTENT_OK  # noqa: E402
 
-PDB_DIR = Path("<HOME>/main_project/data/IEDB_data_clean/pdb")
-HF_STRUCT_DIR = Path("<HOME>/main_project/data/IEDB_data_clean/huggingface/structures")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
+PDB_DIR = DATA_ROOT / "pdb"
+HF_STRUCT_DIR = DATA_ROOT / "huggingface/structures"
 
 # Columns in score.sc's "description" field are the decoy tag, not a score --
 # everything else gets carried into the silent file as-is via

@@ -26,11 +26,15 @@ import subprocess
 import time
 from pathlib import Path
 
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
 # -----------------------------------------------------------------------------
 # Paths
 # -----------------------------------------------------------------------------
 
-REGEN_BASE       = Path('<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration')
+REGEN_BASE       = DATA_ROOT / "IEDB_validation" / "regeneration"
 THREADING_OUTPUT = REGEN_BASE / 'fastas' / 'output'
 PDB_OUTPUT       = REGEN_BASE / 'pdb'
 DOCKING_LOGS     = REGEN_BASE / 'docking_logs'

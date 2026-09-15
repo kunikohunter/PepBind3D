@@ -19,7 +19,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-OUT_BASE = Path("<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/ensemble_diversity_out")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
+OUT_BASE = DATA_ROOT / "IEDB_validation/ensemble_diversity_out"
 SETS = [
     ("52 PepBind3D validation pairs", OUT_BASE / "ensemble_diversity_per_pair.csv", "#4477AA"),
     ("167 leakage-controlled targets", OUT_BASE / "ensemble_diversity_benchmark167_per_target.csv", "#228833"),

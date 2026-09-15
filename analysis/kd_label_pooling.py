@@ -31,6 +31,10 @@ import numpy as np
 import pandas as pd
 from scipy.stats import kruskal, ks_2samp
 
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
+
 # NB: the working-tree copy at data/IEDB_data_clean/metadata.csv is a stale
 # (Mar 2026) pre-rebuild file missing the six per-metric score columns; the
 # huggingface-staged copy is the one all validation notebooks actually read
@@ -50,9 +54,9 @@ from scipy.stats import kruskal, ks_2samp
 # 118,751 measurement rows, HLA-C included), so the default metadata is
 # release_v2_final/metadata.csv -- 97,574 unflagged KD rows against v1's
 # 35,851. The v1-scope run stays reproducible via --metadata.
-METADATA_FN = "<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata.csv"
-METADATA_V1_FN = "<HOME>/main_project/data/IEDB_data_clean/huggingface/metadata.csv"
-RAW_IEDB_FN = "<HOME>/Data/MHC_database/build/mhc_ligand_full.csv"
+METADATA_FN = str(DATA_ROOT / "release_v2_final/metadata.csv")
+METADATA_V1_FN = str(DATA_ROOT / "huggingface/metadata.csv")
+RAW_IEDB_FN = str(MHC_DB_ROOT / "build/mhc_ligand_full.csv")
 
 # 2026-09-04 fix: the third label was "dissociation constant (~IC50)" (missing
 # "KD"), copied from the same typo in IEDBTestPipeline.py:136's normalization

@@ -21,13 +21,17 @@ import argparse
 from pathlib import Path
 import pandas as pd
 
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
 
 # -----------------------------------------------------------------------------
 # Defaults (overridable on the command line)
 # -----------------------------------------------------------------------------
 
-RMSD_CSV    = Path('<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/01_structural_regen/rmsd_per_pair.csv')
-OUTPUT_BASE = Path('<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration')
+RMSD_CSV    = DATA_ROOT / "IEDB_validation" / "01_structural_regen" / "rmsd_per_pair.csv"
+OUTPUT_BASE = DATA_ROOT / "IEDB_validation" / "regeneration"
 
 COL_ALLELE  = 'allele'
 COL_PEPTIDE = 'peptide'

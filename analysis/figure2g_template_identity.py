@@ -40,12 +40,16 @@ import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr, pearsonr
 
-BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
+
+BASE = DATA_ROOT
 LOG_ROOT = BASE / "IEDB_validation" / "regeneration" / "fastas" / "output"
 RMSD_CSV = BASE / "IEDB_validation" / "01_structural_regen" / "rmsd_per_pair.csv"
-MHC_DB = Path("<HOME>/Data/MHC_database/database.info")
+MHC_DB = MHC_DB_ROOT / "database.info"
 
-# "-s <HOME>/Data/MHC_database/templates/4NQX.pdb"
+# "-s <MHC_DB_ROOT>/templates/4NQX.pdb"
 TEMPLATE_RE = re.compile(r"templates/([0-9A-Za-z]{4})\.pdb")
 # "A0201_validation_batch1" -> "A0201"
 DIRNAME_RE = re.compile(r"^([A-Z][0-9]{4})_")

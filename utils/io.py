@@ -7,6 +7,10 @@ from typing import Optional, Tuple, List
 
 import pandas as pd
 
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
 
 def read_score_file(score_path: Path) -> pd.DataFrame:
     """Read a Rosetta score.sc file into a DataFrame.
@@ -72,7 +76,7 @@ def get_decoy_paths(
     ----------
     pdb_root : Path
         Root of the local PDB store, e.g.
-        <HOME>/main_project/data/IEDB_data_clean/pdb/
+        <DATA_ROOT>/pdb/
     allele_dir : str
         Filesystem-safe allele directory name, e.g. 'A0101'.
     peptide : str

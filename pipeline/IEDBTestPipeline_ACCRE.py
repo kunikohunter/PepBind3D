@@ -1300,7 +1300,7 @@ def thread_all(peptide_list, mhcdb, ROSETTA_PATH, user_defined_receptor=None, pa
 	parent_dir = os.path.dirname(peptide_list) # The directory where the fasta file is located
 	allele=mhcdb.allele
 	# Set default slurm options as a dict
-	slurm_options= {"mail-user": "kuniko.hunter@vanderbilt.edu", "mail-type": "FAIL", "ntasks": "1", "time": "45:00:00", "mem": "1G", "output": "<HOME>/main_project/data/6_test_out/%A-%a.log"}
+	slurm_options= {"mail-user": os.environ.get("PEPBIND3D_SLURM_MAIL", ""), "mail-type": "FAIL", "ntasks": "1", "time": "45:00:00", "mem": "1G", "output": os.environ.get("PEPBIND3D_SLURM_LOGDIR", ".") + "/%A-%a.log"}
 
 	if for_production[0]: # Update slurm_options with user values, if applicable
 		update_slurm_options=[]
@@ -1464,7 +1464,6 @@ def thread_all(peptide_list, mhcdb, ROSETTA_PATH, user_defined_receptor=None, pa
 
 		### Comment out slurm file
 		#slurm_fh.write("\nmodule load GCC/6.4.0-2.28\n")
-		#slurm_fh.write(f"{ROSETTA_PATH}/source/bin/FlexPepDocking.linuxgccrelease @{name}.options -out:path:all <HOME>/main_project/6_test_out -out:file:silent {name}.silent")
 		#slurm_fh.close()
 
 		# Add path for out input threaded model
@@ -1472,7 +1471,6 @@ def thread_all(peptide_list, mhcdb, ROSETTA_PATH, user_defined_receptor=None, pa
 		options_list_tmp.append(["{}/{}".format(name,os.path.basename(input_filename))])
 
 		# options_list_tmp.append("-native")
-		# options_list_tmp.append([f"<HOME>/RefinementBenchmark/native/{name}.pdb"])
 		
 		# Iterate through options for our options file and write them in 
 		#options_fh = open("{}.options".format(name),"w")

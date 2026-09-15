@@ -1,6 +1,5 @@
 """
 Phase 1 item 1.2 / Reviewer 2's ensemble-scatter question.
-
 R2 asked, verbatim: "How distinct are the 25 decoys from each other? ... In the
 validations, where ensembles are compared to crystal structures, I wonder if
 the RMSD values fall into the same range as e.g. pairwise RMSD between the
@@ -38,6 +37,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from utils.structure import (  # noqa: E402
+
     load_structure,
     superpose_on_mhc,
     identify_peptide_chain,
@@ -46,19 +46,19 @@ from utils.structure import (  # noqa: E402
     _peptide_atom_pairs,
 )
 
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
+
 # --- arm mode inputs (the 167-target leakage-controlled set) ---
-BENCH_ARM_ROOT = Path("<HOME>/main_project/data/IEDB_data_clean/"
-                      "arm_incoming/rosetta_arm/arm")
-BENCH_ARM_DECOYS_CSV = Path("<HOME>/main_project/data/IEDB_data_clean/"
-                            "arm_incoming/rosetta_arm/arm_decoys.csv")
+BENCH_ARM_ROOT = DATA_ROOT / "arm_incoming/rosetta_arm/arm"
+BENCH_ARM_DECOYS_CSV = DATA_ROOT / "arm_incoming/rosetta_arm/arm_decoys.csv"
 BENCH_MANIFEST = Path(__file__).resolve().parent.parent / "benchmark" / "refs" / "reference_manifest.csv"
 
-RMSD_PER_PAIR = Path("<HOME>/main_project/data/IEDB_data_clean/"
-                     "IEDB_validation/01_structural_regen/rmsd_per_pair.csv")
-REGEN_ROOT = Path("<HOME>/main_project/data/IEDB_data_clean/"
-                  "IEDB_validation/regeneration/pdb")
-TEMPLATE_DIR = Path("<HOME>/Data/MHC_database/templates")
-CACHE_DIR = Path("<HOME>/Data/MHC_database/pdb_cache")
+RMSD_PER_PAIR = DATA_ROOT / "IEDB_validation/01_structural_regen/rmsd_per_pair.csv"
+REGEN_ROOT = DATA_ROOT / "IEDB_validation/regeneration/pdb"
+TEMPLATE_DIR = MHC_DB_ROOT / "templates"
+CACHE_DIR = MHC_DB_ROOT / "pdb_cache"
 
 
 def allele_to_dir(a: str) -> str:

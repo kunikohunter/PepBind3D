@@ -77,10 +77,14 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from utils.structure import compute_peptide_rmsd  # noqa: E402
 
-BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
+
+BASE = DATA_ROOT
 MATCHED = BASE / "IEDB_validation" / "crystal_match_v2" / "crystal_matched_pairs.csv"
 SILENT_ROOT = BASE / "release_v2_final" / "structures"
-TEMPLATE_DIR = Path("<HOME>/Data/MHC_database/templates")
+TEMPLATE_DIR = MHC_DB_ROOT / "templates"
 # the notebook's stored result for the v1 52, used as the known-answer check
 NOTEBOOK_RMSD = BASE / "IEDB_validation" / "01_structural_regen" / "rmsd_per_pair.csv"
 

@@ -31,12 +31,16 @@ from pathlib import Path
 
 import pandas as pd
 
-BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
+
+BASE = DATA_ROOT
 # the restored-column merged metadata; add_release_columns.py output, which has
 # `flagged` back, so the notebook's unflagged filter can be applied
 METADATA = BASE / "release_v2_final" / "metadata.csv"
 V1_METADATA = BASE / "huggingface" / "metadata.csv"
-MHC_DB = Path("<HOME>/Data/MHC_database/database.info")
+MHC_DB = MHC_DB_ROOT / "database.info"
 
 DB_RENAME = {
     "MHC_Allele": "allele",

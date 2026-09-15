@@ -53,7 +53,11 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "release"))
 from decoy_content import chain_sequences, classify, self_test  # noqa: E402
 
-BASE = Path("<HOME>/main_project/data/IEDB_data_clean")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
+BASE = DATA_ROOT
 PDB_ROOT = BASE / "pdb"
 SCORE_SUMMARIES = [
     BASE / "IEDB_validation" / "scores_out" / "score_summary.csv",

@@ -19,6 +19,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
 
 VALID_RESPONSES_RAW = [
     "dissociation constant KD (~EC50)",
@@ -55,8 +59,7 @@ def main() -> None:
     raw_fn   = Path(sys.argv[1])
     final_fn = Path(sys.argv[2])
     out_fn   = Path(sys.argv[3]) if len(sys.argv) > 3 else Path(
-        "<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/"
-        "supplementary_table_S1_attrition.csv")
+        DATA_ROOT / "IEDB_validation" / "supplementary_table_S1_attrition.csv")
 
     print(f"Reading {raw_fn} ...")
     df = pd.read_csv(raw_fn, header=[0, 1], low_memory=False)

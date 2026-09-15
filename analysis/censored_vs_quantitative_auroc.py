@@ -29,7 +29,11 @@ import pandas as pd
 from scipy.stats import norm, rankdata
 from sklearn.metrics import roc_auc_score
 
-HF_DIR = Path("<HOME>/main_project/data/IEDB_data_clean/huggingface")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
+HF_DIR = DATA_ROOT / "huggingface"
 
 COL_ALLELE = "allele"
 COL_MEAS_TYPE = "measurement_type"

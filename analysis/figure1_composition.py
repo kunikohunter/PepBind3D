@@ -21,7 +21,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-METADATA = Path("<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata.csv")
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
+
+METADATA = DATA_ROOT / "release_v2_final/metadata.csv"
 IC50_CEIL = (20000.0, 50000.0, 70000.0)
 KD_CEIL = (5000.0, 10000.0, 20000.0)
 LOCUS_COLOR = {"A": "#4477AA", "B": "#EE6677", "C": "#228833"}

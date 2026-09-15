@@ -4,7 +4,6 @@ Spearman correlations on the FULL merged v2 dataset (112,378 pairs), instead of
 v1's 49,268. Merges v1 + v2 per-pair score summaries, joins to the reconciled
 merged metadata, and reuses the validated analysis functions from
 censored_vs_quantitative_auroc.py (same censoring definition, same metric).
-
 Usage: python3 recompute_affinity_112k.py --out-dir <dir>
 """
 import argparse
@@ -17,19 +16,24 @@ from scipy.stats import spearmanr
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from censored_vs_quantitative_auroc import (
+
     is_censored, auroc_and_effect_size,
     IC50_CEILINGS, KD_CEILINGS, IC50_FLOOR, KD_FLOOR, STRONG_BINDER_THRESHOLD_NM,
     METRICS, PRIMARY_METRIC,
 )
+
+import sys as _sys; from pathlib import Path as _P
+_sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
+from paths import DATA_ROOT  # noqa: E402
 
 # metadata.csv is the release file: it already carries the score columns,
 # joined by release/add_release_columns.py with the re-docked 1,162 overriding
 # their defective originals. Reading it avoids repeating that join here, where
 # the override ordering could silently drift out of step and reintroduce the
 # wrong-chain I_sc values.
-METADATA = Path("<HOME>/main_project/data/IEDB_data_clean/release_v2_final/metadata.csv")
-V1_SCORES = Path("<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/scores_out/score_summary.csv")
-V2_SCORES = Path("<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/scores_out_v2/score_summary.csv")
+METADATA = DATA_ROOT / "release_v2_final/metadata.csv"
+V1_SCORES = DATA_ROOT / "IEDB_validation/scores_out/score_summary.csv"
+V2_SCORES = DATA_ROOT / "IEDB_validation/scores_out_v2/score_summary.csv"
 
 SCORE_COLS = [f"{m}_{agg}" for m in METRICS for agg in ("best", "mean")]
 
