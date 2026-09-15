@@ -27,7 +27,7 @@ ensemble and per-decoy interface energy terms.
 | HLA alleles | 95 (HLA-A, -B, -C) |
 | unique peptides | 25,622 |
 | decoy structures | 2,814,025 |
-| size | ~124 GB |
+| size | ~155 GB |
 | license | CC BY 4.0 |
 
 ## What this is for

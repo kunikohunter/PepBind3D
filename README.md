@@ -8,7 +8,7 @@ reported numbers.
 Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
 **Scope:** 95 HLA-A/B/C alleles, 112,561 peptide-allele pairs, 25 decoys each
-(2,814,025 structures, ~124 GB), 118,985 measurement rows.
+(2,814,025 structures, ~155 GB), 118,985 measurement rows.
 
 ## Structure generation
 
