@@ -12,7 +12,7 @@ Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
 ## Structure generation
 
-`pipeline/IEDBTestPipeline_ACCRE.py` produced these structures. It is our
+`pipeline/IEDBTestPipeline_ACCRE.py` produced these structures. It is an
 adapted copy of the pipeline published with Bloodworth N, Chen W, Hunter K,
 Patrick D, Palubinsky A, Phillips E, Roeth D, Kalkum M, Mallal S, Davies S,
 Ao M, Moretti R, Meiler J, Harrison DG. *Posttranslationally modified
