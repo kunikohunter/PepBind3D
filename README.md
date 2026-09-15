@@ -142,6 +142,18 @@ python3 paths.py                                       # prints the resolved roo
 The notebooks import the same roots in their first cell, so setting the
 variables covers them too.
 
+Notebook outputs are stored inside the `.ipynb`, so a cell that prints a path
+writes it into the file and the next commit publishes it. Install the hook once
+and that stops being something to remember:
+
+```bash
+ln -sf ../../tools/pre-commit .git/hooks/pre-commit
+```
+
+It rewrites paths in outputs to `<DATA_ROOT>`-style placeholders and re-stages
+the notebook. A path hardcoded in a *code* cell fails the commit instead of
+being rewritten, because the fix there is to import the root from `paths.py`.
+
 Per-pair Rosetta outputs live at `$PEPBIND3D_DATA/pdb/{allele}/{peptide}/`
 (`{peptide}_input_{0001..0025}.pdb` plus `score.sc`, whose `description` column
 matches each PDB stem).

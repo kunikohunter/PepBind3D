@@ -1,0 +1,23 @@
+#!/bin/bash
+# Keep personal paths out of this public repository.
+#
+# Notebook outputs are stored inside the .ipynb, so a cell that prints a path
+# writes it into the file and the commit publishes it. This scrubs staged
+# notebooks and re-stages them, and refuses the commit if a code cell hardcodes
+# a path, where the fix is to import the root from paths.py.
+#
+# Install:  ln -sf ../../tools/pre-commit .git/hooks/pre-commit
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+nbs=$(git diff --cached --name-only --diff-filter=ACM -- '*.ipynb')
+[ -z "$nbs" ] && exit 0
+
+# shellcheck disable=SC2086
+if ! python3 tools/scrub_notebook_paths.py $nbs; then
+    echo "pre-commit: refusing the commit, see above." >&2
+    exit 1
+fi
+# shellcheck disable=SC2086
+git add $nbs
