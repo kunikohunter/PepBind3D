@@ -2,9 +2,9 @@
 Filesystem roots, in one place and overridable by environment variable.
 
 Every script in this repository derives its paths from here rather than
-hardcoding them. The defaults below are our cluster layout; on another machine
-they will not exist and the first script to open a file under one will raise
-FileNotFoundError. Set these before running anything:
+hardcoding them. The defaults are relative to your home directory and our cluster's layout, so
+on another machine they will not exist and the first script to open a file
+under one raises FileNotFoundError. Set these before running anything:
 
     export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean
     export PEPBIND3D_MHC_DB=/your/path/to/MHC_database
@@ -23,19 +23,19 @@ from pathlib import Path
 #   metadata.csv, structures/, release_v2_final/, IEDB_validation/, pdb/
 DATA_ROOT = Path(os.environ.get(
     "PEPBIND3D_DATA",
-    "<HOME>/main_project/data/IEDB_data_clean"))
+    Path.home() / "main_project/data/IEDB_data_clean"))
 
 # Local MHC template database: threading templates, reference crystals,
 # database.info, default_receptor/, and the raw IEDB bulk export under build/.
 MHC_DB_ROOT = Path(os.environ.get(
     "PEPBIND3D_MHC_DB",
-    "<HOME>/Data/MHC_database"))
+    Path.home() / "Data/MHC_database"))
 
 # Cluster scratch root, for run trees that live on the allocation rather than
 # in the data tree. Nothing in the release pipeline or the analyses needs it.
 CLUSTER_ROOT = Path(os.environ.get(
     "PEPBIND3D_CLUSTER",
-    "<CLUSTER>"))
+    Path("/data/p_csb_meiler") / os.environ.get("USER", "")))
 
 # Rosetta installation root. Only needed to generate structures or to run
 # extract_pdbs; the analysis scripts do not use it.

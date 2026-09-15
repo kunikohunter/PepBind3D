@@ -123,7 +123,11 @@ def templates_from_flat_logs(log_root=LOG_ROOT_24):
 def build(rmsd_csv=RMSD_CSV, log_root=LOG_ROOT, mhc_db=MHC_DB):
     rmsd = pd.read_csv(rmsd_csv)
     rmsd["allele_dir"] = rmsd["allele"].map(allele_to_dir)
-    logs = templates_from_logs(log_root)
+    # Both log trees. rmsd_per_pair.csv carries all 76 crystal-matched pairs
+    # (notebook 01 reads both re-docked trees), so reading only the first tree
+    # leaves the 24 without a template and silently reports the old 52-pair rho.
+    logs = pd.concat([templates_from_logs(log_root),
+                      templates_from_flat_logs(LOG_ROOT_24)], ignore_index=True)
     db = pd.read_csv(mhc_db)
     pdb_to_pep = (db.assign(PDB_ID=db["PDB_ID"].astype(str).str.upper())
                     .drop_duplicates(subset=["PDB_ID"])
@@ -238,9 +242,6 @@ def plot(d, out, res):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir")
-    ap.add_argument("--include-24", action="store_true",
-                    help="also score the 24 newly matched pairs, giving Figure 2G "
-                         "on all 76 rather than the original 52")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
     if args.self_test:
@@ -252,29 +253,6 @@ def main():
     self_test(); print()
 
     d, problems = build()
-    if args.include_24:
-        d24 = pd.read_csv(RMSD_CSV_24)
-        d24["allele_dir"] = d24["allele"].map(allele_to_dir)
-        logs24 = templates_from_flat_logs()
-        db = pd.read_csv(mhc_db_path := MHC_DB)
-        pdb_to_pep = (db.assign(PDB_ID=db["PDB_ID"].astype(str).str.upper())
-                        .drop_duplicates(subset=["PDB_ID"])
-                        .set_index("PDB_ID")["Epitope_Description"].astype(str).to_dict())
-        d24 = d24.merge(logs24, on=["allele_dir", "peptide"], how="left")
-        d24["template_peptide_used"] = d24["template_used"].map(pdb_to_pep)
-        ident = []
-        for r in d24.itertuples(index=False):
-            tp = getattr(r, "template_peptide_used")
-            try:
-                ident.append(percent_identity(r.peptide, tp) if isinstance(tp, str) else np.nan)
-            except ValueError:
-                ident.append(np.nan)
-        d24["template_identity_used"] = ident
-        d24["is_self_template"] = (d24["template_used"].astype(str).str.upper()
-                                   == d24["matched_pdb_id"].astype(str).str.upper())
-        print(f"added {len(d24)} newly matched pairs from {LOG_ROOT_24.name}; "
-              f"self-templated among them: {int(d24['is_self_template'].sum())}")
-        d = pd.concat([d, d24], ignore_index=True)
     print(f"{len(d)} validation pairs; template recovered from logs for "
           f"{int(d['template_used'].notna().sum())}")
     n_self = int(d["is_self_template"].sum())
