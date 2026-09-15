@@ -184,9 +184,32 @@ def run_per_allele(df, out_dir):
     return per_allele, summary
 
 
+def drop_flagged(df):
+    """Curation-excluded measurements, removed before any statistic.
+
+    Notebooks 02, 04, 06 and 07 all drop these, so the published figures were
+    computed without them; this script was the one place that kept them, which
+    put the reported n out of step with the figures by 7 (IC50) and 8 (KD).
+
+    Deliberately NOT applied to the composition table. These 15 rows are the
+    only measurement for their pair, so dropping them would take the released
+    dataset from 112,561 pairs to 112,546 -- and those pairs and their
+    structures are in the release. The statistics exclude them; the description
+    of what was published does not.
+    """
+    if "flagged" not in df.columns:
+        raise KeyError("metadata.csv has no 'flagged' column")
+    out = df[~df["flagged"].astype(bool)].copy()
+    print(f"dropped {len(df) - len(out)} flagged measurement(s): "
+          f"{len(df):,} -> {len(out):,} rows", flush=True)
+    return out
+
+
 def run_composition(df, out_dir):
     """Supplementary Table S5: per-allele composition -- unique peptides, pairs,
-    IC50/KD measurement counts, peptide-length range, and share of the dataset."""
+    IC50/KD measurement counts, peptide-length range, and share of the dataset.
+
+    Takes the UNFILTERED frame: this table describes the released dataset."""
     pairs = df[["allele", "allele_compact", "peptide", "peptide_length"]].drop_duplicates(
         subset=["allele_compact", "peptide"])
     total_pairs = len(pairs)
@@ -259,12 +282,13 @@ def main():
                          "the KD correlation is also reported split by original label.")
     args = ap.parse_args(); out = Path(args.out_dir); out.mkdir(parents=True, exist_ok=True)
     df = build_scored_metadata()
-    cens = run_censored(df, out)
-    aff = run_affinity(df, out)
-    run_per_allele(df, out)
-    run_composition(df, out)
+    stats_df = drop_flagged(df)          # statistics
+    cens = run_censored(stats_df, out)
+    aff = run_affinity(stats_df, out)
+    run_per_allele(stats_df, out)
+    run_composition(df, out)             # description of the release, unfiltered
     if args.kd_labels:
-        run_affinity_by_kd_label(df, args.kd_labels, out)
+        run_affinity_by_kd_label(stats_df, args.kd_labels, out)
     print("\n=== censored-vs-quantitative (I_sc_best, pooled) ===")
     for r in cens:
         if r["metric"] == "I_sc_best" and r["comparison"] == "pooled":
