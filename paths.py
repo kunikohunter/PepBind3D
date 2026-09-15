@@ -52,6 +52,14 @@ RELEASE_METADATA = RELEASE_DIR / "metadata.csv"
 RELEASE_STRUCTURES = RELEASE_DIR / "structures"
 VALIDATION_DIR = DATA_ROOT / "IEDB_validation"
 
+# This repository, derived from this file's own location rather than an
+# environment variable: it is wherever the clone happens to be, and code that
+# needs it is code that is already running from inside it.
+REPO_ROOT = Path(__file__).resolve().parent
+# Manuscript working directory. Gitignored in full, so nothing written here is
+# published; it is where the analyses hand their outputs to the draft.
+REVISIONS_DIR = REPO_ROOT / "revisions"
+
 
 def describe():
     """Print the resolved roots and whether they exist. Useful as a first check
