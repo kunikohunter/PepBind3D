@@ -13,13 +13,14 @@ Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 ## Structure generation
 
 `pipeline/IEDBTestPipeline_ACCRE.py` produced these structures. It is an
-adapted copy of the pipeline published with Bloodworth N, Chen W, Hunter K,
+adapted copy of the pipeline published in Bloodworth N, Chen W, Hunter K,
 Patrick D, Palubinsky A, Phillips E, Roeth D, Kalkum M, Mallal S, Davies S,
 Ao M, Moretti R, Meiler J, Harrison DG. *Posttranslationally modified
 self-peptides promote hypertension in mouse models.* J Clin Invest.
-2024;134(16):e174374, doi:10.1172/JCI174374. We added batch-array execution and helpers for the
-current IEDB schema. Threading order, template selection and the docking
-protocol are unchanged.
+2024;134(16):e174374,
+[doi:10.1172/JCI174374](https://doi.org/10.1172/JCI174374). We added
+batch-array execution and helpers for the current IEDB schema. Threading
+order, template selection and the docking protocol are unchanged.
 
 Two jobs share the file and never call each other:
 
