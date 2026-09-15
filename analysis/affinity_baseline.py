@@ -3,7 +3,7 @@ Reviewer 1, major point 3 (RESPONSE_TO_REVIEWERS.md): "develop a simple
 ML-based affinity predictor based on the near-native structure ensembles
 and/or Rosetta scores to validate the value of PepBind3D". Implements the
 pre-registered specification at
-<CLUSTER>/revision/BASELINE_MODEL_SPEC.md (written before
+$PEPBIND3D_CLUSTER/revision/BASELINE_MODEL_SPEC.md (written before
 any number was computed; section 8 fixes the reporting language in advance).
 
 This is a Technical Validation check, not a modelling contribution: a

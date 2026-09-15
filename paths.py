@@ -7,6 +7,7 @@ environment variables instead of editing 26 files:
 
     export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean
     export PEPBIND3D_MHC_DB=/your/path/to/MHC_database
+    export PEPBIND3D_CLUSTER=/your/cluster/scratch
 
 The defaults are the authors' cluster layout, so the code reproduces the
 published analyses unchanged when run in place.
@@ -30,6 +31,12 @@ MHC_DB_ROOT = Path(os.environ.get(
     "PEPBIND3D_MHC_DB",
     "<HOME>/Data/MHC_database"))
 
+# Cluster scratch root for run trees that live on the allocation. Nothing in
+# the release pipeline or the analyses needs it.
+CLUSTER_ROOT = Path(os.environ.get(
+    "PEPBIND3D_CLUSTER",
+    "<CLUSTER>"))
+
 # Rosetta installation root. Only needed to generate structures or to run
 # extract_pdbs; the analysis scripts do not use it.
 ROSETTA_ROOT = Path(os.environ.get(
@@ -50,8 +57,9 @@ def describe():
     """Print the resolved roots and whether they exist. Useful as a first check
     when running this code on a new machine."""
     for name, p in [("DATA_ROOT", DATA_ROOT), ("MHC_DB_ROOT", MHC_DB_ROOT),
-                    ("ROSETTA_ROOT", ROSETTA_ROOT)]:
+                    ("CLUSTER_ROOT", CLUSTER_ROOT), ("ROSETTA_ROOT", ROSETTA_ROOT)]:
         env = {"DATA_ROOT": "PEPBIND3D_DATA", "MHC_DB_ROOT": "PEPBIND3D_MHC_DB",
+               "CLUSTER_ROOT": "PEPBIND3D_CLUSTER",
                "ROSETTA_ROOT": "PEPBIND3D_ROSETTA"}[name]
         src = "env" if env in os.environ else "default"
         print(f"  {name:13s} {str(p):55s} [{src}] "

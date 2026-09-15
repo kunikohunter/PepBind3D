@@ -776,7 +776,7 @@ def build_scorefile(sdir, sortby=["reweighted_sc"], get_top_mod=0, params=None):
 	if get_top_mod>0:
 		print("Top scoring models:")
 		print(scoredata[["description","file_name",sortby[-1],"rmsBB"]].iloc[0:get_top_mod])
-		args=["/dors/meilerlab/apps/rosetta/rosetta-3.14/main/source/bin/extract_pdbs.linuxgccrelease","-in:file:silent"]
+		args=[os.environ.get("PEPBIND3D_ROSETTA", "/dors/meilerlab/apps/rosetta/rosetta-3.14/main") + "/source/bin/extract_pdbs.linuxgccrelease","-in:file:silent"]
 
 		struct_names=scoredata["description"].iloc[0:get_top_mod].tolist()
 		silent_names=scoredata["file_name"].iloc[0:get_top_mod].tolist()
@@ -1558,7 +1558,7 @@ parser.add_argument('--batchSize', nargs=1, type=int, help='Number of sequences 
 # Optional arguments for pipeline execution:python IEDBTestPipeline.py /path/to/folder
 parser.add_argument('--skipReview', action='store_true', help='Designate that flagged data should be disregarded. Use in conjunction with other flags to proceed down the pipeline without interruption')
 parser.add_argument('--params', nargs='*', help='Followed by path to params file and optional position to make an NCAA substitution')
-parser.add_argument('--rosetta', nargs=1, default=["/dors/meilerlab/apps/rosetta/rosetta-3.14/main"], help='Optional flag for defining path to rosetta/main. Default is /dors/meilerlab/apps/rosetta/rosetta-3.14/main')
+parser.add_argument('--rosetta', nargs=1, default=[os.environ.get("PEPBIND3D_ROSETTA", "/dors/meilerlab/apps/rosetta/rosetta-3.14/main")], help='Optional flag for defining path to rosetta/main. Default is /dors/meilerlab/apps/rosetta/rosetta-3.14/main')
 parser.add_argument('--mhcdatabase', nargs=1, help='Followed by a location to the MHC database (default is /home/<user>/Data/MHC_database')
 parser.add_argument('--receptor', nargs=1, default=[None], help='Optional flag to define a receptor for --threadprep')
 parser.add_argument('--slurm', nargs='*', help='Optional flag to make slurm file for flexpepdock refinment production run. Takes in an arbitrary number of arguments that correspond to #SBATCH option and value pairs, delimited as option=value')

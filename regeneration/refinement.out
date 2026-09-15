@@ -1,7 +1,7 @@
 nohup: ignoring input
 Found 52 threaded inputs to refine
-Output base:  <HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/pdb
-Docking logs: <HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/docking_logs
+Output base:  $PEPBIND3D_DATA/IEDB_validation/regeneration/pdb
+Docking logs: $PEPBIND3D_DATA/IEDB_validation/regeneration/docking_logs
 Parallelism:  28 workers
 Per pair:     25 decoys × ~3 min ≈ 75 min single-threaded
 

@@ -49,9 +49,9 @@ A*02:03, A*02:06, A*02:07, A*03:01, A*26:01, B*07:02, B*39:01.
 ```bash
 # from Tungsten
 rsync -avP \
-  <HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration_v2/ \
-  <HOME>/main_project/data/IEDB_data_clean/IEDB_validation/crystal_match_v2/redock_24_pairs.csv \
-  huntek1@login.accre.vu:<CLUSTER>/main_project/data/redock_24/
+  $PEPBIND3D_DATA/IEDB_validation/regeneration_v2/ \
+  $PEPBIND3D_DATA/IEDB_validation/crystal_match_v2/redock_24_pairs.csv \
+  $CLUSTER_LOGIN:$PEPBIND3D_CLUSTER/main_project/data/redock_24/
 ```
 
 ## Steps on ACCRE
@@ -63,7 +63,7 @@ Two stages, run separately, same as the existing threading/docking arrays.
 Per allele, following `run_regeneration.sh:60-68`:
 
 ```bash
-python <HOME>/main_project/scripts/IEDBTestPipeline_ACCRE.py \
+python $REPO/../IEDBTestPipeline_ACCRE.py \
     --IEDBquery skip \
     --buildFasta <allele>_validation_v2.fasta 0 \
     --setAllele "<allele in A*02:01 form>" \
@@ -95,8 +95,8 @@ matches the PDB stems — the release conversion hard-fails otherwise.
 
 ```bash
 rsync -avP \
-  huntek1@login.accre.vu:<CLUSTER>/main_project/data/redock_24/output/ \
-  <HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration_v2/pdb/
+  $CLUSTER_LOGIN:$PEPBIND3D_CLUSTER/main_project/data/redock_24/output/ \
+  $PEPBIND3D_DATA/IEDB_validation/regeneration_v2/pdb/
 ```
 
 Expected layout, matching the v1 regeneration tree so the analysis can read

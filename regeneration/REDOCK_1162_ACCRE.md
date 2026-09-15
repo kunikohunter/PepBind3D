@@ -87,9 +87,9 @@ so each pair's original defect is on record.
 ```bash
 # from Tungsten (KH runs this; SSH from Tungsten needs interactive auth)
 rsync -avP \
-  <HOME>/main_project/data/IEDB_data_clean/IEDB_validation/redock_1162/ \
-  <HOME>/main_project/data/IEDB_data_clean/IEDB_validation/decoy_screen_v1/redock_1162_pairs.csv \
-  huntek1@login.accre.vu:<CLUSTER>/main_project/data/redock_1162/
+  $PEPBIND3D_DATA/IEDB_validation/redock_1162/ \
+  $PEPBIND3D_DATA/IEDB_validation/decoy_screen_v1/redock_1162_pairs.csv \
+  $CLUSTER_LOGIN:$PEPBIND3D_CLUSTER/main_project/data/redock_1162/
 ```
 
 ## Return and integration

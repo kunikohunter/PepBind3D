@@ -2,11 +2,11 @@
 # Regenerate FlexPepDock ensembles for the 52 validation pairs using
 # --ignore_epitope_match so that self-matching templates are excluded.
 #
-# Run this from <HOME>/main_project/scripts/IEDB_validation/regeneration/
+# Run this from $REPO/regeneration/
 # (or any working directory; paths below are absolute).
 #
 # Prerequisites:
-#   1. The patched HLA_db.py is in <HOME>/main_project/scripts/
+#   1. The patched HLA_db.py is in $REPO/../
 #   2. build_validation_fastas.py has been run to produce per-allele FASTAs.
 #   3. The Python environment used has biopython, pandas, etc. installed
 #      (the same one used for the validation notebooks).
@@ -16,11 +16,11 @@ set -euo pipefail
 # -----------------------------------------------------------------------------
 # Paths
 # -----------------------------------------------------------------------------
-PIPELINE_SCRIPT=<HOME>/main_project/scripts/IEDBTestPipeline_ACCRE.py
+PIPELINE_SCRIPT=$REPO/../IEDBTestPipeline_ACCRE.py
 ROSETTA_PATH=/sb/meilerapps/rosetta/rosetta-3.15/main
-FASTA_DIR=<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas
-MANIFEST=<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/allele_manifest.csv
-LOG_DIR=<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/logs
+FASTA_DIR=$PEPBIND3D_DATA/IEDB_validation/regeneration/fastas
+MANIFEST=$PEPBIND3D_DATA/IEDB_validation/regeneration/allele_manifest.csv
+LOG_DIR=$PEPBIND3D_DATA/IEDB_validation/regeneration/logs
 
 THREADS=28
 

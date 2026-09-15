@@ -24,12 +24,12 @@ run_regeneration.sh               # iterates over alleles, calls IEDBTestPipelin
 ### Step 1 — Generate FASTAs
 
 ```
-cd <HOME>/main_project/scripts/IEDB_validation/regeneration
+cd $REPO/regeneration
 python build_validation_fastas.py
 ```
 
 Outputs per-allele FASTA files into
-`<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/fastas/`,
+`$PEPBIND3D_DATA/IEDB_validation/regeneration/fastas/`,
 plus an `allele_manifest.csv` summarizing the work.
 
 ### Step 2 — Run the regeneration
@@ -41,7 +41,7 @@ bash run_regeneration.sh
 For each allele in the manifest, runs `IEDBTestPipeline.py` with the
 allele's FASTA and the `--ignore_epitope_match` flag. Output structures
 land in
-`<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/{allele_dir}/`.
+`$PEPBIND3D_DATA/IEDB_validation/regeneration/structures/{allele_dir}/`.
 
 Runtime: roughly 2.5 hours wall time on 28 cores for 52 pairs at 25 decoys
 each (~3 min per FlexPepDock refinement).
@@ -55,13 +55,13 @@ nohup bash run_regeneration.sh > regeneration.out 2>&1 &
 
 After regeneration completes, point `01_structural_validation.ipynb`'s
 `PDB_ROOT` variable at
-`<HOME>/main_project/data/IEDB_data_clean/IEDB_validation/regeneration/structures/`
+`$PEPBIND3D_DATA/IEDB_validation/regeneration/structures/`
 and rerun. The same 52 pairs will be evaluated; the RMSDs will reflect
 threading from non-self templates.
 
 ## Prerequisites
 
-- The patched `<HOME>/main_project/scripts/HLA_db.py` is in place
+- The patched `$REPO/../HLA_db.py` is in place
   (smoke test on the cluster confirmed `omit=['self']` now filters self-matches).
 - `rmsd_per_pair.csv` exists at the expected path from a previous run of
   `01_structural_validation.ipynb`. Without it, there's no list of pairs
