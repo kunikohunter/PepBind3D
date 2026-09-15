@@ -64,6 +64,12 @@ to validate against, so:
 
 Run in order; each reads `metadata.csv` and, where noted, per-pair score files.
 
+**Notebook 03 needs its own environment.** It is the only one that imports
+`py3Dmol` and shells out to `pymol`, so run it in a PyMOL environment and the
+rest in the analysis environment. The two are not interchangeable in either
+direction: a PyMOL environment typically lacks `seaborn`, `openpyxl` and
+`adjustText`, which notebooks 02, 06 and 07 need.
+
 | | |
 |---|---|
 | `01_structural_validation.ipynb` | peptide-backbone RMSD of decoys against matched crystals (Figure 2, Table S4) |
@@ -165,7 +171,6 @@ structural analyses from it, extract from the released silent files:
 extract_pdbs.linuxgccrelease -in:file:silent {peptide}.silent
 ```
 
-`pandas`, `numpy`, `scipy`, `matplotlib`, `biopython`, `tqdm`, `openpyxl`; see
-`requirements.txt`. Rosetta is needed only for structure generation and
-`extract_pdbs`, PyRosetta only for silent-file conversion, not for the analysis
-notebooks. `utils/` holds shared I/O, plotting and structure helpers.
+See `requirements.txt`. Rosetta is needed only for structure generation and
+`extract_pdbs`, PyRosetta only for silent-file conversion, neither for the
+analysis notebooks. `utils/` holds shared I/O, plotting and structure helpers.

@@ -1,6 +1,21 @@
+# Analysis scripts and notebooks 01, 02, 04-08.
 pandas
 numpy
 scipy
 matplotlib
+seaborn
 biopython
 tqdm
+scikit-learn
+openpyxl
+adjustText
+
+# Notebook 03 only, and it needs PyMOL as well, which is not a pip package.
+# Run 03 in a PyMOL environment; see the README.
+py3Dmol
+
+# NOT pip-installable, and only needed to build or read silent files
+# (release/convert_to_silent.py, analysis/crystal_rmsd.py). Install from
+# https://www.pyrosetta.org with a licence. The analysis notebooks do not
+# import it.
+# pyrosetta
