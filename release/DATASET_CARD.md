@@ -78,6 +78,11 @@ predicted affinities.
 5,000 / 10,000 / 20,000 nM are assay detection ceilings, not measurements.
 Treat them as "≥ this value" or exclude them. They are roughly 40% of rows.
 
+Exclude **anything at or above the highest ceiling** as well, not only exact
+matches to the three values: 70,000 nM for IC50, 20,000 nM for Kd. A further
+8,651 Kd rows (8.9%) and 1,366 IC50 rows sit above their top ceiling at values
+like 77,900 nM, and testing only for the three listed numbers keeps them.
+
 **Kd pools three different assays.** The three IEDB dissociation-constant
 labels correspond to different experimental readouts and are distinguishable
 through `assay_method`. The competitive radioligand subset is ~1% censored; the
