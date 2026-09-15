@@ -50,8 +50,8 @@ from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
 # authors' hardcoded cluster path isn't found. RAW_IEDB_FN is unchanged and
 # was found in place.
 #
-# 2026-09-13: the release is now the merged v2 set (95 alleles, 112,378 pairs,
-# 118,751 measurement rows, HLA-C included), so the default metadata is
+# 2026-09-13: the release is now the merged v2 set (95 alleles, 112,561 pairs,
+# 118,985 measurement rows, HLA-C included), so the default metadata is
 # release_v2_final/metadata.csv -- 97,574 unflagged KD rows against v1's
 # 35,851. The v1-scope run stays reproducible via --metadata.
 METADATA_FN = str(DATA_ROOT / "release_v2_final/metadata.csv")

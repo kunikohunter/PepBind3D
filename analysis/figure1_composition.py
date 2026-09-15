@@ -1,6 +1,6 @@
 """
 Figure 1 composition panels, regenerated on the merged v2 release
-(95 alleles / 112,378 complexes / 118,751 measurement rows).
+(95 alleles / 112,561 complexes / 118,985 measurement rows).
 
 Panels (A = PyMOL ensemble render, unchanged, not produced here):
   B  pairs per allele, log-scaled, colored by locus (HLA-A/B/C)
@@ -42,7 +42,7 @@ def main():
     pairs["locus"] = pairs["allele_compact"].str[0]
 
     # --- assertions: the figure's headline counts must match the file ---
-    assert pairs.shape[0] == 112378, f"expected 112,378 pairs, got {pairs.shape[0]}"
+    assert pairs.shape[0] == 112561, f"expected 112,561 pairs, got {pairs.shape[0]}"
     assert pairs["allele_compact"].nunique() == 95, f"expected 95 alleles, got {pairs['allele_compact'].nunique()}"
 
     per_allele = pairs.groupby("allele_compact").size().sort_values(ascending=False)

@@ -3,7 +3,7 @@ Re-run the Validation 1 crystal-structure match on the merged release.
 
 The 52 pairs quoted in the submitted manuscript were matched against the local
 MHC template database from v1's 37-allele metadata (01_structural_validation.ipynb,
-cell 6). The merged release has 95 alleles and 112,378 pairs, including HLA-C,
+cell 6). The merged release has 95 alleles and 112,561 pairs, including HLA-C,
 so the match has to be redone -- the count is not carried forward.
 
 This reproduces the notebook's matching logic exactly, as a script so the number

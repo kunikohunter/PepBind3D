@@ -395,7 +395,10 @@ def fit_predict_regression(model_name, X_train, y_train, X_test, allele_idx):
         pred = np.full(len(X_test), float(np.mean(y_train)))
         return pred
     if model_name == "B1":
-        # X_test here is already -I_sc_best; unfitted, ranking-only feature.
+        # Raw I_sc_best, unfitted, ranking-only. Correct sign for regression:
+        # a weaker interface (less negative I_sc) means a higher log10 affinity,
+        # so I_sc rises with the target. The classification twin below must
+        # negate it, because there the positive class is the STRONG binder.
         return X_test[:, 0]
     categorical_features = [allele_idx] if allele_idx is not None else None
     reg = HistGradientBoostingRegressor(categorical_features=categorical_features, **HGB_KWARGS)
@@ -408,7 +411,11 @@ def fit_predict_classification(model_name, X_train, y_train, X_test, allele_idx)
         prevalence = float(np.mean(y_train))
         return np.full(len(X_test), prevalence)
     if model_name == "B1":
-        return X_test[:, 0]
+        # Negated: the positive class is `measurement_value < 500 nM`, and a
+        # stronger binder has a MORE negative I_sc. Returning it unnegated
+        # scores the classifier backwards and lands below chance
+        # (IC50 AUROC 0.343 instead of 0.657).
+        return -X_test[:, 0]
     categorical_features = [allele_idx] if allele_idx is not None else None
     if len(np.unique(y_train)) < 2:
         return np.full(len(X_test), float(np.mean(y_train)))
