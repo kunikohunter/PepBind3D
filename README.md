@@ -12,48 +12,32 @@ Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
 ## Structure generation
 
-The pipeline began as the code published with Bloodworth N, Chen W, Hunter K,
+`pipeline/IEDBTestPipeline_ACCRE.py` produced these structures. It is our
+adapted copy of the pipeline published with Bloodworth N, Chen W, Hunter K,
 Patrick D, et al. *Posttranslationally modified self-peptides promote
-hypertension in mouse models.* J Clin Invest. 2024;134(16):e174374.
-doi:10.1172/JCI174374,
-https://github.com/meilerlab/discovery-self-peptides-hypertension (`code/`).
-
-`pipeline/IEDBTestPipeline_ACCRE.py` is our adapted copy, and it is the script
-that actually produced these structures, which is why it is here rather than a
-pointer to the original. We added batch-array execution for the cluster
-(`--batch_index`, `--slurm_setup`, `--threads`) and helpers for the current IEDB
-schema; the threading order, template selection and docking protocol are
-unchanged. Because it came from a general-purpose pipeline, a good deal of it is
-unrelated to this dataset, so the map below is worth reading before the file.
+hypertension in mouse models.* J Clin Invest. 2024;134(16):e174374,
+doi:10.1172/JCI174374. We added batch-array execution and helpers for the
+current IEDB schema; threading order, template selection and docking protocol
+are unchanged. It came from a general-purpose pipeline, so much of it is
+unrelated to this dataset.
 
 Two jobs share the file and never call each other:
 
-| | entry point | what it does |
-|---|---|---|
-| curation | `get_peplist` then `clean_peplist` | reads the IEDB bulk export, keeps quantitative IC50/KD on HLA-A, -B and -C, deduplicates per allele, writes the peptide lists |
-| structure generation | `thread_all` then `thread_template` | builds one prepacked starting model per peptide, plus the SLURM and options files for the docking run |
+| | entry point |
+|---|---|
+| curation | `get_peplist`, then `clean_peplist` |
+| structure generation | `thread_all`, then `thread_template` |
 
-Inside `thread_template`, in order:
+Inside `thread_template`: pick a template (`HLA_db.get_peptide_template`),
+mount the peptide on its backbone (`SimpleThreadingMover`), trim the receptor to
+the α₁/α₂ cleft (`DeleteRegionMover`), substitute non-canonical residues
+(`add_NCAA`), add the receptor and relax (`FastRelax`, 5 repeats, ref2015), then
+prepack. Refinement is a separate SLURM array: `-pep_refine -nstruct 25 -ex1
+-ex2aro`.
 
-1. pick a threading template (`HLA_db.get_peptide_template`)
-2. mount the query peptide on its backbone (`SimpleThreadingMover`)
-3. trim the receptor to the α₁/α₂ cleft (`DeleteRegionMover`)
-4. substitute non-canonical residues if a `.params` file is given (`add_NCAA`)
-5. add the receptor and relax (`FastRelax`, 5 repeats, ref2015)
-6. prepack, producing the starting model docking consumes
-
-Refinement is a separate SLURM array, not this script:
-`-pep_refine -nstruct 25 -ex1 -ex2aro`.
-
-Everything else in the file is off that path: `postprocessing_affinity`,
-`build_scorefile` and `stats_from_scorefile` summarise completed runs, and
-`make_batch`, `create_batch_list` and `safe_thread_all` are the batch layer.
-
-Two flags change the output. `--ignore_epitope_match` excludes a template whose
-peptide is identical to the target; it is **off** by default, which is how the
-released structures were built, and `regeneration/` re-runs the
-crystal-matched subset with it **on**. `--find_worst_template` inverts the
-ranking and is for diagnostics only.
+`--ignore_epitope_match` excludes a template whose peptide matches the target.
+It is off by default, which is how the released structures were built;
+`regeneration/` re-runs the crystal-matched subset with it on.
 
 `HLA_db.py` builds and queries the template database.
 
@@ -89,18 +73,10 @@ Run in order; each reads `metadata.csv` and, where noted, per-pair score files.
 | `05_figure2_panels.ipynb`, `06_figure3_panels.ipynb` | figure assembly |
 | `07_supplemental_tables.ipynb` | Supplementary Tables S1–S6 to one .xlsx |
 
-Note: notebooks 01 and 03 work out which template a pair used by re-deriving
-it, and their version of that logic searches only the target's own allele. The
-real selector searches the whole locus, so for some pairs the notebook names a
-template the run never used. The threading logs are authoritative, and
-`analysis/figure2g_template_identity.py` reads them instead.
-
 ## Analysis scripts
 
 Every number in the manuscript and response letter comes from one of these.
-Each takes `--self-test`, which runs it on small hand-made inputs whose correct
-answer is known in advance, so a broken calculation fails immediately instead of
-producing a plausible wrong number.
+Each takes a `--self-test` flag.
 
 | | |
 |---|---|
