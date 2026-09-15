@@ -129,8 +129,7 @@ Rosetta Energy Units.
 
 ## Paths and dependencies
 
-All filesystem roots live in `paths.py`. Nothing else names one. The defaults
-are our layout, so on another machine set these first:
+All filesystem roots live in `paths.py`. Set them for your machine:
 
 ```bash
 export PEPBIND3D_DATA=/your/path/to/IEDB_data_clean    # measurements, structures, analysis outputs
