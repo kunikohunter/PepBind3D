@@ -58,9 +58,14 @@ from paths import DATA_ROOT  # noqa: E402
 
 BASE = DATA_ROOT
 PDB_ROOT = BASE / "pdb"
+# All four score summaries. v1 + v2 alone cover 112,378 of the 112,561 released
+# pairs -- the stale headline count -- so the 183 recovered orphans were never
+# screened. The same four trees feed release/add_release_columns.py.
 SCORE_SUMMARIES = [
     BASE / "IEDB_validation" / "scores_out" / "score_summary.csv",
     BASE / "IEDB_validation" / "scores_out_v2" / "score_summary.csv",
+    BASE / "IEDB_validation" / "scores_out_1162" / "score_summary.csv",
+    BASE / "IEDB_validation" / "scores_out_183" / "score_summary.csv",
 ]
 
 _ROOT = PDB_ROOT   # overridden by --pdb-root so an incoming re-dock tree can be

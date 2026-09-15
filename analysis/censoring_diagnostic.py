@@ -27,12 +27,14 @@ def main() -> None:
     hf_dir, scores_dir = Path(sys.argv[1]), Path(sys.argv[2])
 
     df = pd.read_csv(hf_dir / "metadata.csv", low_memory=False)
-    scores = pd.read_csv(scores_dir / "score_summary.csv")
+    # Scores come from metadata.csv itself. The old merge pulled them from
+    # scores_out/score_summary.csv, which covers only the 49,268 v1 pairs and
+    # predates a re-dock; since metadata.csv now carries the same column
+    # names the merge produced _x/_y suffixes and the next lookup raised.
+    assert METRIC in df.columns, f"metadata.csv lacks {METRIC}"
     if "flagged" in df.columns:
         df = df[~df["flagged"].astype(bool)].copy()
     df["allele_dir"] = df["allele"].map(allele_to_dir)
-    df = df.merge(scores, on=["allele_dir", "peptide"], how="left",
-                  validate="many_to_one")
 
     for assay, ceilings in (("IC50", IC50_CEILINGS), ("Kd", KD_CEILINGS)):
         sub = df[df["measurement_type"] == assay]

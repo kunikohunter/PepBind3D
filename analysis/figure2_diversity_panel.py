@@ -25,8 +25,12 @@ _sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
 from paths import DATA_ROOT  # noqa: E402
 
 OUT_BASE = DATA_ROOT / "IEDB_validation/ensemble_diversity_out"
+# One entry, one panel. The layout used to be 1x2 with a single entry, so the
+# right half rendered as an empty framed axis. The title takes its n from the
+# file rather than naming a count that goes stale.
 SETS = [
-    ("52 PepBind3D validation pairs", OUT_BASE / "ensemble_diversity_per_pair.csv", "#4477AA"),
+    ("PepBind3D crystal-matched validation pairs",
+     OUT_BASE / "ensemble_diversity_per_pair.csv", "#4477AA"),
 ]
 
 
@@ -36,8 +40,9 @@ def main():
     args = ap.parse_args()
     out = Path(args.out_dir); out.mkdir(parents=True, exist_ok=True)
 
-    fig, axes = plt.subplots(1, 2, figsize=(9, 4.4))
-    for ax, (title, csv, color) in zip(axes, SETS):
+    fig, axes = plt.subplots(1, len(SETS), figsize=(4.8 * len(SETS), 4.4),
+                             squeeze=False)
+    for ax, (title, csv, color) in zip(axes.ravel(), SETS):
         df = pd.read_csv(csv).dropna(subset=["d2d_median", "d2c_median"])
         x, y = df["d2d_median"], df["d2c_median"]
         lim = max(x.max(), y.max()) * 1.05
@@ -50,15 +55,19 @@ def main():
         ax.set_xlabel("ensemble internal spread\n(median decoy–decoy RMSD, Å)")
         ax.set_ylabel("distance to crystal\n(median decoy–crystal RMSD, Å)")
         n = len(df)
-        sub = f"n={n}   median ratio={ratio:.2f}"
+        sub = f"median ratio = {ratio:.2f}"
         if within is not None:
             sub += f"\ncrystal within scatter: {within}/{n} ({100*within/n:.0f}%)"
-        ax.set_title(f"{title}\n{sub}", fontsize=8.5)
+        ax.set_title(f"{title} (n={n})\n{sub}", fontsize=8.5)
         ax.legend(fontsize=6.5, frameon=False, loc="lower right")
         ax.set_aspect("equal", adjustable="box")
 
-    fig.suptitle("Ensemble self-consistency vs. accuracy: the crystal sits within the "
-                 "decoys' own scatter", fontsize=10)
+    # Deliberately descriptive, not a conclusion: the median d2c/d2d ratio is
+    # about 1.7, so the crystal sits somewhat outside the typical decoy-decoy
+    # spread even though it falls inside the ensemble's full range for most
+    # pairs. Those are different statements and the title should not merge them.
+    fig.suptitle("Ensemble internal spread against distance to the crystal",
+                 fontsize=10)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
     for ext in ("pdf", "png"):
         fig.savefig(out / f"figure2_ensemble_diversity.{ext}", dpi=150, bbox_inches="tight")

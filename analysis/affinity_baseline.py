@@ -390,6 +390,14 @@ def cv3_splits(sub, n_blocks=5, seed=0):
 # =============================================================================
 # Models B0-B3
 # =============================================================================
+def _stable_seed(name: str) -> int:
+    """Deterministic per-model seed. `hash()` on a str is PYTHONHASHSEED-salted,
+    so using it made every bootstrap CI in the metrics JSON change between
+    interpreters, against this module's fixed-seed premise."""
+    import zlib
+    return zlib.crc32(name.encode()) % 1000
+
+
 def fit_predict_regression(model_name, X_train, y_train, X_test, allele_idx):
     if model_name == "B0":
         pred = np.full(len(X_test), float(np.mean(y_train)))
@@ -642,10 +650,10 @@ def summarize_scheme(oof, task, assay_label, scheme_name):
         pred_col = f"pred_{model_name}"
         if task == "regression":
             pooled[model_name] = regression_metrics_with_ci(
-                oof[y_col], oof[pred_col], oof["cluster_id"].to_numpy(), seed=hash(model_name) % 1000)
+                oof[y_col], oof[pred_col], oof["cluster_id"].to_numpy(), seed=_stable_seed(model_name))
         else:
             pooled[model_name] = classification_metrics_with_ci(
-                oof[y_col], oof[pred_col], oof["cluster_id"].to_numpy(), seed=hash(model_name) % 1000)
+                oof[y_col], oof[pred_col], oof["cluster_id"].to_numpy(), seed=_stable_seed(model_name))
         per_allele_df, summ = summarize_per_allele(oof, y_col, pred_col, "allele", "cluster_id", task)
         per_allele_all[model_name] = (per_allele_df, summ)
     out["pooled"] = pooled

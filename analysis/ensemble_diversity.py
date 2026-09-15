@@ -52,7 +52,22 @@ from paths import DATA_ROOT, MHC_DB_ROOT  # noqa: E402
 
 
 RMSD_PER_PAIR = DATA_ROOT / "IEDB_validation/01_structural_regen/rmsd_per_pair.csv"
-REGEN_ROOT = DATA_ROOT / "IEDB_validation/regeneration/pdb"
+# Both re-docked trees. rmsd_per_pair.csv carries all 76 crystal-matched pairs;
+# reading only the first tree leaves the 24 with no decoys, so they fail the
+# "< 2 decoys" check, are skipped to stderr, and the run silently reports the
+# old 52-pair result.
+REGEN_ROOTS = [DATA_ROOT / "IEDB_validation/regeneration/pdb",
+               DATA_ROOT / "IEDB_validation/regeneration_v2/pdb"]
+REGEN_ROOT = REGEN_ROOTS[0]   # self-test substrate only
+
+
+def resolve_regen_root(allele_dir, peptide):
+    """Return the re-docked tree holding this pair."""
+    for root in REGEN_ROOTS:
+        if (root / allele_dir / peptide).is_dir():
+            return root
+    raise FileNotFoundError(
+        f"{allele_dir}/{peptide} is in neither re-docked tree")
 TEMPLATE_DIR = MHC_DB_ROOT / "templates"
 CACHE_DIR = MHC_DB_ROOT / "pdb_cache"
 
@@ -102,7 +117,11 @@ def peptide_rmsd_between(mob_pep, mob_mhc, ref_pep, ref_mhc):
 def analyze_pair(allele, peptide, matched_pdb_id):
     """Return (decoy_to_decoy_rmsds[list], decoy_to_crystal_rmsds[list]) for
     one validation pair, or (None, None, reason) if it can't be computed."""
-    pep_dir = REGEN_ROOT / allele_to_dir(allele) / peptide
+    allele_dir = allele_to_dir(allele)
+    try:
+        pep_dir = resolve_regen_root(allele_dir, peptide) / allele_dir / peptide
+    except FileNotFoundError as e:
+        return None, None, str(e)
     decoy_paths = sorted(pep_dir.glob(f"{peptide}_input_[0-9][0-9][0-9][0-9].pdb"))
     if len(decoy_paths) < 2:
         return None, None, f"only {len(decoy_paths)} decoys"
