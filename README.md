@@ -1,5 +1,7 @@
 # PepBind3D: curation and validation code
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22796306.svg)](https://doi.org/10.5281/zenodo.22796306)
+
 Code for the Scientific Data descriptor pairing curated IEDB peptide-HLA class I
 binding affinities with Rosetta FlexPepDock structural ensembles: notebooks that
 produce the manuscript figures and tables, and the analysis scripts behind

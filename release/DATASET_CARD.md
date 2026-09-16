@@ -378,6 +378,7 @@ CC0).
 
 Curation, structure generation and the validation analyses:
 https://github.com/kunikohunter/PepBind3D
+(archived at [https://doi.org/10.5281/zenodo.22796306](https://doi.org/10.5281/zenodo.22796306))
 
 ---
 
