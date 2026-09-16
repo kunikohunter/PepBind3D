@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+title: >-
+  PepBind3D: curation and validation code for peptide-HLA class I binding
+  affinities with Rosetta FlexPepDock structural ensembles
+message: >-
+  If you use this software or the dataset it produces, please cite both the
+  dataset and the accompanying article.
+type: software
+authors:
+  - family-names: Hunter
+    given-names: Kuniko
+    affiliation: Vanderbilt University Medical Center
+  - family-names: Moretti
+    given-names: Rocco
+    affiliation: Vanderbilt University
+  - family-names: Meiler
+    given-names: Jens
+    affiliation: Vanderbilt University
+  - family-names: Harrison
+    given-names: David G.
+    affiliation: Vanderbilt University Medical Center
+repository-code: https://github.com/kunikohunter/PepBind3D
+license: MIT
+version: 1.0.0
+date-released: '2026-09-16'
+keywords:
+  - peptide-MHC
+  - HLA
+  - binding affinity
+  - Rosetta
+  - FlexPepDock
+  - protein structure
+  - immunology
+references:
+  - type: data
+    title: >-
+      PepBind3D: curated peptide-HLA class I binding affinities with Rosetta
+      FlexPepDock structural ensembles
+    authors:
+      - family-names: Hunter
+        given-names: Kuniko
+      - family-names: Moretti
+        given-names: Rocco
+      - family-names: Meiler
+        given-names: Jens
+      - family-names: Harrison
+        given-names: David G.
+    doi: 10.57967/hf/10466
+    repository: https://huggingface.co/datasets/kunikohunter/PepBind3D
+    year: 2026
