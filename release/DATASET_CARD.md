@@ -239,7 +239,7 @@ Retained peptides consist of the 20 standard amino acids, 7 to 15 residues long.
 | `parent_protein` | Source protein of the peptide |
 | `protein_accession` | UniProt/GenBank accession of source protein |
 | `source_organism` | Organism of origin |
-| `source_version` | Curation batch the pair came from, `v1` or `v2` |
+| `source_version` | Internal curation-batch label; carries no meaning for downstream use |
 | `flagged` | Whether the entry was flagged during IEDB data cleaning |
 | `self_templated` | Whether the pair's own crystal structure was available as a threading template. **Exclude these when measuring structure-prediction accuracy** |
 | `has_structures` | Whether a structural ensemble is available for this pair |
