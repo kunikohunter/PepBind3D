@@ -60,65 +60,22 @@ Intended uses:
 
 ---
 
-## Quickstart
+## Dataset Statistics
 
-The structures total ~155 GB, so start with `metadata.csv` (40 MB) and pull only
-the silent files you need.
-
-```bash
-pip install huggingface_hub pandas
-```
-
-**1. Get the metadata table.**
-
-```python
-import pandas as pd
-from huggingface_hub import hf_hub_download
-
-path = hf_hub_download("kunikohunter/PepBind3D", "metadata.csv",
-                       repo_type="dataset")
-df = pd.read_csv(path)
-print(len(df), "measurements over", df[["allele", "peptide"]].drop_duplicates().shape[0], "pairs")
-```
-
-**2. Filter to usable measurements.** Roughly 44% of rows sit at or above an
-assay detection ceiling and are not quantitative affinities; drop them before
-fitting anything (see [Known Limitations](#known-limitations-and-caveats)).
-
-```python
-CEILINGS = {"IC50": ({20000, 50000, 70000}, 70000),
-            "Kd":   ({5000, 10000, 20000},  20000)}
-
-def quantitative(df, assay):
-    exact, top = CEILINGS[assay]
-    sub = df[(df.measurement_type == assay) & ~df.flagged]
-    return sub[~(sub.measurement_value.isin(exact) | (sub.measurement_value >= top))]
-
-ic50 = quantitative(df, "IC50")      # 18,113 rows
-print(ic50[["allele", "peptide", "measurement_value", "I_sc_best"]].head())
-```
-
-**3. Download the structures for one pair.** `pdb_dir` gives the path for every
-row.
-
-```python
-row = ic50.iloc[0]
-silent = hf_hub_download("kunikohunter/PepBind3D", row.pdb_dir, repo_type="dataset")
-```
-
-To pull a whole allele instead, use `allow_patterns`:
-
-```python
-from huggingface_hub import snapshot_download
-snapshot_download("kunikohunter/PepBind3D", repo_type="dataset",
-                  allow_patterns="structures/A0201/*")
-```
-
-**4. Extract PDB coordinates** from a silent file with Rosetta:
-
-```bash
-extract_pdbs.linuxgccrelease -in:file:silent A0201/G/GILGFVFTL.silent
-```
+| Metric | Count |
+|---|---|
+| Peptide-allele pairs (silent files) | 112,561 |
+| Total measurements (metadata rows) | 118,985 |
+| Unique alleles | 95 (HLA-A, -B, -C) |
+| Unique peptides | 25,622 |
+| Peptide lengths | 7-15 residues |
+| IC50 measurements | 21,234 |
+| Kd measurements | 97,751 |
+| Censored measurements | 52,462 (44%) |
+| Flagged entries | 15 |
+| Self-templated pairs | 370 (0.33%) |
+| Total decoy structures | 2,814,025 |
+| Approximate size | ~155 GB |
 
 ---
 
@@ -151,6 +108,124 @@ reconstructed by hand.
 There is one silent file per unique peptide-allele pair (112,561 files); the
 118,985 metadata rows exceed this because 6,423 pairs carry both an IC50 and a
 Kd measurement and appear as two rows linked to the same silent file.
+
+---
+
+## Quickstart
+
+The structures total ~155 GB, so start with `metadata.csv` (40 MB) and pull only
+the silent files you need.
+
+```bash
+pip install huggingface_hub pandas
+```
+
+**1. Get the metadata table.**
+
+```python
+import pandas as pd
+from huggingface_hub import hf_hub_download
+
+path = hf_hub_download("kunikohunter/PepBind3D", "metadata.csv",
+                       repo_type="dataset")
+df = pd.read_csv(path)
+print(len(df), "measurements over", df[["allele", "peptide"]].drop_duplicates().shape[0], "pairs")
+```
+
+**2. Separate quantitative from censored measurements.** Roughly 44% of rows are
+reported at or above an assay detection ceiling. These are not affinities and
+must not be used as numbers: a peptide recorded at 20,000 nM bound too weakly to
+measure, so the value is a floor, not a result. They are still information. They
+identify peptides that did not bind, which is the label a binder/non-binder model
+needs, and `I_sc` separates them from quantitative binders on its own (AUROC 0.68
+for IC50, 0.64 for Kd). Which subset you want depends on the task: exclude the
+censored rows when regressing on affinity, keep both when classifying.
+
+```python
+CEILINGS = {"IC50": ({20000, 50000, 70000}, 70000),
+            "Kd":   ({5000, 10000, 20000},  20000)}
+
+def split_by_censoring(df, assay):
+    """-> (quantitative affinities, censored non-binders)"""
+    exact, top = CEILINGS[assay]
+    sub = df[(df.measurement_type == assay) & ~df.flagged]
+    censored = sub.measurement_value.isin(exact) | (sub.measurement_value >= top)
+    return sub[~censored], sub[censored]
+
+ic50, ic50_censored = split_by_censoring(df, "IC50")   # 18,113 and 3,114 rows
+print(ic50[["allele", "peptide", "measurement_value", "I_sc_best"]].head())
+```
+
+**3. Download the structures for one pair.** `pdb_dir` gives the path for every
+row.
+
+```python
+row = ic50.iloc[0]
+silent = hf_hub_download("kunikohunter/PepBind3D", row.pdb_dir, repo_type="dataset")
+```
+
+To pull a whole allele instead, use `allow_patterns`:
+
+```python
+from huggingface_hub import snapshot_download
+snapshot_download("kunikohunter/PepBind3D", repo_type="dataset",
+                  allow_patterns="structures/A0201/*")
+```
+
+**4. Extract PDB coordinates** from a silent file with Rosetta:
+
+```bash
+extract_pdbs.linuxgccrelease -in:file:silent A0201/G/GILGFVFTL.silent
+```
+
+---
+
+## IEDB Data Curation
+
+Binding affinity data were retrieved from a local copy of the IEDB bulk download
+(`mhc_ligand_full.csv`, accessed April 14, 2025) and processed with a custom
+Python pipeline (`IEDBTestPipeline.py`).
+
+### 1. Retrieval and Assay Filtering
+
+The full IEDB MHC ligand table was read in chunks and filtered to entries
+belonging to HLA-A, HLA-B or HLA-C alleles with quantitative binding
+measurements. Rows were retained only if they reported one of two assay response
+types:
+
+- **Half maximal inhibitory concentration (IC50)**
+- **Dissociation constant (Kd)**
+
+Variant labels in the IEDB (`dissociation constant KD (~EC50)`,
+`dissociation constant KD (~IC50)`) were normalized to a single canonical label
+(`dissociation constant (KD)`) prior to filtering. Entries missing either a
+quantitative measurement value or assay units were dropped.
+
+### 2. Per-Allele Deduplication
+
+Records were grouped by allele. Within each allele, duplicate entries for the
+same epitope (identified by IEDB Epitope IRI) were resolved separately for IC50
+and Kd measurements, using the following rules in order:
+
+| Scenario | Action |
+|---|---|
+| Two entries, one lacks a PubMed ID | Retain the entry with a PubMed ID; drop the other |
+| Two entries, both lack PubMed IDs, values differ by ≤10 nM | Retain one entry (first occurrence) |
+| Two entries, both lack PubMed IDs, values differ by >10 nM | Drop both entries |
+| Two entries, both have PubMed IDs, values differ by <10 nM | Retain one entry (first occurrence) |
+| Two entries, both have PubMed IDs, values conflict (≥10 nM difference) | Flag both for manual review |
+| More than two entries | Drop entries lacking PubMed IDs first; if >2 remain, retain the entry closest to the median measurement value |
+| Any other ambiguous case | Flag for manual review |
+
+Entries that could not be unambiguously resolved were written to a separate
+`flagged_IEDB_data.csv` per allele and excluded from the cleaned dataset. These
+are the `flagged = True` entries in `metadata.csv`.
+
+### 3. Sequence-Level Filtering
+
+Peptide sequences containing the `+` character (used by IEDB to denote
+non-canonical or modified amino acids) were excluded from structure generation.
+Retained peptides consist of the 20 standard amino acids, 7 to 15 residues long.
 
 ---
 
@@ -202,74 +277,6 @@ All scores are in Rosetta Energy Units (REU); lower is more favorable. **REU is
 not a binding free energy.** These values rank poses within a modeling
 framework; they are not thermodynamic quantities and should not be read as
 predicted affinities.
-
----
-
-## Dataset Statistics
-
-| Metric | Count |
-|---|---|
-| Peptide-allele pairs (silent files) | 112,561 |
-| Total measurements (metadata rows) | 118,985 |
-| Unique alleles | 95 (HLA-A, -B, -C) |
-| Unique peptides | 25,622 |
-| Peptide lengths | 7-15 residues |
-| IC50 measurements | 21,234 |
-| Kd measurements | 97,751 |
-| Censored measurements | 52,462 (44%) |
-| Flagged entries | 15 |
-| Self-templated pairs | 370 (0.33%) |
-| Total decoy structures | 2,814,025 |
-| Approximate size | ~155 GB |
-
----
-
-## IEDB Data Curation
-
-Binding affinity data were retrieved from a local copy of the IEDB bulk download
-(`mhc_ligand_full.csv`, accessed April 14, 2025) and processed with a custom
-Python pipeline (`IEDBTestPipeline.py`).
-
-### 1. Retrieval and Assay Filtering
-
-The full IEDB MHC ligand table was read in chunks and filtered to entries
-belonging to HLA-A, HLA-B or HLA-C alleles with quantitative binding
-measurements. Rows were retained only if they reported one of two assay response
-types:
-
-- **Half maximal inhibitory concentration (IC50)**
-- **Dissociation constant (Kd)**
-
-Variant labels in the IEDB (`dissociation constant KD (~EC50)`,
-`dissociation constant KD (~IC50)`) were normalized to a single canonical label
-(`dissociation constant (KD)`) prior to filtering. Entries missing either a
-quantitative measurement value or assay units were dropped.
-
-### 2. Per-Allele Deduplication
-
-Records were grouped by allele. Within each allele, duplicate entries for the
-same epitope (identified by IEDB Epitope IRI) were resolved separately for IC50
-and Kd measurements, using the following rules in order:
-
-| Scenario | Action |
-|---|---|
-| Two entries, one lacks a PubMed ID | Retain the entry with a PubMed ID; drop the other |
-| Two entries, both lack PubMed IDs, values differ by ≤10 nM | Retain one entry (first occurrence) |
-| Two entries, both lack PubMed IDs, values differ by >10 nM | Drop both entries |
-| Two entries, both have PubMed IDs, values differ by <10 nM | Retain one entry (first occurrence) |
-| Two entries, both have PubMed IDs, values conflict (≥10 nM difference) | Flag both for manual review |
-| More than two entries | Drop entries lacking PubMed IDs first; if >2 remain, retain the entry closest to the median measurement value |
-| Any other ambiguous case | Flag for manual review |
-
-Entries that could not be unambiguously resolved were written to a separate
-`flagged_IEDB_data.csv` per allele and excluded from the cleaned dataset. These
-are the `flagged = True` entries in `metadata.csv`.
-
-### 3. Sequence-Level Filtering
-
-Peptide sequences containing the `+` character (used by IEDB to denote
-non-canonical or modified amino acids) were excluded from structure generation.
-Retained peptides consist of the 20 standard amino acids, 7 to 15 residues long.
 
 ---
 
