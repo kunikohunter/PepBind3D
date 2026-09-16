@@ -32,7 +32,7 @@ Vanderbilt University Medical Center / Vanderbilt University
 ## Dataset Summary
 
 The interaction between peptide antigens and class I human leukocyte antigens
-(HLA) is a central determinant of CD8+ T cell recognition, and a foundational
+(HLA) is a central determinant of CD8⁺ T cell recognition, and a foundational
 target for cancer immunotherapy, vaccine design and autoimmune disease research.
 Computational prediction of peptide-HLA (pHLA) binding has progressed rapidly
 with sequence-based machine learning, but structure-aware approaches remain
@@ -41,7 +41,7 @@ three-dimensional structural information.
 
 This dataset pairs the two: every peptide-allele pair carries an experimental
 binding measurement and an ensemble of 25 Rosetta FlexPepDock decoys with their
-energy terms. Each pair gives a *distribution* over peptide conformations rather
+energy terms. Each pair gives a distribution over peptide conformations rather
 than a single pose. Pairs measured by both IC50 and Kd appear as separate rows,
 giving 118,985 rows over 112,561 pairs.
 
