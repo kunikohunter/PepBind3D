@@ -8,7 +8,6 @@ Records documents and that users' code reads:
     flagged  has_structures  num_pdbs  pdb_dir
     I_sc_best  I_sc_mean  reweighted_sc_best  reweighted_sc_mean
     total_score_best  total_score_mean
-    rosetta_best_score  rosetta_mean_score
 
 This adds them back, deriving each from a file on disk rather than copying v1
 values forward:
@@ -21,10 +20,10 @@ values forward:
   * num_pdbs / has_structures come from the same summaries' n_decoys, i.e. the
     decoys really present, not an assumed 25. (Nine v1 pairs have 22-24.)
   * pdb_dir is constructed as "structures/{allele}/{P}/{peptide}.silent".
-  * rosetta_best_score / rosetta_mean_score are legacy duplicates of
-    total_score_best / total_score_mean -- verified against released v1, where
-    rosetta_best_score == total_score_best for every row. Carried for backward
-    compatibility with code written against v1.
+  * rosetta_best_score / rosetta_mean_score were exact duplicates of
+    total_score_best / total_score_mean, carried from v1 for backward
+    compatibility. They were dropped from the release on 2026-09-16 as
+    redundant, and this script no longer emits them.
   * flagged is carried from released v1 by measurement identity. Only 15 rows
     are True and all 15 survive the merge.
 
@@ -80,7 +79,7 @@ V1_COLUMN_ORDER = [
     "flagged", "self_templated", "has_structures", "num_pdbs",
     "I_sc_best", "I_sc_mean", "reweighted_sc_best", "reweighted_sc_mean",
     "total_score_best", "total_score_mean",
-    "rosetta_best_score", "rosetta_mean_score", "pdb_dir",
+    "pdb_dir",
 ]
 
 # Measurement identity used to carry `flagged` across the merge. allele_iedb is
@@ -157,8 +156,6 @@ def add_columns(md, scores, flags, metrics, db_peptides=None):
                      + md["peptide"].astype(str) + ".silent")
 
     # legacy aliases; asserted equal to total_score in released v1
-    md["rosetta_best_score"] = md["total_score_best"]
-    md["rosetta_mean_score"] = md["total_score_mean"]
 
     if db_peptides is not None:
         md["self_templated"] = mark_self_templated(md, db_peptides)
@@ -231,8 +228,8 @@ def self_test():
     # the flag must land on exactly the one measurement it belongs to, not on
     # the other measurement of the same pair
     assert list(out["flagged"]) == [False, True, False], list(out["flagged"])
-    assert out["rosetta_best_score"].iloc[0] == -580.0
-    assert out["rosetta_mean_score"].iloc[0] == -570.0
+    assert "rosetta_best_score" not in out.columns
+    assert "rosetta_mean_score" not in out.columns
     assert pd.isna(out["I_sc_best"].iloc[2]), "a pair with no scores must stay NaN, not 0"
     assert stats["no_structures"] == 1 and stats["flagged_true"] == 1
     assert stats["num_pdbs_lt_25"] == 2, stats
@@ -276,9 +273,9 @@ def main():
 
     v1 = pd.read_csv(V1_RELEASED, low_memory=False)
     # sanity-check the legacy alias claim before relying on it
-    same = (v1["rosetta_best_score"].round(4) == v1["total_score_best"].round(4)).all()
+    same = "rosetta_best_score" not in v1.columns
     if not same:
-        raise SystemExit("rosetta_best_score != total_score_best in released v1; "
+        raise SystemExit("released v1 still carries rosetta_best_score; "
                          "the legacy-alias assumption is wrong, fix add_columns()")
     flags = v1.loc[v1["flagged"] == True, FLAG_KEY + ["flagged"]].drop_duplicates(  # noqa: E712
         subset=FLAG_KEY)

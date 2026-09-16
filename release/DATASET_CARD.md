@@ -39,15 +39,11 @@ with sequence-based machine learning, but structure-aware approaches remain
 limited by the scarcity of paired experimental affinity data and
 three-dimensional structural information.
 
-This dataset pairs the two. Every peptide-allele pair carries an experimental
-binding measurement curated from the IEDB and an ensemble of 25 Rosetta
-FlexPepDock decoy structures with their energy terms, so a model can be trained
-on measured affinity and modeled structure together. Each pair provides a
-*distribution* over peptide conformations rather than a single pose, which a
-co-folding model does not produce an equivalent of.
-
-Pairs measured by both IC50 and Kd assays appear as separate rows, giving
-118,985 measurement rows over 112,561 pairs.
+This dataset pairs the two: every peptide-allele pair carries an experimental
+binding measurement and an ensemble of 25 Rosetta FlexPepDock decoys with their
+energy terms. Each pair gives a *distribution* over peptide conformations rather
+than a single pose. Pairs measured by both IC50 and Kd appear as separate rows,
+giving 118,985 rows over 112,561 pairs.
 
 Intended uses:
 
@@ -96,18 +92,14 @@ PepBind3D/
     └── ...
 ```
 
-Each silent file holds the full 25-decoy ensemble for a single peptide-allele
-pair, with Rosetta energy scores embedded alongside the coordinates. Allele
-directories use filesystem-safe notation (`A0101/` for `HLA-A*01:01`); the
-`allele` column in `metadata.csv` carries the standard notation (`A*01:01`).
-Within each allele, files are grouped by the peptide's first residue, so
-`A*02:01` / `GILGFVFTL` is at `structures/A0201/G/GILGFVFTL.silent`. The
-`pdb_dir` column gives the full path for every row, so nothing needs to be
-reconstructed by hand.
+Each silent file holds the 25-decoy ensemble for one peptide-allele pair, with
+Rosetta energy scores embedded alongside the coordinates. Paths use
+filesystem-safe allele names (`A0101/` for `HLA-A*01:01`) and group files by the
+peptide's first residue; `metadata.csv` carries the standard form (`A*01:01`) and
+a `pdb_dir` column with the full path for every row.
 
-There is one silent file per unique peptide-allele pair (112,561 files); the
-118,985 metadata rows exceed this because 6,423 pairs carry both an IC50 and a
-Kd measurement and appear as two rows linked to the same silent file.
+There is one silent file per pair (112,561); the 118,985 rows exceed this because
+6,423 pairs carry both an IC50 and a Kd measurement.
 
 ---
 
@@ -257,7 +249,6 @@ Retained peptides consist of the 20 standard amino acids, 7 to 15 residues long.
 | `reweighted_sc_best` / `reweighted_sc_mean` | Best and mean reweighted score (REU) |
 | `total_score_best` / `total_score_mean` | Best and mean total_score (REU) |
 | `pep_sc_best` / `pep_sc_mean` | Best and mean peptide score (REU) |
-| `rosetta_best_score` / `rosetta_mean_score` | Aliases of `total_score_*`, retained for backward compatibility |
 | `pdb_dir` | Relative path to the peptide silent file within the dataset |
 
 **Which score to use.** Each score is summarized as the best (lowest) and mean
@@ -274,28 +265,24 @@ across the 25-decoy ensemble:
   ranking binding.
 
 All scores are in Rosetta Energy Units (REU); lower is more favorable. **REU is
-not a binding free energy.** These values rank poses within a modeling
-framework; they are not thermodynamic quantities and should not be read as
-predicted affinities.
+not a binding free energy** - these rank poses within a modeling framework and
+are not thermodynamic quantities.
 
 ---
 
 ## Computational Methods
 
-Structures were generated with **Rosetta FlexPepDock**, 25 decoys per
-peptide-allele pair. Each peptide sequence was threaded onto a length-matched
-template peptide from a local MHC template database (`SimpleThreadingMover`),
-trimmed, given its receptor, relaxed (`FastRelax`, 5 repeats, ref2015),
-prepacked, and refined by flexible peptide docking
-(`-pep_refine -nstruct 25 -ex1 -ex2aro`). No score cutoff was applied: all 25
-decoys are retained.
+Structures were generated with **Rosetta FlexPepDock**, 25 decoys per pair. Each
+peptide was threaded onto a length-matched template from a local MHC template
+database (`SimpleThreadingMover`), trimmed, given its receptor, relaxed
+(`FastRelax`, 5 repeats, ref2015), prepacked, and refined by flexible peptide
+docking (`-pep_refine -nstruct 25 -ex1 -ex2aro`). No score cutoff was applied:
+all 25 decoys are retained.
 
 Where an allele had no experimental receptor structure, the α1/α2 domains were
 modeled with AlphaFold2 from the IPD-IMGT/HLA protein alignment.
 
-All structures were generated with Rosetta 2024.09+release.06b3cf8. The
-`source_version` column records which curation batch a pair came from, v1 or v2,
-not a difference in Rosetta build.
+All structures were generated with Rosetta 2024.09+release.06b3cf8.
 
 FlexPepDock refinement holds the MHC backbone fixed, so decoys within a pair
 differ only in the peptide; MHC Cα coordinates are identical across an ensemble.
@@ -304,8 +291,7 @@ differ only in the peptide; MHC Cα coordinates are identical across an ensemble
 
 ## Validation
 
-Two analyses in the accompanying manuscript establish what the structures and
-scores support.
+From the accompanying manuscript:
 
 - **Structural accuracy.** 76 pairs have a matching experimental crystal
   structure. Measured on ensembles re-docked with self-matching templates
@@ -397,6 +383,6 @@ https://github.com/kunikohunter/PepBind3D
 
 ## License
 
-Released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You
-are free to share and adapt the material for any purpose, provided appropriate
-credit is given.
+Released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/):
+reuse and modification are permitted, including commercially, as long as the
+dataset is cited.

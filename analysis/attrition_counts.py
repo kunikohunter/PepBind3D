@@ -56,9 +56,10 @@ def find_col(df: pd.DataFrame, *needles: str) -> str:
 
 
 def main() -> None:
-    raw_fn   = Path(sys.argv[1])
-    final_fn = Path(sys.argv[2])
-    out_fn   = Path(sys.argv[3]) if len(sys.argv) > 3 else Path(
+    raw_fn     = Path(sys.argv[1])
+    curated_fn = Path(sys.argv[2])
+    final_fn   = Path(sys.argv[3])
+    out_fn   = Path(sys.argv[4]) if len(sys.argv) > 4 else Path(
         DATA_ROOT / "IEDB_validation" / "supplementary_table_S1_attrition.csv")
 
     print(f"Reading {raw_fn} ...")
@@ -97,6 +98,15 @@ def main() -> None:
     vr = vu[resp_std.isin([KD_STD, IC50_STD])]
     n_vr = len(vr)
 
+    # The released file is curation AND structure generation: pairs that were
+    # curated but never produced an ensemble are simply absent from it, so
+    # ending the funnel on the release silently folds that loss into "curation".
+    # `curated_fn` is the curation endpoint, and the two are reported as
+    # separate stages.
+    curated = pd.read_csv(curated_fn, low_memory=False)
+    n_cur_rows  = len(curated)
+    n_cur_pairs = curated[["allele", "peptide"]].drop_duplicates().shape[0]
+
     final = pd.read_csv(final_fn, low_memory=False)
     n_final_rows  = len(final)
     n_final_pairs = (final[["allele", "peptide"]].drop_duplicates().shape[0]
@@ -112,9 +122,12 @@ def main() -> None:
          "Both a quantitative measurement value and assay units", n_vu,  n_ab - n_vu),
         ("3. Retained assay response (KD or IC50)",
          "Assay response is KD or IC50 (variant KD labels normalized)", n_vr, n_vu - n_vr),
-        ("4-6. Deduplication, flagging, and residue filters (net)",
+        ("4-6. Deduplication, flagging, and residue filters",
          "Duplicate resolution, flagged-record removal, non-canonical (+) exclusion",
-         n_final_rows, n_vr - n_final_rows),
+         n_cur_rows, n_vr - n_cur_rows),
+        ("7. Pairs with a generated structural ensemble",
+         "Curated pairs for which FlexPepDock produced a 25-decoy ensemble",
+         n_final_rows, n_cur_rows - n_final_rows),
     ]
 
     out = pd.DataFrame(
@@ -123,6 +136,17 @@ def main() -> None:
     )
 
     out.to_csv(out_fn, index=False)
+
+    cur_pairs = set(map(tuple, curated[["allele", "peptide"]].drop_duplicates().values))
+    rel_pairs = set(map(tuple, final[["allele", "peptide"]].drop_duplicates().values))
+    orphans = cur_pairs - rel_pairs
+    stray = rel_pairs - cur_pairs
+    assert not stray, (
+        f"{len(stray):,} released pairs are absent from the curation table, so "
+        "these are not two stages of one funnel")
+    print(f"\ncuration endpoint : {n_cur_rows:,} rows / {n_cur_pairs:,} pairs")
+    print(f"released          : {n_final_rows:,} rows / {n_final_pairs:,} pairs")
+    print(f"structureless     : {len(orphans):,} pairs")
 
     print("\nAttrition funnel:")
     print(out.to_string(index=False))
@@ -145,6 +169,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        raise SystemExit(__doc__)
+    if len(sys.argv) < 4:
+        raise SystemExit(
+            "usage: attrition_counts.py <raw_export> <curation_endpoint> "
+            "<released_metadata> [out_csv]")
     main()
