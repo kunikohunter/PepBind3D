@@ -9,12 +9,15 @@ tags:
   - peptide-mhc
   - binding-affinity
   - rosetta
-pretty_name: Curated peptide-HLA class I binding affinities with Rosetta FlexPepDock structural ensembles
+pretty_name: 'PepBind3D: curated peptide-HLA class I binding affinities with Rosetta FlexPepDock structural ensembles'
 size_categories:
   - 100K<n<1M
 ---
 
-# Curated peptide-HLA class I binding affinities with Rosetta FlexPepDock structural ensembles
+# PepBind3D
+
+**Curated peptide-HLA class I binding affinities with Rosetta FlexPepDock
+structural ensembles**
 
 Experimental peptide-HLA class I binding measurements curated from the Immune
 Epitope Database, each paired with a 25-member Rosetta FlexPepDock structural
