@@ -359,11 +359,7 @@ If you use this dataset, please cite:
 
 > [Manuscript citation - to be added upon publication]
 
-**Dataset DOI:** `[to be minted for this version]`
-
-The previous release is archived at
-[https://doi.org/10.57967/hf/9669](https://doi.org/10.57967/hf/9669); that DOI
-refers to the 37-allele version and is superseded by this one.
+**Dataset DOI:** `[to be minted]`
 
 Experimental binding data are sourced from the
 [Immune Epitope Database (IEDB)](https://www.iedb.org), also available under

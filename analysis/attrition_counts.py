@@ -122,11 +122,14 @@ def main() -> None:
          "Both a quantitative measurement value and assay units", n_vu,  n_ab - n_vu),
         ("3. Retained assay response (KD or IC50)",
          "Assay response is KD or IC50 (variant KD labels normalized)", n_vr, n_vu - n_vr),
-        ("4-6. Deduplication, flagging, and residue filters",
-         "Duplicate resolution, flagged-record removal, non-canonical (+) exclusion",
+        # One row, not three: the per-stage counts inside this step cannot be
+        # re-derived from the export, so the table reports what it can measure.
+        ("4. Deduplication, flagging, and sequence filtering",
+         "Duplicate resolution, flagged-record removal, non-canonical residue "
+         "and length exclusion",
          n_cur_rows, n_vr - n_cur_rows),
-        ("7. Pairs with a generated structural ensemble",
-         "Curated pairs for which FlexPepDock produced a 25-decoy ensemble",
+        ("5. Pairs with a generated structural ensemble",
+         "Curated pairs for which structure generation completed",
          n_final_rows, n_cur_rows - n_final_rows),
     ]
 
