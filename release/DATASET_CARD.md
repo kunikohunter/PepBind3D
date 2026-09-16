@@ -359,7 +359,7 @@ If you use this dataset, please cite:
 
 > [Manuscript citation - to be added upon publication]
 
-**Dataset DOI:** `[to be minted]`
+**Dataset DOI:** [https://doi.org/10.57967/hf/10466](https://doi.org/10.57967/hf/10466)
 
 Experimental binding data are sourced from the
 [Immune Epitope Database (IEDB)](https://www.iedb.org), also available under
