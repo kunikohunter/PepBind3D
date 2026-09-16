@@ -22,9 +22,9 @@ size_categories:
 structural ensembles.** 112,561 peptide-allele pairs across 95 HLA-A, -B and -C
 alleles, each with 25 docked decoy structures and per-decoy interface energies.
 
-**Authors:** Kuniko Hunter, Rocco Moretti, Jens Meiler, David G. Harrison
-Vanderbilt University Medical Center / Vanderbilt University
-**License:** CC BY 4.0
+**Authors:** Kuniko Hunter, Rocco Moretti, Jens Meiler, David G. Harrison  
+Vanderbilt University Medical Center / Vanderbilt University  
+**License:** CC BY 4.0  
 **Metadata source:** [Immune Epitope Database (IEDB)](https://www.iedb.org)
 
 ---
@@ -359,7 +359,11 @@ If you use this dataset, please cite:
 
 > [Manuscript citation - to be added upon publication]
 
-**Dataset DOI:** [https://doi.org/10.57967/hf/9669](https://doi.org/10.57967/hf/9669)
+**Dataset DOI:** `[to be minted for this version]`
+
+The previous release is archived at
+[https://doi.org/10.57967/hf/9669](https://doi.org/10.57967/hf/9669); that DOI
+refers to the 37-allele version and is superseded by this one.
 
 Experimental binding data are sourced from the
 [Immune Epitope Database (IEDB)](https://www.iedb.org), also available under
@@ -376,7 +380,7 @@ CC0).
 
 ## Code
 
-Curation, structure generation and every validation analysis:
+Curation, structure generation and the validation analyses:
 https://github.com/kunikohunter/PepBind3D
 
 ---
