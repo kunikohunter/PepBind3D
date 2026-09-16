@@ -40,24 +40,15 @@ features a co-folding model does not produce an equivalent of.
 ## Layout
 
 ```
-metadata.csv                                     one row per measurement
-structures/{allele}/{P}/{peptide}.silent         25 decoys, Rosetta binary silent
+metadata.csv                              one row per measurement
+structures/{allele}/{P}/{peptide}.silent  25 decoys, Rosetta binary silent
 ```
 
 `{P}` is the peptide's first residue, so `A*02:01` / `GILGFVFTL` is at
-`structures/A0201/G/GILGFVFTL.silent`. The extra level exists because the Hub
-caps a directory at 10,000 entries and the largest allele holds more than that;
-sharding every allele by the same rule keeps the path predictable rather than
-making one allele an exception.
-
-Alleles use the filesystem-safe form in paths (`A0201`) and the standard form in
-metadata (`A*02:01`), so the path for any row is:
-
-```python
-f"structures/{row.allele_compact}/{row.peptide[0]}/{row.peptide}.silent"
-```
-
-Extract individual PDBs with Rosetta's `extract_pdbs`:
+`structures/A0201/G/GILGFVFTL.silent`. Alleles use the filesystem-safe form in
+paths (`A0201`) and the standard form in metadata (`A*02:01`); the `pdb_dir`
+column gives the path for every row. Extract individual PDBs with Rosetta's
+`extract_pdbs`:
 
 ```bash
 extract_pdbs.linuxgccrelease -in:file:silent A0201/G/GILGFVFTL.silent
@@ -87,18 +78,16 @@ framework; they are not thermodynamic quantities and should not be read as
 predicted affinities.
 
 **Censored measurements.** IC50 at 20,000 / 50,000 / 70,000 nM and Kd at
-5,000 / 10,000 / 20,000 nM are assay detection ceilings, not measurements.
-Treat them as "≥ this value" or exclude them. They are roughly 40% of rows.
-
-Exclude **anything at or above the highest ceiling** as well, not only exact
-matches to the three values: 70,000 nM for IC50, 20,000 nM for Kd. A further
-8,651 Kd rows (8.9%) and 1,366 IC50 rows sit above their top ceiling at values
-like 77,900 nM, and testing only for the three listed numbers keeps them.
+5,000 / 10,000 / 20,000 nM are assay detection ceilings, not measurements, and
+so is anything above the highest of them: 1,366 IC50 rows sit above 70,000 nM
+and 8,651 Kd rows above 20,000 nM, including a 1,000,000 nM placeholder for
+peptides with no measurable binding. Treat all of them as "≥ this value" or
+exclude them. Together they are roughly 44% of rows.
 
 **Kd pools three different assays.** The three IEDB dissociation-constant
 labels correspond to different experimental readouts and are distinguishable
 through `assay_method`. The competitive radioligand subset is ~1% censored; the
-two fluorescence subsets are 71–74% censored and centered about one log unit
+two fluorescence subsets are 71-74% censored and centered about one log unit
 stronger. Stratify on `assay_method` or model the censoring explicitly.
 
 **`self_templated` marks 370 pairs (0.33%) whose own crystal structure was in
@@ -135,10 +124,10 @@ v2, not a difference in Rosetta build.
 - **Structural accuracy.** 76 pairs have a matching experimental crystal
   structure. Measured on ensembles re-docked with self-matching templates
   excluded, the best-scoring decoy reaches a median peptide-backbone RMSD of
-  1.21 Å (IQR 0.93–1.68, 87% within 2 Å); the best decoy of each ensemble
+  1.21 Å (IQR 0.93-1.68, 87% within 2 Å); the best decoy of each ensemble
   reaches 0.99 Å.
 - **Score-affinity relationship.** Spearman ρ between best-decoy `I_sc` and
-  log affinity is 0.315 (IC50, n = 18,113) and 0.179 (Kd, n = 48,395),
+  log affinity is 0.31 (IC50, n = 18,113) and 0.18 (Kd, n = 48,395),
   censored values excluded.
 - **Binder discrimination.** `I_sc` separates censored from quantitative
   measurements with AUROC 0.678 (IC50) and 0.639 (Kd).
