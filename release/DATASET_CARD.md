@@ -23,7 +23,7 @@ structural ensembles.** 112,561 peptide-allele pairs across 95 HLA-A, -B and -C
 alleles, each with 25 docked decoy structures and per-decoy interface energies.
 
 **Authors:** Kuniko Hunter, Rocco Moretti, Jens Meiler, David G. Harrison  
-Vanderbilt University Medical Center / Vanderbilt University  
+**Produced at:** Vanderbilt University / Vanderbilt University Medical Center  
 **License:** CC BY 4.0  
 **Metadata source:** [Immune Epitope Database (IEDB)](https://www.iedb.org)
 
