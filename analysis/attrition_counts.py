@@ -112,6 +112,18 @@ def main() -> None:
     n_final_pairs = (final[["allele", "peptide"]].drop_duplicates().shape[0]
                      if {"allele", "peptide"}.issubset(final.columns) else float("nan"))
 
+    # Why each unreleased pair was dropped, so the last two stages can be named
+    # by cause rather than lumped as "structure generation".
+    orphans_fn = Path(final_fn).parent.parent / "release_v2_final" / "orphan_pairs_no_structure.csv"
+    if not orphans_fn.exists():
+        orphans_fn = Path(sys.argv[5]) if len(sys.argv) > 5 else orphans_fn
+    orph = pd.read_csv(orphans_fn)
+    rel_pair_set = set(map(tuple, final[["allele", "peptide"]].drop_duplicates().values))
+    unreleased = orph[[(a, p) not in rel_pair_set
+                       for a, p in zip(orph["allele"], orph["peptide"])]]
+    n_noncanon = int((unreleased["exclusion_reason"] == "non_canonical_or_PTM").sum())
+    n_no_template = int(len(unreleased) - n_noncanon)
+
     # --- Build the 4-column funnel table (matches manuscript Supplementary Table S2) ---
     rows = [
         ("0. Raw IEDB MHC ligand records",
@@ -122,15 +134,20 @@ def main() -> None:
          "Both a quantitative measurement value and assay units", n_vu,  n_ab - n_vu),
         ("3. Retained assay response (KD or IC50)",
          "Assay response is KD or IC50 (variant KD labels normalized)", n_vr, n_vu - n_vr),
-        # One row, not three: the per-stage counts inside this step cannot be
-        # re-derived from the export, so the table reports what it can measure.
-        ("4. Deduplication, flagging, and sequence filtering",
-         "Duplicate resolution, flagged-record removal, non-canonical residue "
-         "and length exclusion",
+        ("4. Deduplication and removal of curation-flagged records",
+         "Duplicate resolution and removal of records flagged for manual review",
          n_cur_rows, n_vr - n_cur_rows),
-        ("5. Pairs with a generated structural ensemble",
-         "Curated pairs for which structure generation completed",
-         n_final_rows, n_cur_rows - n_final_rows),
+        # The sequence filter runs at structure generation, not during curation:
+        # the curation table still holds 233 "+" peptides and sequences up to 30
+        # residues. Both remaining stages are named by cause, taken from the
+        # exclusion_reason column of orphan_pairs_no_structure.csv.
+        ("5. Exclusion of non-canonical or modified peptides",
+         "Peptides carrying the IEDB \"+\" notation for modified residues",
+         n_cur_rows - n_noncanon, n_noncanon),
+        ("6. Exclusion of peptides with no length-matched template",
+         "No template of the peptide's length for that allele in the MHC "
+         "template database",
+         n_final_rows, n_no_template),
     ]
 
     out = pd.DataFrame(
