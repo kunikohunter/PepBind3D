@@ -24,23 +24,37 @@ The replay is only trustworthy if it lands on the released file exactly, so
 `main` asserts both endpoints (118,985 retained rows, 15 flagged) and refuses to
 report stage counts if either misses.
 
-RESULT, 2026-09-16: THIS DOES NOT REPRODUCE THE RELEASE, and its stage 4-6
-counts must not be quoted. Stages 0-3 match `attrition_counts.py` exactly
-(4,883,585 / 1,532,863 / 147,967 / 134,840). After that the replay ends at
-127,874 rows against the released 118,985, and reports 892 flagged records
-against the 15 the release carries. Two reasons, one understood and one not:
+RESULT, 2026-09-16: THIS REPLAY IS CORRECT, AND THE RELEASE CANNOT BE
+REPRODUCED FROM IT. Those are two findings, not one.
 
-  * `metadata.csv` holds only pairs that produced a structural ensemble, so the
-    released count is curation AND structure generation, while this replays
-    curation alone. The funnel's last row is therefore not a curation endpoint.
-  * the flag branch fires far more often here than in the pipeline, so the
-    deduplication replay is not faithful in that branch.
+The replay is sound. A second implementation written independently on ACCRE from
+the same source agrees stage for stage: 4,883,585 / 1,532,863 / 147,967 /
+134,840 identical, then 128,204 vs 128,205 after dedup and flag removal, and
+127,874 vs 127,875 after the sequence filter. Both flag exactly 892 records. Two
+independent implementations differing by one row in 128,205 means the 892-vs-15
+flag gap is not a bug here: clean_peplist genuinely flags 892 records, and the
+release's 15 did not come from this code path.
 
-The pipeline's per-allele `*_cleaned_IEDB_data.csv` intermediates, which would
-settle it, are not on disk. Until they are regenerated, Supplementary Table S2
-should keep the merged "4-6" row that `attrition_counts.py` can measure rather
-than the split this script was written to supply. Kept as a diagnostic, and
-because the two discrepancies above are worth knowing.
+The release is not downstream of it. Comparing pairs against the curation
+endpoint (metadata_v2_combined.csv) in both directions:
+
+    replay pairs    115,216
+    release pairs   112,892
+    replay-only       2,711   curated here, absent from the release
+    release-only        387   in the release, NOT produced here
+
+The 387 settle it. If the release were this curation followed by further
+filtering, release-only would be zero. The reason is visible in the file's own
+source_version column: v1 = 49,488 rows, exactly the v1 release row count, so
+the v1 half was carried over verbatim rather than re-curated, and the released
+table is a merge of an old curation snapshot with a new pass. Today's export and
+today's code cannot regenerate the old half: different export snapshot, and the
+KD-label typo was live when v1 was curated.
+
+CONSEQUENCE FOR SUPPLEMENTARY TABLE S2: stages 0-3 are solid and independently
+reproduced. Stages 4-6 must stay merged. The per-stage split used in the
+original submission is not recoverable from the current export, and the caption
+should say why rather than leaving it unexplained.
 
 Usage:
     python3 curation_replay.py --out-dir <dir>
