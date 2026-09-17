@@ -22,7 +22,7 @@ authors:
 repository-code: https://github.com/kunikohunter/PepBind3D
 doi: 10.5281/zenodo.22796306
 license: MIT
-version: 1.0.0
+version: 1.0.1
 date-released: '2026-09-16'
 keywords:
   - peptide-MHC
