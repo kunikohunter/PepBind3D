@@ -22,8 +22,8 @@ authors:
 repository-code: https://github.com/kunikohunter/PepBind3D
 doi: 10.5281/zenodo.22796306
 license: MIT
-version: 1.0.1
-date-released: '2026-09-16'
+version: 1.0.2
+date-released: '2026-09-22'
 keywords:
   - peptide-MHC
   - HLA
