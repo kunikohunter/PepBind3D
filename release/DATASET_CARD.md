@@ -357,7 +357,9 @@ From the accompanying manuscript:
 
 If you use this dataset, please cite:
 
-> [Manuscript citation - to be added upon publication]
+> Hunter, K., Moretti, R., Meiler, J. et al. Curated peptide-HLA class I binding
+> affinities with Rosetta structural ensembles. Sci Data (2026).
+> https://doi.org/10.1038/s41597-026-08475-7
 
 **Dataset DOI:** [https://doi.org/10.57967/hf/10466](https://doi.org/10.57967/hf/10466)
 

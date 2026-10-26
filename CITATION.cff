@@ -49,3 +49,19 @@ references:
     doi: 10.57967/hf/10466
     repository: https://huggingface.co/datasets/kunikohunter/PepBind3D
     year: 2026
+  - type: article
+    title: >-
+      Curated peptide-HLA class I binding affinities with Rosetta structural
+      ensembles
+    authors:
+      - family-names: Hunter
+        given-names: Kuniko
+      - family-names: Moretti
+        given-names: Rocco
+      - family-names: Meiler
+        given-names: Jens
+      - family-names: Harrison
+        given-names: David G.
+    journal: Scientific Data
+    doi: 10.1038/s41597-026-08475-7
+    year: 2026

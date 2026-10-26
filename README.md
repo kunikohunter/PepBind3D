@@ -9,6 +9,10 @@ reported numbers.
 
 Dataset: https://huggingface.co/datasets/kunikohunter/PepBind3D
 
+Paper: Hunter, K., Moretti, R., Meiler, J. et al. Curated peptide-HLA class I
+binding affinities with Rosetta structural ensembles. Sci Data (2026).
+[doi:10.1038/s41597-026-08475-7](https://doi.org/10.1038/s41597-026-08475-7)
+
 **Scope:** 95 HLA-A/B/C alleles, 112,561 peptide-allele pairs, 25 decoys each
 (2,814,025 structures, ~155 GB), 118,985 measurement rows.
 
